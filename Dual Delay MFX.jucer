@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="vXLGNR" name="Dual Delay MFX" projectType="audioplug" jucerFormatVersion="1"
+              pluginCharacteristicsValue="pluginWantsMidiIn" pluginFormats="buildVST3"
+              headerPath="C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Process &amp; UI Manager&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Panels&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\DSP&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Helpers&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Meter&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Parameter Controls&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Modulation Sources&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Preset Manager&#10;&#10;">
+  <MAINGROUP id="pwSzji" name="Dual Delay MFX">
+    <GROUP id="{294B5022-14D8-6398-6333-E1A0A2796FA6}" name="Graphic Assets">
+      <GROUP id="{42662D67-8B2D-9FA4-577F-E9C1436777D5}" name="Background">
+        <FILE id="CtgCEN" name="BgLarge.png" compile="0" resource="1" file="Graphic Assets/Background/BgLarge.png"/>
+      </GROUP>
+      <GROUP id="{09CB2EB4-31E2-4DA5-5928-8C1459562698}" name="Meter">
+        <FILE id="IyAxwp" name="MeterBG2.png" compile="0" resource="1" file="Graphic Assets/Meter/MeterBG2.png"/>
+      </GROUP>
+      <GROUP id="{497EECA3-1248-7588-F56F-D770174FC3D3}" name="LFO">
+        <FILE id="oydKBc" name="New Sync option Hz org2.png" compile="0" resource="1"
+              file="Graphic Assets/LFO/New Sync option Hz org2.png"/>
+        <FILE id="WiYBs0" name="New Sync option note org2.png" compile="0"
+              resource="1" file="Graphic Assets/LFO/New Sync option note org2.png"/>
+        <FILE id="IzM6N5" name="Retrigger_Off.png" compile="0" resource="1"
+              file="Graphic Assets/LFO/Retrigger_Off.png"/>
+        <FILE id="sGDxWs" name="Retrigger_On.png" compile="0" resource="1"
+              file="Graphic Assets/LFO/Retrigger_On.png"/>
+      </GROUP>
+      <GROUP id="{6C457C7B-9C8C-8646-9CB6-A618E4A5230C}" name="Buttons">
+        <FILE id="H3a3d7" name="New All FX_org_2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New All FX_org_2.png"/>
+        <FILE id="PLyGud" name="New Ducking org_2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New Ducking org_2.png"/>
+        <FILE id="FDQSwJ" name="New Freeze_Off org2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New Freeze_Off org2.png"/>
+        <FILE id="jR7PZu" name="New Freeze_On org2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New Freeze_On org2.png"/>
+        <FILE id="F2blaf" name="New Fx level org_2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New Fx level org_2.png"/>
+        <FILE id="FQe9M8" name="New link off org _2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New link off org _2.png"/>
+        <FILE id="KQJfkW" name="New link on org2 org_2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New link on org2 org_2.png"/>
+        <FILE id="vF5fMP" name="New Mix org_2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New Mix org_2.png"/>
+        <FILE id="mnxLDZ" name="New MS_Off org2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New MS_Off org2.png"/>
+        <FILE id="Vht1rK" name="New MS_On org2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New MS_On org2.png"/>
+        <FILE id="FxCEa7" name="New On All-FX org2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New On All-FX org2.png"/>
+        <FILE id="y38bRX" name="New On Ducking org2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New On Ducking org2.png"/>
+        <FILE id="Ww0heS" name="New On FX Levels org2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New On FX Levels org2.png"/>
+        <FILE id="BiKRhn" name="New On Mix org2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New On Mix org2.png"/>
+        <FILE id="SDTzzS" name="New On Parallel org2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New On Parallel org2.png"/>
+        <FILE id="PiAH80" name="New On Shaper org2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New On Shaper org2.png"/>
+        <FILE id="fkpYuT" name="New Parallel Off.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New Parallel Off.png"/>
+        <FILE id="Pg1Pss" name="New PingPong_Off darker org2.png" compile="0"
+              resource="1" file="Graphic Assets/Buttons/New PingPong_Off darker org2.png"/>
+        <FILE id="oxZgh1" name="New PingPong_Off org2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New PingPong_Off org2.png"/>
+        <FILE id="irW40i" name="New PingPong_On darker org2.png" compile="0"
+              resource="1" file="Graphic Assets/Buttons/New PingPong_On darker org2.png"/>
+        <FILE id="jbJFcD" name="New PingPong_On org2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New PingPong_On org2.png"/>
+        <FILE id="DdxaMA" name="New Shaper org_2.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/New Shaper org_2.png"/>
+        <FILE id="cJdf8h" name="Random_Dice_Off.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/Random_Dice_Off.png"/>
+        <FILE id="t8uOQd" name="Random_Dice_On.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/Random_Dice_On.png"/>
+        <FILE id="LWEOU3" name="RandomTime_Dice_Off.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/RandomTime_Dice_Off.png"/>
+        <FILE id="Oinax4" name="RandomTime_Dice_On.png" compile="0" resource="1"
+              file="Graphic Assets/Buttons/RandomTime_Dice_On.png"/>
+      </GROUP>
+      <GROUP id="{7681B412-60E5-B6D5-34B6-B166B0BDEC40}" name="Top Left Menu ">
+        <FILE id="gjIS2W" name="New menu hamburger org2.png" compile="0" resource="1"
+              file="Graphic Assets/Top Left Menu/New menu hamburger org2.png"/>
+      </GROUP>
+      <GROUP id="{EB331228-1D57-C59F-A888-9F2C7F4F7EB7}" name="Logo">
+        <FILE id="OucTCE" name="New LOGO org2.png" compile="0" resource="1"
+              file="Graphic Assets/Logo/New LOGO org2.png"/>
+      </GROUP>
+      <GROUP id="{88F9CD73-56E7-6EB9-8100-F146DE1CE3F7}" name="Credit Panel">
+        <FILE id="z651Pq" name="CreditPanel org2.png" compile="0" resource="1"
+              file="Graphic Assets/Credit Panel/CreditPanel org2.png"/>
+      </GROUP>
+      <GROUP id="{6F3C5D04-A54F-A359-D207-10B701107486}" name="Fonts">
+        <FILE id="uWsLLX" name="Helvetica65Medium_22443.ttf" compile="0" resource="1"
+              file="Graphic Assets/Fonts/Helvetica65Medium_22443.ttf"/>
+        <FILE id="mVQvT7" name="Roboto-Bold.ttf" compile="0" resource="1" file="Graphic Assets/Fonts/Roboto-Bold.ttf"/>
+      </GROUP>
+      <GROUP id="{E5080216-9A41-8DC1-EF0E-6FFF8FF57F6C}" name="Unlock Panel">
+        <FILE id="NKx1dt" name="UnlockPanel org2.png" compile="0" resource="1"
+              file="Graphic Assets/Unlock Panel/UnlockPanel org2.png"/>
+        <FILE id="rHsBpc" name="DemoButton org2.png" compile="0" resource="1"
+              file="Graphic Assets/Unlock Panel/DemoButton org2.png"/>
+        <FILE id="jCm8wv" name="UnlockButton org2.png" compile="0" resource="1"
+              file="Graphic Assets/Unlock Panel/UnlockButton org2.png"/>
+      </GROUP>
+      <GROUP id="{12F79D0F-EF27-E628-EB91-E519F0D84A96}" name="MIDI">
+        <FILE id="qvorzD" name="Midi_Off.png" compile="0" resource="1" file="Graphic Assets/MIDI/Midi_Off.png"/>
+        <FILE id="QhNeYw" name="Midi_On.png" compile="0" resource="1" file="Graphic Assets/MIDI/Midi_On.png"/>
+      </GROUP>
+    </GROUP>
+    <GROUP id="{F6BBC918-D353-BB05-0173-6213338319CB}" name="Meter">
+      <FILE id="oTHola" name="VerticalGradientMeter.h" compile="0" resource="0"
+            file="Source/Meter/VerticalGradientMeter.h"/>
+    </GROUP>
+    <GROUP id="{9BF8BC9C-5E8D-C866-FA53-2841BD92189C}" name="Preset Manager">
+      <FILE id="LgyDUs" name="MFXPresetManager.cpp" compile="1" resource="0"
+            file="Source/Preset Manager/MFXPresetManager.cpp"/>
+      <FILE id="zNheqQ" name="MFXPresetManager.h" compile="0" resource="0"
+            file="Source/Preset Manager/MFXPresetManager.h"/>
+    </GROUP>
+    <GROUP id="{554F9970-54DF-F7F2-F7F3-BF323AC6B856}" name="Parameter Controls">
+      <FILE id="aKyvUw" name="MFXParameterComBox.h" compile="0" resource="0"
+            file="Source/Parameter Controls/MFXParameterComBox.h"/>
+      <FILE id="ptxPXx" name="MFXParameterComBox.cpp" compile="1" resource="0"
+            file="Source/Parameter Controls/MFXParameterComBox.cpp"/>
+      <FILE id="kmtLzI" name="MFXParameterButton.h" compile="0" resource="0"
+            file="Source/Parameter Controls/MFXParameterButton.h"/>
+      <FILE id="B44I78" name="MFXParameterButton.cpp" compile="1" resource="0"
+            file="Source/Parameter Controls/MFXParameterButton.cpp"/>
+      <FILE id="aHDubm" name="MFXParameterSlider.h" compile="0" resource="0"
+            file="Source/Parameter Controls/MFXParameterSlider.h"/>
+      <FILE id="NIxFOo" name="MFXParameterSlider.cpp" compile="1" resource="0"
+            file="Source/Parameter Controls/MFXParameterSlider.cpp"/>
+    </GROUP>
+    <GROUP id="{2482FFF5-E44B-A431-1166-A37348605143}" name="Panels">
+      <FILE id="a4GxLX" name="MFXFxPanel.cpp" compile="1" resource="0" file="Source/Panels/MFXFxPanel.cpp"/>
+      <FILE id="K38crX" name="MFXFxPanel.h" compile="0" resource="0" file="Source/Panels/MFXFxPanel.h"/>
+      <FILE id="RCU9rc" name="MFXGainPanel.cpp" compile="1" resource="0"
+            file="Source/Panels/MFXGainPanel.cpp"/>
+      <FILE id="myoBKy" name="MFXGainPanel.h" compile="0" resource="0" file="Source/Panels/MFXGainPanel.h"/>
+      <FILE id="rjgIBp" name="MFXPanelBase.cpp" compile="1" resource="0"
+            file="Source/Panels/MFXPanelBase.cpp"/>
+      <FILE id="MuWei5" name="MFXPanelBase.h" compile="0" resource="0" file="Source/Panels/MFXPanelBase.h"/>
+      <FILE id="UymLpF" name="MFXTopPanel.cpp" compile="1" resource="0" file="Source/Panels/MFXTopPanel.cpp"/>
+      <FILE id="M4rwfY" name="MFXTopPanel.h" compile="0" resource="0" file="Source/Panels/MFXTopPanel.h"/>
+      <FILE id="PQdAjs" name="MFXUnlockPanel.cpp" compile="1" resource="0"
+            file="Source/Panels/MFXUnlockPanel.cpp"/>
+      <FILE id="TyOPEc" name="MFXUnlockPanel.h" compile="0" resource="0"
+            file="Source/Panels/MFXUnlockPanel.h"/>
+      <FILE id="PIPb8z" name="MFXCenterPanelMenuBar.cpp" compile="1" resource="0"
+            file="Source/Panels/MFXCenterPanelMenuBar.cpp"/>
+      <FILE id="OUzSsO" name="MFXCenterPanelMenuBar.h" compile="0" resource="0"
+            file="Source/Panels/MFXCenterPanelMenuBar.h"/>
+      <FILE id="mnxOw6" name="MFXCreditPanel.cpp" compile="1" resource="0"
+            file="Source/Panels/MFXCreditPanel.cpp"/>
+      <FILE id="xvXUOC" name="MFXCreditPanel.h" compile="0" resource="0"
+            file="Source/Panels/MFXCreditPanel.h"/>
+    </GROUP>
+    <GROUP id="{ACC32B95-B3A6-0CA2-F274-03DE3D313459}" name="Helpers">
+      <FILE id="Lx6h4o" name="MFXLookAndFeel.h" compile="0" resource="0"
+            file="Source/Helpers/MFXLookAndFeel.h"/>
+      <FILE id="JenwZA" name="MFXAudioHelpers.h" compile="0" resource="0"
+            file="Source/Helpers/MFXAudioHelpers.h"/>
+      <FILE id="MIi2jI" name="MFXHelperFunctions.h" compile="0" resource="0"
+            file="Source/Helpers/MFXHelperFunctions.h"/>
+      <FILE id="CDTYkv" name="MFXInterfaceDefine.h" compile="0" resource="0"
+            file="Source/Helpers/MFXInterfaceDefine.h"/>
+      <FILE id="Oql3Pz" name="MFXUsedParameters.cpp" compile="1" resource="0"
+            file="Source/Helpers/MFXUsedParameters.cpp"/>
+      <FILE id="Jv3Wc6" name="MFXUsedParameters.h" compile="0" resource="0"
+            file="Source/Helpers/MFXUsedParameters.h"/>
+      <FILE id="RvThdQ" name="Fifo.h" compile="0" resource="0" file="Source/Helpers/Fifo.h"/>
+    </GROUP>
+    <GROUP id="{41430E4E-72D4-2BC0-5695-4C86E98F1ACB}" name="Modulation Sources">
+      <FILE id="Ag6LHy" name="MFXEnvelopFollower.cpp" compile="1" resource="0"
+            file="Source/Modulation Sources/MFXEnvelopFollower.cpp"/>
+      <FILE id="oDZzBP" name="MFXEnvelopFollower.h" compile="0" resource="0"
+            file="Source/Modulation Sources/MFXEnvelopFollower.h"/>
+      <FILE id="HTV99B" name="MFXLFO2.cpp" compile="1" resource="0" file="Source/Modulation Sources/MFXLFO2.cpp"/>
+      <FILE id="c1pwja" name="MFXLFO2.h" compile="0" resource="0" file="Source/Modulation Sources/MFXLFO2.h"/>
+      <FILE id="CFbqVi" name="ModulationData.h" compile="0" resource="0"
+            file="Source/Modulation Sources/ModulationData.h"/>
+      <FILE id="dcZASY" name="MFXADSR.cpp" compile="1" resource="0" file="Source/Modulation Sources/MFXADSR.cpp"/>
+      <FILE id="bNXRMV" name="MFXADSR.h" compile="0" resource="0" file="Source/Modulation Sources/MFXADSR.h"/>
+    </GROUP>
+    <GROUP id="{5564346D-6E8A-A575-9111-7841F6029623}" name="DSP">
+      <FILE id="jeaPha" name="MFXDucking.h" compile="0" resource="0" file="Source/DSP/MFXDucking.h"/>
+      <FILE id="QF7wrB" name="MFXDucking.cpp" compile="1" resource="0" file="Source/DSP/MFXDucking.cpp"/>
+      <FILE id="gnBoGv" name="MFXReverb.h" compile="0" resource="0" file="Source/DSP/MFXReverb.h"/>
+      <FILE id="Akv0xV" name="MFXSimpleFilter.cpp" compile="1" resource="0"
+            file="Source/DSP/MFXSimpleFilter.cpp"/>
+      <FILE id="s8NtBN" name="MFXSimpleFilter.h" compile="0" resource="0"
+            file="Source/DSP/MFXSimpleFilter.h"/>
+      <FILE id="lU5eld" name="MFXStereo.cpp" compile="1" resource="0" file="Source/DSP/MFXStereo.cpp"/>
+      <FILE id="xcPqoC" name="MFXStereo.h" compile="0" resource="0" file="Source/DSP/MFXStereo.h"/>
+      <FILE id="MRmsGl" name="MFXBitCrusher.cpp" compile="1" resource="0"
+            file="Source/DSP/MFXBitCrusher.cpp"/>
+      <FILE id="cSqgOG" name="MFXBitCrusher.h" compile="0" resource="0" file="Source/DSP/MFXBitCrusher.h"/>
+      <FILE id="O75q8K" name="MFXChorus.cpp" compile="1" resource="0" file="Source/DSP/MFXChorus.cpp"/>
+      <FILE id="fuvbB2" name="MFXChorus.h" compile="0" resource="0" file="Source/DSP/MFXChorus.h"/>
+      <FILE id="E5bRat" name="MFXDelayLine.cpp" compile="1" resource="0"
+            file="Source/DSP/MFXDelayLine.cpp"/>
+      <FILE id="ZO2kpl" name="MFXDelayLine.h" compile="0" resource="0" file="Source/DSP/MFXDelayLine.h"/>
+      <FILE id="xLadLS" name="MFXGain.cpp" compile="1" resource="0" file="Source/DSP/MFXGain.cpp"/>
+      <FILE id="miUsNx" name="MFXGain.h" compile="0" resource="0" file="Source/DSP/MFXGain.h"/>
+      <FILE id="tTYFEr" name="MFXMoogFilter.cpp" compile="1" resource="0"
+            file="Source/DSP/MFXMoogFilter.cpp"/>
+      <FILE id="rYw8lF" name="MFXMoogFilter.h" compile="0" resource="0" file="Source/DSP/MFXMoogFilter.h"/>
+      <FILE id="VFPxYi" name="MFXReverb.cpp" compile="1" resource="0" file="Source/DSP/MFXReverb.cpp"/>
+    </GROUP>
+    <GROUP id="{4DDF0D05-C25E-30BE-849A-BB7F4032CF1E}" name="Process &amp; UI Manager">
+      <FILE id="cquU07" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/Process &amp; UI Manager/PluginEditor.cpp"/>
+      <FILE id="VN3Idn" name="PluginEditor.h" compile="0" resource="0" file="Source/Process &amp; UI Manager/PluginEditor.h"/>
+      <FILE id="I10DkV" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/Process &amp; UI Manager/PluginProcessor.cpp"/>
+      <FILE id="WVUomr" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/Process &amp; UI Manager/PluginProcessor.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Dual Delay MFX"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="Dual Delay MFX"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../Juce_7.0.5/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../Juce_7.0.5/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../Juce_7.0.5/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../Juce_7.0.5/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../Juce_7.0.5/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../Juce_7.0.5/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../Juce_7.0.5/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../Juce_7.0.5/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../Juce_7.0.5/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../Juce_7.0.5/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../Juce_7.0.5/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../Juce_7.0.5/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../Juce_7.0.5/JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2022>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+</JUCERPROJECT>

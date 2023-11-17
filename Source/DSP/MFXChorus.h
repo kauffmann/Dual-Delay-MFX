@@ -1,0 +1,153 @@
+/*
+  ==============================================================================
+
+    MFXChorus.h
+    
+    Author:  Michael kauffmann
+
+  ==============================================================================
+*/
+
+
+
+#pragma once
+
+#include <JuceHeader.h>
+#include "MFXStereo.h"
+#include "MFXAudioHelpers.h"
+
+
+
+enum DelayLine
+{
+    mDelayLine1 = 0,
+    mDelayLine2,
+    mDelayLine3
+};
+
+class MFXChorus
+{
+
+public:
+    //=============================================================================
+
+    MFXChorus();
+    
+    ~MFXChorus();
+        
+
+
+    //=============================================================================
+    void prepare(const juce::dsp::ProcessSpec& spec);
+
+    void process(juce::AudioBuffer<float>& buffer) noexcept;
+
+    void reset() noexcept;
+
+  
+    // Delayline Buffer operations ==============================================================================================
+
+    void writeSampleToDelayLine(float& sample, int channel, float& feedbackValue1, float& feedbackValue2);
+    
+    float readFromDelayLine(double readSampleTimeIndex, int channel, DelayLine lineToReadFrom) const noexcept;
+    
+    double getReadHead(DelayLine lineToFeedLFO) noexcept;
+
+    
+
+   
+    // Set states of FX parameter (called from AudioProcessor class) =========================================================
+
+    inline void setDryWetParameter(const float& dryWet) noexcept
+    {
+        
+        mWetParameter = dryWet;
+
+
+        mDryParameter = dryWet; 
+    }
+    
+
+
+    inline void setDepthParameter(const float& depth) noexcept
+    {
+        mDepthParameter = depth;
+    }
+
+
+    inline void setRateParameter(const float& rate) noexcept
+    {
+        mLfoChorus1.setFrequency(rate);
+
+        mLfoChorus2.setFrequency(rate * 3.1f);
+
+        //mLfoChorus3.setFrequency(rate * 3.0f);   
+    }
+    
+
+
+    inline void setStereoWidthParameter(const float& stereoAmount) noexcept
+    {
+        mStereoWidth->setWidth(stereoAmount);
+        mStereoAmountParameter = stereoAmount;
+    }
+
+
+    inline void setFeedbackGainParameter(const float& feedbackGain) noexcept
+    {
+        mFeedBackGainParameter = feedbackGain;
+
+    }
+
+    
+
+   
+private:
+    //===============================================================================
+
+    double mCurrentSampleRate{44100.0};
+
+    // This is where audio data is stored from buffer. 
+    std::unique_ptr<juce::dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> > mDelayCLine1;
+    std::unique_ptr<juce::dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> > mDelayCLine2;
+    //std::unique_ptr<juce::dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> > mDelayCLine3;
+
+    
+    
+    
+
+   
+   
+    // LFO data
+    juce::dsp::Oscillator<double> mLfoChorus1;
+    juce::dsp::Oscillator<double> mLfoChorus2;
+    juce::dsp::Oscillator<double> mLfoChorus3;
+    
+
+
+    // Parameters
+    float mWetParameter{0.0f};
+    float mDryParameter{ 0.0f };
+
+    float mFeedBackGainParameter{ 0.0f };
+    
+
+    // Depth: how wide (in ms) the delay time sweeps.
+    float mDepthParameter{ 0.0f };
+    // Rate: how quickly the delay time sweeps, within the range set by depth
+    float mRateParameter{ 0.0f };
+    
+    float mStereoAmountParameter{ 0.0f };
+
+    
+
+   
+    std::unique_ptr<MFXStereo> mStereoWidth;
+
+    // add sample time difference to to one of the channels to get stereo 
+    double mDeltaSampleTime{25.0};
+
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MFXChorus);
+
+};
