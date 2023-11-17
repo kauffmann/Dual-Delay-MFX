@@ -14,8 +14,9 @@ Getting started
 
 
 
-dfdfdfdf
+
 
 
 See it in action https://www.be-good-audio.com/products
+
 Support me at https://begoodaudio.gumroad.com/l/TimeRazor
