@@ -5,7 +5,7 @@
     
     Author:  Michael Kauffmann
 
-    Add chorus to incoming audio. It does not sound optimal yet - stil to much detune/pitch shift
+    Add chorus to incoming audio. 
 
   ==============================================================================
 */
