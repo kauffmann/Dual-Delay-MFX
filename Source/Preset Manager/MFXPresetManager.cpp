@@ -19,50 +19,38 @@ static const String directorySeparator = "/";
 
 #endif
 
-//commonDocumentsDirectory
 
 MFXPresetManager::MFXPresetManager(AudioProcessor* inProcessor, AudioProcessorValueTreeState& apvts) : mCurrentPresetIsSaved(false),
-                                                                  mCurrentPresetName("Default"),
-                                                                  mProcessor(inProcessor),
-                                                                   mAPVTS(apvts)
+                                                                                                       mCurrentPresetName("Default"),
+                                                                                                       mProcessor(inProcessor), mAPVTS(apvts)
 {
     const String pluginName = (String) mProcessor->getName();
     
     
-    // If change, Remember to change 2 locations here and topPanel
-    
-#if JUCE_WINDOWS
+    // If change, Remember to change 2 locations, here and topPanel.
+    #if JUCE_WINDOWS
 
-    // path point to this C:\ProgramData\Time Razor
+    // path to this C:\ProgramData\Time Razor
     mPresetDirectory = (File::getSpecialLocation(File::commonApplicationDataDirectory)).getFullPathName() + directorySeparator + pluginName;
-    //mPresetDirectory = (File::getSpecialLocation(File::commonApplicationDataDirectory)).getFullPathName() + directorySeparator + "Be Good Audio" + directorySeparator + pluginName;
 
 #elif JUCE_MAC
-    // path point to this C:\ProgramData\Time Razor
+    // path to this C:\ProgramData\Time Razor
     mPresetDirectory = (File::getSpecialLocation(File::commonDocumentsDirectory)).getFullPathName() + directorySeparator + pluginName;
-    //mPresetDirectory = (File::getSpecialLocation(File::commonApplicationDataDirectory)).getFullPathName() + directorySeparator + "Be Good Audio" + directorySeparator + pluginName;
 
 
 #endif
     
-    
-    
-    
-
     if(!File(mPresetDirectory).exists()){
         File(mPresetDirectory).createDirectory();
     }
     
-    // store in array (runtime access)
+    // Store in array (runtime access)
     storeLocalPreset();
     
     
    
 }
-MFXPresetManager::~MFXPresetManager()
-{
-    
-}
+MFXPresetManager::~MFXPresetManager(){}
 
 
 
@@ -76,7 +64,8 @@ String MFXPresetManager::getPresetName(int inPresetIndex)
     return mLocalPresets[inPresetIndex].getFileNameWithoutExtension();  
 }
 
-void MFXPresetManager::createNewPreset() // TODO:: consider rename....this do not create a new preset, only set default values, a reset to default function - prepareNewPre..
+// TODO:: consider rename....this do not create a new preset, only set default values, a reset to default function.
+void MFXPresetManager::createNewPreset() 
 {
     auto& parameters = mProcessor->getParameters();
     
@@ -90,7 +79,6 @@ void MFXPresetManager::createNewPreset() // TODO:: consider rename....this do no
         parameter->getDefaultValue();
     
         parameter->setValueNotifyingHost(defaultValue);
-        
     }
     
     mCurrentPresetIsSaved = false;
@@ -144,9 +132,6 @@ void MFXPresetManager::saveAsPreset(String inPresetName)
     
     juce::AudioPluginInstance::copyXmlToBinary(*pluginPreset.createXml(), destinationData);
     
-    
-   
-    
     presetFile.appendData(destinationData.getData(),
                           destinationData.getSize());
     
@@ -166,13 +151,11 @@ void MFXPresetManager::loadPreset(int inPresetIndex)
     MemoryBlock presetBinary;
     
     // check file not empty or corupt
-    if(mCurrentlyLoadedPreset.loadFileAsData(presetBinary) ){
-        
+    if(mCurrentlyLoadedPreset.loadFileAsData(presetBinary) )
+    {
         mCurrentPresetIsSaved = true;
         mCurrentPresetName = getPresetName(inPresetIndex);
         
-        
-
         auto xml = juce::AudioPluginInstance::getXmlFromBinary(presetBinary.getData(), static_cast<int>( presetBinary.getSize()));
         
         if (xml != nullptr)
@@ -185,19 +168,10 @@ void MFXPresetManager::loadPreset(int inPresetIndex)
                 auto paramTree = params.getChildWithName(getParamID(param));
                 
                 if (paramTree.isValid())
-                    param->setValueNotifyingHost(paramTree["Value"]);
-                
-                
-                
+                    param->setValueNotifyingHost(paramTree["Value"]);                                               
             }
-    
-        }
-        
-        
-    }
-    
-    
-    
+        }                
+    }    
 }
 
 bool MFXPresetManager::getIsCurrentPresetSaved()
@@ -233,78 +207,71 @@ void MFXPresetManager::storeLocalPreset()
    
 
     
-    for (DirectoryEntry entry : RangedDirectoryIterator (File (mPresetDirectory), true))
-         if (entry.getFile().getFileNameWithoutExtension() != ".DS_Store")
-         {
-             
-             
-             if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "Basic")
-             {
-                 mLocalPresets.add(entry.getFile());
-     
-                 mLocalPresetNamesBasicSize++;
-             }
-             
-             else if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "Big Long Delays")
-             {
-                 mLocalPresets.add(entry.getFile());
-                 
-                 mLocalPresetNamesBigLongSize++;
-             }
-             
-             else if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "MS")
-             {
-                 mLocalPresets.add(entry.getFile());
-                 
-                 mLocalPresetNamesMSSize++;
-             }
-             
-             else if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "Panning & Ducking")
-             {
-                 mLocalPresets.add(entry.getFile());
-                 
-                 mLocalPresetNamesPanningDuckingSize++;
-             }
-             
-             else if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "Pitch & Tape & Corupted")
-             {
-                 mLocalPresets.add(entry.getFile());
-                 
-                 mLocalPresetNamesPitchTapeCoruptedSize++;
-             }
-             
-             else if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "Resonating")
-             {
-                 mLocalPresets.add(entry.getFile());
-                 
-                 mLocalPresetNamesResonatingSize++;
-             }
-             
-             else if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "Tremolo & Stutter")
-             {
-                 mLocalPresets.add(entry.getFile());
-                 
-                 mLocalPresetNamesTremoloStutterSize++;
-             }
-             
-             else if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "User")
-             {
-                 mLocalPresets.add(entry.getFile());
-                 
-                 mLocalPresetNamesUserSize++;
-             }
-             
-             
-         }
-    
-    
-    
-    mLocalPresets.sort(); // this actually do nothing, as files are not sorted(not a string). Delete this!
+    for (DirectoryEntry entry : RangedDirectoryIterator(File(mPresetDirectory), true))
+    {
+        if (entry.getFile().getFileNameWithoutExtension() != ".DS_Store")
+        {
 
 
-   
-    
-    
+            if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "Basic")
+            {
+                mLocalPresets.add(entry.getFile());
+
+                mLocalPresetNamesBasicSize++;
+            }
+
+            else if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "Big Long Delays")
+            {
+                mLocalPresets.add(entry.getFile());
+
+                mLocalPresetNamesBigLongSize++;
+            }
+
+            else if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "MS")
+            {
+                mLocalPresets.add(entry.getFile());
+
+                mLocalPresetNamesMSSize++;
+            }
+
+            else if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "Panning & Ducking")
+            {
+                mLocalPresets.add(entry.getFile());
+
+                mLocalPresetNamesPanningDuckingSize++;
+            }
+
+            else if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "Pitch & Tape & Corupted")
+            {
+                mLocalPresets.add(entry.getFile());
+
+                mLocalPresetNamesPitchTapeCoruptedSize++;
+            }
+
+            else if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "Resonating")
+            {
+                mLocalPresets.add(entry.getFile());
+
+                mLocalPresetNamesResonatingSize++;
+            }
+
+            else if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "Tremolo & Stutter")
+            {
+                mLocalPresets.add(entry.getFile());
+
+                mLocalPresetNamesTremoloStutterSize++;
+            }
+
+            else if (entry.getFile().getParentDirectory().getFileNameWithoutExtension() == "User")
+            {
+                mLocalPresets.add(entry.getFile());
+
+                mLocalPresetNamesUserSize++;
+            }
+
+
+        }
+    }
 }
 
 void MFXPresetManager::setCurrentPresetName(String newName)

@@ -118,7 +118,7 @@ public:
     
     
     
-    //A little helper to get the parameter ID
+    
     inline juce::String getParamID(juce::AudioProcessorParameter* param)
     {
         if (auto paramWithID = dynamic_cast<juce::AudioProcessorParameterWithID*>(param))
