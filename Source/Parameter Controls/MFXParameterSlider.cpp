@@ -9,7 +9,6 @@
 */
 
 #include "MFXParameterSlider.h"
-//#include <ApplicationServices/ApplicationServices.h>   // this is experimental stuff, about problem in logic pro and garageband, mouse not invisable when click and drag
 
 
 
@@ -27,9 +26,6 @@ MFXParameterSlider::MFXParameterSlider( AudioProcessorValueTreeState& state,
     
     addListener(this);
     
-    
-    
-    
     startTimer(30);
 }
 
@@ -42,7 +38,7 @@ void MFXParameterSlider::mouseDown(const MouseEvent& event)
 {
         
     
-    if (this->hitTest(event.getMouseDownX(), event.getMouseDownY()))       // not needed
+    if (this->hitTest(event.getMouseDownX(), event.getMouseDownY()))
     {
         Slider::mouseDown(event);
         setMouseCursor(MouseCursor::NoCursor);
@@ -58,7 +54,6 @@ void MFXParameterSlider::mouseUp(const MouseEvent& event)
 {
     Slider::mouseUp(event);
     Slider::setMouseCursor(MouseCursor::NormalCursor);
-    //CGDisplayShowCursor(kCGDirectMainDisplay);
     Desktop::setMousePosition(mInitialDownMousePosition);
     //updateMouseCursor();
 }
@@ -77,29 +72,10 @@ void MFXParameterSlider::timerCallback()
 
 
 void MFXParameterSlider::sliderValueChanged (Slider*)
-{
-    
-    
+{ 
     //isSliderTouchedByUser = true;
 }
 
-
-
-
-
-//void MFXParameterSlider::paint (Graphics& g)
-//{
-//     if(isMouseOverOrDragging())
-//     {
-//         paintComponentLabel(g, this, mParameterValueText);
-//         
-//     }
-//    
-//     else
-//     {
-//         paintComponentLabel(g, this, this->getName());
-//     }
-//}
 
 
 

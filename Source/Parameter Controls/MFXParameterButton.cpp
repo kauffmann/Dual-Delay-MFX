@@ -59,27 +59,9 @@ MFXParameterButton::MFXParameterButton (AudioProcessorValueTreeState& state,
 
 
 
-//std::function<float()>&& valueFunction) : valueSupplier(std::move(valueFunction)) std::function<float()> valueSupplier;
-
-
 MFXParameterButton::~MFXParameterButton(){}
 
-//void MFXParameterButton::mouseDown(const MouseEvent& event)
-//{
-//    //DBG("Mouse down: " << static_cast<int>( this->getToggleState()) );
-//    mProcessor.getAccessToUIPersistentData().mIsButtonTouchedByUser = true;
-//   /* DBG("Mouse down: " << static_cast<int>(getToggleState()));*/
-//   /* DBG("Mouse focus: " << static_cast<int>(hasKeyboardFocus(false) ));*/
-//   // exitModalState(0);
-//
-//    
-//}
 
-//void MFXParameterButton::mouseUp(const MouseEvent& event)
-//{
-//    auto state = static_cast<int>(this->getToggleState());
-//   //DBG("Mouse state: " << static_cast<int>(this->getToggleState()));
-//}
 
 
 void MFXParameterButton::mouseExit(const MouseEvent& event)
@@ -94,7 +76,7 @@ void MFXParameterButton::timerCallback()
     if (this->isMouseOver() && (mParameterValueText != mFXParameter_TotalNumParameters))
         mProcessor.getAccessToUIPersistentData().mHelperUIText = MFXParameterHelpText[getParameterValueText()];
 
-    // This replace mouseDown(const MouseEvent& event) - that somehow conflict on windows, so that mouse click on button was unstable (press hard mousebutton)
+    // This replace mouseDown(const MouseEvent& event) - that somehow conflict on windows so that mouse click on button was unstable (press hard mousebutton)
     if (this->isMouseButtonDown())
         mProcessor.getAccessToUIPersistentData().mIsButtonTouchedByUser = true;
 }

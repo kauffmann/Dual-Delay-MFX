@@ -18,12 +18,6 @@
 
 
 
-// this is experimental stuff, about problem in logic pro and garageband, mouse not invisable when click and drag
-//#include <ApplicationServices/ApplicationServices.h>
-
-//#include <CoreGraphics/CoreGraphics.h>
-//#include <CoreFoundation/CoreFoundation.h>
-
 class MFXParameterSlider : public Slider, public Slider::Listener, public Timer
 {
 
@@ -45,10 +39,6 @@ public:
     void mouseExit(const MouseEvent& event) override;
     
     void timerCallback() override;
-    
-    
-    
-    //void paint (Graphics& g) override;
     
     void sliderValueChanged (Slider*) override;
     

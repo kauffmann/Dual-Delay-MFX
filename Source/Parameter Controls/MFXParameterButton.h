@@ -26,6 +26,7 @@ public:
                        const String& parameterLabel, const Image& imageNormal, const Image& imageDown,
                        PluginProcessor* inProcessor,
                        const MFXParameter& valueTextIndex = mFXParameter_TotalNumParameters);
+    
     // add MFXParameter valueTextIndex, inline getMFXParameter valueTextIndex, then like slider exit and timer
     MFXParameterButton( AudioProcessorValueTreeState& state,
                        const String& parameterID,
@@ -34,9 +35,7 @@ public:
 
     ~MFXParameterButton();
     
-    //void mouseDown(const MouseEvent& event) override;
-
-   // void mouseUp(const MouseEvent& event) override;
+   
     
     void mouseExit(const MouseEvent& event) override;
     
