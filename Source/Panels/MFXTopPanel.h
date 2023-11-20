@@ -15,7 +15,6 @@
 #include "MFXUsedParameters.h"
 #include "MFXParameterComBox.h"
 #include "MFXLookAndFeel.h"
-
 #include "MFXCreditPanel.h"
 #include "MFXUnlockPanel.h"
 
@@ -32,21 +31,17 @@ public:
     
     void resized () override;
     
-    
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override;
     
     void timerCallback() override;
     
-    
     void actionListenerCallback (const String &message) override;
 
-    virtual void buttonClicked(Button* button) override;
+    void buttonClicked(Button* button) override;
     
 private:
     
     void displaySaveAsPopup();
-    
-    void displayCreditPopup();
     
     void updatePresetComboBox();
     

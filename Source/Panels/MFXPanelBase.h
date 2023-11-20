@@ -6,7 +6,7 @@
     Author:  Michael Kauffmann
 
 
-    A stupid class - clearly a over-engineering thing her!
+    A stupid class - clearly a over-engineering thing here!
     Only value is component inherit and mProcessor that all UI classes use. TODO: refactor this out of project.
 
   ==============================================================================

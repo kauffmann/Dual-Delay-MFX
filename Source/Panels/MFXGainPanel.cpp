@@ -47,7 +47,6 @@ void MFXGainPanel::paint(Graphics& g)
     {
         if (mSlider->isMouseOverOrDragging())
         {
-            //paintComponentLabel(g, mSlider.get(), mProcessor->getAccessToUIPersistentData().mParameterValueText[mSlider->getParameterValueText()]);
             paintComponentLabel(g, mSlider.get(), mProcessor->parameters.getParameter(MFXParameterID[mSlider->getParameterValueText()])->getCurrentValueAsText());
         }
         else

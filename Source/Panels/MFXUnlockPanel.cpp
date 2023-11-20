@@ -23,7 +23,7 @@ MFXUnlockPanel::MFXUnlockPanel(PluginProcessor* inProcessor) : MFXPanelBase(inPr
     mInputKeyField->setColour(TextEditor::outlineColourId, colour_1);
     mInputKeyField->setColour(TextEditor::highlightColourId, colour_12);
     mInputKeyField->setFont(font_4);
-    mInputKeyField->setInputRestrictions(35);  // Check that lenght of key is default fixed at 35
+    mInputKeyField->setInputRestrictions(35); 
     mInputKeyField->setTextToShowWhenEmpty("Please enter your license key(xx-xx-xx-xx)" , colour_1);
 
     addAndMakeVisible(mInputKeyField.get());
@@ -43,14 +43,11 @@ MFXUnlockPanel::MFXUnlockPanel(PluginProcessor* inProcessor) : MFXPanelBase(inPr
         if (mProcessor->checkLicenseKey(mInputKeyField->getText()))
         {
             mProcessor->saveUnlockData(true);
-
         }
         else
         {
             mInputKeyField->setText("Invalid licence key");
-        }
-
-        
+        }     
     };
 
     addAndMakeVisible(mUnlock.get());
@@ -58,9 +55,9 @@ MFXUnlockPanel::MFXUnlockPanel(PluginProcessor* inProcessor) : MFXPanelBase(inPr
     
     mDemo = std::make_unique<ImageButton>("Demo");
     mDemo->setImages(false, false, true, image_demoButton, 0.8f,
-        Colour(0x0), image_demoButton, 1.0f,
-        Colour(0x0), image_demoButton, 1.0f,
-        Colour(0x0));
+                     Colour(0x0), image_demoButton, 1.0f,
+                     Colour(0x0), image_demoButton, 1.0f,
+                     Colour(0x0));
     
     mDemo->onClick = [&]()
     {
@@ -68,10 +65,6 @@ MFXUnlockPanel::MFXUnlockPanel(PluginProcessor* inProcessor) : MFXPanelBase(inPr
     };
 
     addAndMakeVisible(mDemo.get());
-
-    //
-
-    
 
 }
 
@@ -82,29 +75,31 @@ MFXUnlockPanel::~MFXUnlockPanel()
 void MFXUnlockPanel::paint(Graphics& g)
 {
     g.drawImageWithin(mUnlockBackGround, 0, 0, getWidth(), getHeight(), RectanglePlacement::stretchToFit, false);
-
     g.setColour(colour_16);
     g.setFont(font_4);
 
     g.drawFittedText("In demo mode saving is disabled",
-        485.0,
-        2,
-        450.0f, 20.0f, Justification::left, 0);
+                     485.0,
+                     2,
+                     450.0f,
+                     20.0f,
+                     Justification::left,
+                     0);
 
     g.drawFittedText("and there is 5s audio silence after 45s.",
-        485.0,
-        17,
-        450.0f, 20.0f, Justification::left, 0);
+                     485.0,
+                     17,
+                     450.0f,
+                     20.0f,
+                     Justification::left,
+                     0);
 }
 
 void MFXUnlockPanel::resized()
 {
-    
     mInputKeyField->setBounds(100.0f, 10.0f, 250.0, 20.0f);
-    mUnlock->setBounds(getWidth() - 394.0f,
-        11.0f, 90, getHeight()+4);
-    mDemo->setBounds(getWidth() - 332.0f,
-        11.0f, 90, getHeight()+4);      // width was 59
+    mUnlock->setBounds(getWidth() - 394.0f, 11.0f, 90, getHeight()+4);
+    mDemo->setBounds(getWidth() - 332.0f, 11.0f, 90, getHeight()+4);
 }
 
 void MFXUnlockPanel::addListenerToButtons(Button::Listener* listener)

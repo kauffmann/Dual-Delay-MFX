@@ -20,8 +20,6 @@ MFXTopPanel::MFXTopPanel(PluginProcessor* inProcessor)
     mPresetDisplay = std::make_unique<ComboBox>();  
     
     
-    
-    
     mPresetDisplay->addListener(this);
     mPresetDisplay->setColour(MFXParameterComboBox::backgroundColourId, juce::Colour::fromRGB(48, 48, 48));
     addAndMakeVisible(mPresetDisplay.get());
@@ -48,9 +46,6 @@ MFXTopPanel::MFXTopPanel(PluginProcessor* inProcessor)
     
     
     addAndMakeVisible(mOptionalDisplay.get());
-    
-    
-    
     
     mNameOfPlugin = std::make_unique<TextButton>();
     mNameOfPlugin->setName("Time Razor");
@@ -84,8 +79,7 @@ MFXTopPanel::MFXTopPanel(PluginProcessor* inProcessor)
     // On click, it jumps 1 preset/step back
     mBackWard->onClick = [this] ()
     {
-        // see comment mForward below about *
-        
+        // Same as comment in mForward->onClick() below about *
         
         int index = mPresetDisplay->getSelectedId() - 1;
         int lastIndex = mProcessor->getPresetManager()->getCurrentID();
@@ -105,12 +99,13 @@ MFXTopPanel::MFXTopPanel(PluginProcessor* inProcessor)
     mForward->onClick = [this] ()
     {
         
-        /* when a * is added in timerCallback below, display enter no selection/edited mode. getSelectedId() will return 0. Therefor we need to get index from presetManager instead, which is an array - so must add 1 to match comboBox (1 to lastItem...1,2,3..).
-            When no * - getSelectedId() + 1 is used.
+        /* when a * is added in timerCallback below, display enter no selection/edited mode. getSelectedId() will return 0. 
+           Therefor we need to get index from presetManager instead, which is an array - so must add 1 to match
+           comboBox (1 to lastItem...1,2,3..). When no * - getSelectedId() + 1 is used.
         */
         
         int index = mPresetDisplay->getSelectedId() + 1;
-        int lastIndex = mProcessor->getPresetManager()->getCurrentID() + 2; // add 1 restore current preset. 2 make jump to next preset
+        int lastIndex = mProcessor->getPresetManager()->getCurrentID() + 2; 
         
         
         if (index <= mPresetDisplay->getNumItems() && !mPresetDisplay->getText().contains("*"))
@@ -236,23 +231,16 @@ void MFXTopPanel::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
         
         if(!mProcessor->getAccessToUIPersistentData().mIsSliderTouchedByUser && this->isShowing() == 1.0f) // isShow prevent DAW recall saved session to trigger this code, setting link to 0
         {
-            // reset link time/feed - because if on and jumps to new preset that is off - cause error
+            // reset link time/feed - because if on and jumps to new preset that is off will cause error
             mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2Link])->setValueNotifyingHost(0.0f);
             mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DlineLink])->setValueNotifyingHost(0.0f);
             mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2LinkFeedback])->setValueNotifyingHost(0.0f);
             mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DlineLinkFeedback])->setValueNotifyingHost(0.0f);
             
-            
             presetManager->loadPreset(mCurrentIndex);
             // use in FXPanel timer callback - setFXStyle(). 
-            mProcessor->getAccessToUIPersistentData().mIsPresetLoaded = true;
-
-            //presetManager->saveAsPreset(mPresetDisplay->getItemText(mCurrentIndex)); // this was used for speed up resaving factory presets, instead of type in the name. 
-            
-        }
-        
-
-        
+            mProcessor->getAccessToUIPersistentData().mIsPresetLoaded = true;            
+        } 
     }
     
     else if (comboBoxThatHasChanged == mOptionalDisplay.get())
@@ -287,11 +275,7 @@ void MFXTopPanel::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
                  const auto area = getLocalBounds().removeFromTop(35); 
                  mCreditPanel->setBounds(area);
                  
-                 addAndMakeVisible(mCreditPanel.get());
-
-                 
-
-                 
+                 addAndMakeVisible(mCreditPanel.get());          
              }
 
              else if (mOptionalDisplay->getText() == "Read Manual")
@@ -304,7 +288,6 @@ void MFXTopPanel::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
                  #elif JUCE_MAC
                  const char* command = "open";
                  #endif
-                 //const char* command = "xdg-open"; // Linux command, may vary depending on the operating system
 
                  // Construct the full command
                  std::string fullCommand = command;
@@ -316,15 +299,9 @@ void MFXTopPanel::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 
              }
 
-        
-        
-
-             mOptionalDisplay->setText(" ", NotificationType::dontSendNotification);
-        
+             mOptionalDisplay->setText(" ", NotificationType::dontSendNotification);     
         
     }
-
-    
 }
 
 
@@ -336,8 +313,7 @@ void MFXTopPanel::timerCallback()
         mPresetDisplay->setText (presetManager->getCurrentPresetName().contains("*") ? presetManager->getCurrentPresetName():
                                 presetManager->getCurrentPresetName() + "*", NotificationType::dontSendNotification);
         
-        mProcessor->getAccessToUIPersistentData().mIsSliderTouchedByUser = false;
-        
+        mProcessor->getAccessToUIPersistentData().mIsSliderTouchedByUser = false;    
     }
     
     else if (mProcessor->getAccessToUIPersistentData().mIsButtonTouchedByUser)
@@ -369,32 +345,28 @@ void MFXTopPanel::actionListenerCallback (const String &message)
 
 void MFXTopPanel::buttonClicked(Button* button)
 {
-    
-
     if (button->getName() == "Demo") 
     {
         mProcessor->setDemoMode(true);
         mUnlockPanel->setVisible(false);
-        
     }
     
     if (button->getName() == "Unlock")
     {
         mUnlockPanel->setVisible(false);
     }
-    
 }
 
 void MFXTopPanel::displaySaveAsPopup()
 {
     
-#if JUCE_WINDOWS
+    #if JUCE_WINDOWS
     static const String directorySeparator = "\\";
-#elif JUCE_MAC
+    #elif JUCE_MAC
     static const String directorySeparator = "/";
-#elif JUCE_LINUX
+    #elif JUCE_LINUX
     static const String directorySeparator = "/";
-#endif
+    #endif
     
     mOptionalDisplay->setText("");
 
@@ -402,19 +374,18 @@ void MFXTopPanel::displaySaveAsPopup()
 
     String currentPresetName = presetManager->getCurrentPresetName();
     
-#if JUCE_WINDOWS
+    #if JUCE_WINDOWS
 
     mChooser = std::make_unique<FileChooser>("Please enter a name for your preset",
                                              File::getSpecialLocation(File::commonApplicationDataDirectory).getFullPathName() + directorySeparator
                                              + "Time Razor");
 
-#elif JUCE_MAC
+    #elif JUCE_MAC
 
     mChooser = std::make_unique<FileChooser>("Please enter a name for your preset",
                                              File::getSpecialLocation(File::commonDocumentsDirectory).getFullPathName() + directorySeparator
                                              + "Time Razor");
-    
-#endif
+    #endif
 
 
 
@@ -428,60 +399,20 @@ void MFXTopPanel::displaySaveAsPopup()
                            {
                                if(!chooser.getResult().getFileNameWithoutExtension().isEmpty())
                                {
-                                   // was presetManager->saveAsPreset(chooser.getResult().getFileNameWithoutExtension(). On windows file names that contains '.' would be omitted.
                                    presetManager->saveAsPreset(chooser.getResult().getFileName()); 
                                    updatePresetComboBox();
                                 
                                }
-                               
-                               
                             });
                                 
 }
 
-//void MFXTopPanel::displayCreditPopup()
-//{
-//    
-//    
-//    mOptionalDisplay->setText(" ");
-//    
-//    AlertWindow window ("Design  Programming  Preset Design",
-//                        String(CharPointer_UTF8("By Michael Kauffmann")),
-//                        AlertWindow::NoIcon, this);
-//    
-//    
-//    window.centreAroundComponent(this, getWidth(), getHeight());
-//    
-//    
-//    window.setColour(window.textColourId, colour_1);
-//    
-//    
-//    
-//    window.addButton("Close", 1);
-//    
-//    for (auto* child : window.getChildren())
-//        if (auto* button = dynamic_cast<TextButton*> (child))
-//        {
-//            button->setColour(TextButton::ColourIds::buttonColourId, colour_11);
-//        }
-//
-//    window.setColour(AlertWindow::backgroundColourId, colour_6);
-//    
-//    // if confirm 1 true / cancel 0 false
-//    // this does not allways work, depend on platform. consider other solution. I replaced this with a MFXCreditPanel component.
-//    if(window.runModalLoop())
-//    {
-//
-//    }
-//    
-//}
+
 
 
 // Build the preset menu list
 void MFXTopPanel::updatePresetComboBox()
 {
-    
-    
     MFXPresetManager* presetManager = mProcessor->getPresetManager();
     
     String presetName = presetManager->getCurrentPresetName();
@@ -497,8 +428,6 @@ void MFXTopPanel::updatePresetComboBox()
     const int numPresetsResonating = presetManager->getPresetNameResonatingSize();
     const int numPresetsTremoloStutter = presetManager->getPresetNameTremoloStutterSize();
     const int numPresetsUser = presetManager->getPresetNameUserSize();
-    
-
     
     PopupMenu subMenuBasic;
     PopupMenu subMenuBigLong;
@@ -517,11 +446,9 @@ void MFXTopPanel::updatePresetComboBox()
     
     for(int i = 0; i < numPresetsBasic; i++)
     {
-        
         subMenuBasic.addItem(PopupMenu::Item(presetManager->getPresetNameFromLocalStorage(menuItemCounter)).setID(menuItemIDCounter));
         menuItemIDCounter++;
         menuItemCounter++;
-        
     }
     
     mPresetDisplay->getRootMenu()->addSubMenu( "Basic", subMenuBasic,true, nullptr, false, 0 );
@@ -531,8 +458,7 @@ void MFXTopPanel::updatePresetComboBox()
     {
         subMenuBigLong.addItem(PopupMenu::Item(presetManager->getPresetNameFromLocalStorage(menuItemCounter)).setID(menuItemIDCounter));
         menuItemIDCounter++;
-        menuItemCounter++;
-        
+        menuItemCounter++;  
     }
     
     mPresetDisplay->getRootMenu()->addSubMenu( "Big Long Delays", subMenuBigLong,true, nullptr, false, 0 );
@@ -542,8 +468,7 @@ void MFXTopPanel::updatePresetComboBox()
     {
         subMenuMS.addItem(PopupMenu::Item(presetManager->getPresetNameFromLocalStorage(menuItemCounter)).setID(menuItemIDCounter));
         menuItemIDCounter++;
-        menuItemCounter++;
-        
+        menuItemCounter++;   
     }
     
     mPresetDisplay->getRootMenu()->addSubMenu( "M/S", subMenuMS,true, nullptr, false, 0 );
@@ -553,8 +478,7 @@ void MFXTopPanel::updatePresetComboBox()
     {
         subMenuPanningDucking.addItem(PopupMenu::Item(presetManager->getPresetNameFromLocalStorage(menuItemCounter)).setID(menuItemIDCounter));
         menuItemIDCounter++;
-        menuItemCounter++;
-        
+        menuItemCounter++;    
     }
     
     mPresetDisplay->getRootMenu()->addSubMenu( "Panning & Ducking", subMenuPanningDucking,true, nullptr, false, 0 );
@@ -564,8 +488,7 @@ void MFXTopPanel::updatePresetComboBox()
     {
         subMenuPitchTapeCorupted.addItem(PopupMenu::Item(presetManager->getPresetNameFromLocalStorage(menuItemCounter)).setID(menuItemIDCounter));
         menuItemIDCounter++;
-        menuItemCounter++;
-        
+        menuItemCounter++;       
     }
     
     mPresetDisplay->getRootMenu()->addSubMenu( "Pitch & Tape & Corupted", subMenuPitchTapeCorupted,true, nullptr, false, 0 );
@@ -576,8 +499,7 @@ void MFXTopPanel::updatePresetComboBox()
     {
         subMenuResonating.addItem(PopupMenu::Item(presetManager->getPresetNameFromLocalStorage(menuItemCounter)).setID(menuItemIDCounter));
         menuItemIDCounter++;
-        menuItemCounter++;
-        
+        menuItemCounter++;        
     }
     
     mPresetDisplay->getRootMenu()->addSubMenu( "Resonating", subMenuResonating,true, nullptr, false, 0 );
@@ -587,8 +509,7 @@ void MFXTopPanel::updatePresetComboBox()
     {
         subMenuTremoloStutter.addItem(PopupMenu::Item(presetManager->getPresetNameFromLocalStorage(menuItemCounter)).setID(menuItemIDCounter));
         menuItemIDCounter++;
-        menuItemCounter++;
-        
+        menuItemCounter++;       
     }
     
     mPresetDisplay->getRootMenu()->addSubMenu( "Tremolo & Stutter", subMenuTremoloStutter,true, nullptr, false, 0 );
@@ -602,8 +523,5 @@ void MFXTopPanel::updatePresetComboBox()
     }
     
     mPresetDisplay->getRootMenu()->addSubMenu( "User", subMenuUser,true, nullptr, false, 0 );
-    
-    
-    mPresetDisplay->setText(presetManager->getCurrentPresetName(), NotificationType::dontSendNotification);
-    
+    mPresetDisplay->setText(presetManager->getCurrentPresetName(), NotificationType::dontSendNotification);    
 }
