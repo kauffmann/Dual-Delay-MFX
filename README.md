@@ -19,6 +19,6 @@ to simply clone and distribute plugin, but to learn and perhaps reuse some of th
 
 
 
-See it in action https://www.be-good-audio.com/products
+See and hear it in action https://www.be-good-audio.com/products
 
 Support me at https://begoodaudio.gumroad.com/l/TimeRazor
