@@ -1,6 +1,6 @@
 
 
-# Time Razor. A Dual Delay Multi Effect Added More Effects And A Modulation Engine To Shape Your Sound.
+# Time Razor. A dual delay multi effect added additional effects and a modulation engine to shape your sound.
 
 This is an open source project library. You can clone and build project in your IDE. But graphic assets are not included, as my 
 GUI design is not open source. You will need to add your own graphics and fonts. The intent of having this repo is not for you
