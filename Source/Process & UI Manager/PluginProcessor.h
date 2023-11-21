@@ -54,7 +54,7 @@ static const String directorySeparator = "/";
 #endif
 
 
-//class MFXMoogFilter; // Forwarding Needed because of circular issues, same in Moog
+
 
 //==============================================================================
 /**
