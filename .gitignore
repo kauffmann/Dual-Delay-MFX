@@ -361,3 +361,14 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+
+# Exclude the entire Xcode and Visual Studio 2022 builds folder
+Builds/VisualStudio2022/
+Builds/MacOSX/
+
+# exclude JuceLibraryCode
+# JuceLibraryCode/
+
+# exclude this from mac
+.DS_Store
