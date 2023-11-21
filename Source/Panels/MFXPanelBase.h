@@ -6,8 +6,12 @@
     Author:  Michael Kauffmann
 
 
-    A stupid class - clearly a over-engineering thing here!
-    Only value is component inherit and mProcessor that all UI classes use. TODO: refactor this out of project.
+    A stupid class. 
+    Originally the idea was about encapsulating/generalization a base class that all UI classes use. 
+    But UI classes already have a ProcessorProcessor, they simply pass it to Panelbase. 
+    No reason having this class since it is not doing anaything, except store a PluginPocessor and component inherit. 
+    TODO: Consider refactor this out of project.
+    
 
   ==============================================================================
 */

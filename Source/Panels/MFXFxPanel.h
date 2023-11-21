@@ -17,10 +17,6 @@
 #include "MFXParameterSlider.h"
 #include "MFXParameterComBox.h"
 #include "MFXParameterButton.h"
-
-
-
-
 //#include <juce_gui_extra/juce_gui_extra.h> if not in library - to use JUCE_LIVE_CONSTANT 
 
 enum FxPanelStyle
@@ -50,7 +46,6 @@ public:
     
     void setFxPanelStyle(FxPanelStyle inStyle);
     
-    
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override;
     
     void timerCallback() override;
@@ -75,33 +70,25 @@ private:
     OwnedArray<MFXParameterButton> mButtons;
     OwnedArray<MFXParameterButton> mGlobalButtons;
     
-    // TODO Why not ownedArray ??
     OwnedArray<MFXParameterComboBox> mComboBoxes;
+
     std::unique_ptr<MFXParameterComboBox> mFilterType;
     std::unique_ptr<MFXParameterComboBox> mDelayTimeModeLeft;
     std::unique_ptr<MFXParameterComboBox> mDelayTimeModeRight;
     std::unique_ptr<MFXParameterComboBox> mDelayTimeModeMain1;
     std::unique_ptr<MFXParameterComboBox> mDelayTimeModeMain2;
+    
     std::unique_ptr<Label> mFilterTypeLabel;
 
     std::unique_ptr<ArrowButton> mDelay1TimeTransitionMode, mDelay2TimeTransitionMode;
     std::unique_ptr<ImageButton> mSetRandomValues;
     std::unique_ptr<ImageButton> mSetRandomAllValues;
     std::unique_ptr<ImageButton> mMidi;
-    
+
     juce::GroupComponent windowBorder; // unused
     juce::GroupComponent windowBorderLFO; // unused
-    
-    // std::function<void()> doSomething {};
-    
-        
-    
-    
-    
-
+  
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MFXFxPanel);
-    
-    
-    
+      
 };

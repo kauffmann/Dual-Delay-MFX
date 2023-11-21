@@ -67,26 +67,13 @@ void MFXCenterPanelMenuBar::paint (Graphics& g)
                                    mFxTypeComboBox->getWidth()-1, mFxTypeComboBox->getHeight() - 8).toFloat();
     
     g.drawRoundedRectangle(outline, 1.0f, 1.5f);
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
+     
 }
 
 void MFXCenterPanelMenuBar::resized()
 {
     const int width = 100;
-    mFxTypeComboBox->setBounds(getWidth() - width, 0, width, getHeight());
-    
-    
-    
+    mFxTypeComboBox->setBounds(getWidth() - width, 0, width, getHeight()); 
 }
 
 

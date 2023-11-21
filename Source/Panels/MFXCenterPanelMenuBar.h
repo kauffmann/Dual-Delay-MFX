@@ -51,11 +51,6 @@ private:
     
     OwnedArray<MFXParameterButton> mButtons;
     
-    
-    
-    
-   
-    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MFXCenterPanelMenuBar);
     
 };

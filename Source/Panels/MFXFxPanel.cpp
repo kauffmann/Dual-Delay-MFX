@@ -219,7 +219,7 @@ void MFXFxPanel::paint(Graphics& g)
             paintComponentLabel(g, slider, "Side");
         }
         
-        //
+        
         else if (mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Mid_Side_Mode])->getValue() == true
                  && slider->getName() == "Feedback Left")
         {
@@ -232,17 +232,11 @@ void MFXFxPanel::paint(Graphics& g)
             paintComponentLabel(g, slider, "Feedback Side");
         }
         
-        
-        
-        
-        
         else
         {
             paintComponentLabel(g, slider, slider->getName());
         }
-        
-        
-        
+          
     }
     
     
@@ -252,7 +246,6 @@ void MFXFxPanel::paint(Graphics& g)
         {
             //Reaper fix
             paintComponentLabel(g, slider, mProcessor->parameters.getParameter(MFXParameterID[slider->getParameterValueText()])->getCurrentValueAsText(), true);
-
         }
         else
         {
@@ -285,15 +278,12 @@ void MFXFxPanel::paint(Graphics& g)
                 notes.getReference( (int) slider->getValue());
                 
                 paintComponentLabel(g, slider, mProcessor->getAccessToUIPersistentData().mParameterValueText[slider->getParameterValueText()], true);
-
-
             }
                 
             else
             {
                 // Reaper Fix
                 paintComponentLabel(g, slider, mProcessor->parameters.getParameter(MFXParameterID[slider->getParameterValueText()])->getCurrentValueAsText(), true);
-
             }
         }
         else
@@ -308,10 +298,6 @@ void MFXFxPanel::paint(Graphics& g)
                      10,
                      getHeight() - 18,
                      500.0f, 25.0f, Justification::left, 1);
-    
-    
-   
-
     
 }
 
@@ -331,11 +317,7 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
     switch (mStyle)
     {
         case (mFxPanelStyle_Delay2):
-        {
-            
-            
-            
-            
+        { 
             mButtons.clear();
             mSetRandomValues->setVisible(false);
             mSetRandomAllValues->setVisible(false);
@@ -387,11 +369,6 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             mButtons.add(pingpongD2);
             
             
-            
-            
-            
-            
-            
             MFXParameterSlider* timeLeftD2 =
             new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_DelayTime],
                                    MFXParameterLabel[mFXParameter_DelayTime],
@@ -402,8 +379,6 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             
             addAndMakeVisible(timeLeftD2);
             mSliders.add(timeLeftD2);
-            
-            
             
             mDelayTimeModeLeft = std::make_unique<MFXParameterComboBox>( mProcessor->parameters, MFXParameterID[mFXParameter_DelayTimeMode1], mProcessor);
             
@@ -492,8 +467,6 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
 
             mDelay2TimeTransitionMode->onClick = [&]()
             {
-
-
                 const bool fadeMode = mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_IsFadeMode_Delay2])->getValue();
                 
                 if (fadeMode == 0.0f)
@@ -502,19 +475,17 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
                     mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_IsFadeMode_Delay2])->setValueNotifyingHost(0.0f);
                 
                 setFxPanelStyle(mStyle);
-
             };
 
 
             mDelay2TimeTransitionMode->setBounds(431,
                 140
-                , 18, 15); // w was 14 
+                , 18, 15); 
             addAndMakeVisible(mDelay2TimeTransitionMode.get());   
 
 
             if (mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_IsFadeMode_Delay2])->getValue() == 0.0f)
             {
-                
                 MFXParameterSlider* smoothingD2 = new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay2Smoothing],
                                                                          MFXParameterLabel[mFXParameter_Delay2Smoothing],
                                                                          mFXParameter_Delay2Smoothing, mProcessor);
@@ -522,11 +493,9 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
                 addAndMakeVisible(smoothingD2);
                 mSliders.add(smoothingD2);
                 x = x + (slider_size * 2);
-
             }
             else
             {
-                
                 MFXParameterSlider* fade = new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_FadeFrequency_Delay2],
                                                                   MFXParameterLabel[mFXParameter_FadeFrequency_Delay2],
                                                                   mFXParameter_FadeFrequency_Delay2, mProcessor);
@@ -573,12 +542,7 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
                     mSliders[mSliders.indexOf(feedbackLeftD2) ]->setValue (mSliders[mSliders.indexOf(feedbackRightD2)]->getValue());
                 
             };
-            
-            
-            
-            
-
-            
+             
             mComboBoxes.clear();
             mFilterType = nullptr;
             mDelayTimeModeMain1  = nullptr;
@@ -588,15 +552,13 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             if(mDelay1TimeTransitionMode != nullptr)
             mDelay1TimeTransitionMode->setVisible(false);
             
-            
-            
+             
             
         } break;
             
         case (mFxPanelStyle_Chorus):
         {
 
-            
             MFXParameterSlider* rate =
             new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_ChorusRate],
                                    MFXParameterLabel[mFXParameter_ChorusRate],
@@ -616,8 +578,6 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             x = x + (slider_size * 2);
             
 
-            
-            
             x = 130;
             y = (getHeight() * 0.9) - (slider_size);
             
@@ -650,6 +610,7 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             mFXPanelHorisontalSliders.clear();
             if (mDelay1TimeTransitionMode != nullptr)
                 mDelay1TimeTransitionMode->setVisible(false);
+
             if (mDelay2TimeTransitionMode != nullptr)
                 mDelay2TimeTransitionMode->setVisible(false);
             
@@ -663,8 +624,6 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             
         case (mFxPanelStyle_Reverb):
         {
-            
-
             
             MFXParameterSlider* size =
             new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_ReverbSize],
@@ -709,15 +668,9 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             new MFXParameterButton(mProcessor->parameters, MFXParameterID[mFXParameter_ReverbFreeze],
                                    MFXParameterLabel[mFXParameter_ReverbFreeze], image_FreezeOff, image_FreezeOn, mProcessor);
             freeze->setBounds(247, y, button_size, button_size);
-            /*freeze->ToggleButton::setColour(ToggleButton::ColourIds::textColourId, colour_1);
-            freeze->ToggleButton::setColour(ToggleButton::ColourIds::tickColourId, colour_11);
-            freeze->ToggleButton::setColour(ToggleButton::ColourIds::tickDisabledColourId, colour_11);*/
+            
             addAndMakeVisible(freeze);
             mButtons.add(freeze);
-            
-            
-            
-            
             
             
             for(auto& it : mButtons)
@@ -805,14 +758,17 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             mDelayTimeModeMain2  = nullptr;
             mComboBoxes.clear();
             mFXPanelHorisontalSliders.clear();
+
             if (mDelay1TimeTransitionMode != nullptr)
                 mDelay1TimeTransitionMode->setVisible(false);
+
             if (mDelay2TimeTransitionMode != nullptr)
                 mDelay2TimeTransitionMode->setVisible(false);
             
 
             mSetRandomValues->setVisible(false);
             mSetRandomAllValues->setVisible(false);
+
             if (mMidi)
                 mMidi->setVisible(false);
             
@@ -876,11 +832,13 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             mFXPanelHorisontalSliders.clear();
             if (mDelay1TimeTransitionMode != nullptr)
                 mDelay1TimeTransitionMode->setVisible(false);
+
             if (mDelay2TimeTransitionMode != nullptr)
                 mDelay2TimeTransitionMode->setVisible(false);
             
             mSetRandomValues->setVisible(false);
             mSetRandomAllValues->setVisible(false);
+
             if (mMidi)
                 mMidi->setVisible(false);
 
@@ -946,15 +904,11 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             
         case (mFxPanelStyle_Delay1):
         {
-
-            
-            
             mButtons.clear();
             mComboBoxes.clear();
             mFXPanelHorisontalSliders.clear();
             if (mMidi)
                 mMidi->setVisible(false);
-
 
             
             //     Random Dice Time
@@ -967,7 +921,7 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
                 Colour(0x0), image_RandomOn, 1.0f,
                 Colour(0x0));
 
-            mSetRandomValues->setBounds(100, 115, 45, 45);  // 130
+            mSetRandomValues->setBounds(100, 115, 45, 45);  
 
             addAndMakeVisible(mSetRandomValues.get());
 
@@ -982,15 +936,11 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             MFXPresetManager* presetManager = mProcessor->getPresetManager();
             
 
-            mSetRandomValues->onClick = [=]() // was [&]  must be by copy[=] to work with presetManager
+            mSetRandomValues->onClick = [=]() 
             {
                presetManager->setCurrentPresetName("New");
                juce::Random randomValue;
                
-               //// easy start, also pick a preset then dice
-                
-                
-                
                 // Delay time,mode 1
                 
                 mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DelayTimeMode2])->setValueNotifyingHost(randomValue.nextFloat());
@@ -1029,8 +979,6 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
 
 
                 // other - parallel/serial, Delay 1/2 level
-                
-                
                 mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DelayWetDry])->setValueNotifyingHost(randomValue.nextFloat());
                 mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Parallel_Mode])->setValueNotifyingHost(randomValue.nextBool());
                 
@@ -1074,18 +1022,17 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
 
             
 
-            mSetRandomAllValues->onClick = [=]() // was [&]  must be by copy[=] to work with presetManager
+            mSetRandomAllValues->onClick = [=]()
             {
+                // We always get current max elements/preset size, and no out of bounds bugs
                 int numberOfPresets = presetManager->getNumberOfPresets();
                 
                 juce::Random randomPresetValue;
-                presetManager->loadPreset(randomPresetValue.nextInt(numberOfPresets));  // We always get current max elements, and no out of bounds bugs
+                presetManager->loadPreset(randomPresetValue.nextInt(numberOfPresets));  
                 
                 presetManager->setCurrentPresetName("New");
                 
                 mProcessor->setClearBuffer(true);
-
-
 
             };
 
@@ -1105,11 +1052,6 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             addAndMakeVisible(timeLink);
             mButtons.add(timeLink);
             
-            
-
-            
-                
-                
             
             
             const auto& image_FeedbackOff =  ImageCache::getFromMemory(BinaryData::New_link_off_org__2_png, BinaryData::New_link_off_org__2_pngSize);
@@ -1297,11 +1239,11 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             }
             
             
-                mSliders[mSliders.indexOf(timeLeft) ]->onValueChange = [=] ()
-                {
-                    if (timeLink->getToggleState() == true)
-                        mSliders[mSliders.indexOf(timeRight) ]->setValue (mSliders[mSliders.indexOf(timeLeft)]->getValue());
-                };
+            mSliders[mSliders.indexOf(timeLeft) ]->onValueChange = [=] ()
+            {
+                if (timeLink->getToggleState() == true)
+                    mSliders[mSliders.indexOf(timeRight) ]->setValue (mSliders[mSliders.indexOf(timeLeft)]->getValue());
+            };
                 
            
             
@@ -1339,8 +1281,7 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             
             
             for(auto& it : mButtons)
-            {
-                
+            { 
                 if (it->getName() == "Freeze")
                     it->setVisible(false);
             }
@@ -1365,6 +1306,7 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
 
             if (mDelay1TimeTransitionMode != nullptr)
                 mDelay1TimeTransitionMode->setVisible(false);
+
             if (mDelay2TimeTransitionMode != nullptr)
                 mDelay2TimeTransitionMode->setVisible(false);
             
@@ -1595,13 +1537,13 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             addAndMakeVisible(lfo1Freq);
             mButtons.add(lfo1Freq);
 
-            // If user click button, that means note rate should be used, therefor repaint to draw note selector
             lfo1Freq->onClick = [&]()
             {
                 
                 mFXPanelHorisontalSliders.clear();
                 mButtons.clear();
                 mComboBoxes.clear();
+                // If user click button, that means note rate should be used, therefor repaint to draw note selector
                 setFxPanelStyle(mStyle);
                 
 
@@ -1815,13 +1757,13 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             addAndMakeVisible(lfo2Freq);
             mButtons.add(lfo2Freq);
 
-            // If user click button, that means note rate should be used, therefor repaint to draw note selector
             lfo2Freq->onClick = [&]()
             {
                 
                 mFXPanelHorisontalSliders.clear();
                 mButtons.clear();
                 mComboBoxes.clear();
+                // If user click button, that means note rate should be used, therefor repaint to draw note selector
                 setFxPanelStyle(mStyle);
             };
 
@@ -2283,11 +2225,9 @@ void MFXFxPanel::buttonClicked (Button* currentButton)
 
     
     if (currentButton->getToggleState() && currentButton->getName() == "Ducking")
-    {
-        
+    {  
         mGlobalSliders.clear();
-        createDuckingUI();
-        
+        createDuckingUI();   
     }
     
     else if (!currentButton->getToggleState() && currentButton->getName() == "Ducking")
