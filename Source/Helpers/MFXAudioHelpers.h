@@ -15,7 +15,7 @@
 
 #include <JuceHeader.h>
 #include "MFXUsedParameters.h"
-#include <juce_audio_formats/codecs/flac/compat.h>  // added 15-09-2022  fix M_PI  issue  
+#include <juce_audio_formats/codecs/flac/compat.h>  // added fix M_PI  issue  
 
 
 #define parameterSmoothingCoeff_Generic 0.04
@@ -76,7 +76,7 @@ inline bool isIntegerValue(double& N)
 
 
 
-//------------Delay Sample Time Calculators Consider to put delay class. However, having it here makes it more reusable in other projects ----------------------
+//------------Delay Sample Time Calculators. Consider to put in delay class or put in seperate class (base) that delay class inherit from. However, having it here makes it more reusable in other projects -------
 
 
 

@@ -56,7 +56,7 @@ void MFXLFO2::setType (const LfoStyle oscSelection) noexcept
             mLfo.initialise ([] (float x)
                              {
                                  x = x / juce::MathConstants<double>::pi;
-                                 return  juce::jmin(2.0+2.0*x, std::abs((x-0.5)*2.0)-1.0); // triangle in phase from serum
+                                 return  juce::jmin(2.0+2.0*x, std::abs((x-0.5)*2.0)-1.0); // triangle in phase from serum synth wavetable editor (xferrecords)
                                  
                              }, 128);
             break;
@@ -214,6 +214,7 @@ void MFXLFO2::updateParamsSync(const double &bpm, const float &noteIndex, const 
 
 void MFXLFO2::reset(double inc) noexcept
 {
-    // remember change made in JUCE source files Oscillator class::reset(param added) and Phase::reset(param added). Making changes to files in JUCE framework is bad. TODO: overwrite instead. 
+    // remember change made in JUCE source files Oscillator class::reset(param added) and Phase::reset(param added).
+    //  Making changes to files in JUCE framework is bad. TODO: overwrite instead. 
     mLfo.reset(inc);
 }

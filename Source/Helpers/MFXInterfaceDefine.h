@@ -40,7 +40,6 @@ const Colour colour_18 = Colours::white.withAlpha(0.6f);
 
 
 // System uses system font: for cross compatiblity win/Mac/Linux use binaries with assets (system access own stored fonts)
-// hmmm on windows I had to replace robotoBold with a font from google fonts.....also helvetica desk interface did't work on windows
 const Font font_1 = Font(Typeface::createSystemTypefaceFor(BinaryData::Helvetica65Medium_22443_ttf, BinaryData::Helvetica65Medium_22443_ttfSize)).withHeight(12.0).withStyle(1);
 
 const Font font_2 = Font(Typeface::createSystemTypefaceFor(BinaryData::Helvetica65Medium_22443_ttf, BinaryData::Helvetica65Medium_22443_ttfSize)).withHeight(22.0).withStyle(1);

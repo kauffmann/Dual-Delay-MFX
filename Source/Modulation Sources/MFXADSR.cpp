@@ -5,6 +5,9 @@
    
     Author:  Michael Kauffmann
 
+    Call this "by sample" looping through audiobuffer using getNextSample(), that return current value in envelope.
+    NoteOn() and noteOff() must be called before getNextSample(), as it define the state of ADSR. Se further comments below. 
+
   ==============================================================================
 */
 
@@ -26,16 +29,8 @@ void MFXADSR::updateADSR () noexcept
         adsrParams.sustain = mSustain;
         adsrParams.release = mRelease;
        
-        setParameters(adsrParams);
-        
-    }
-    
-        
-    
-    
-    
-
-    
+        setParameters(adsrParams);   
+    }    
 }
 
 
@@ -49,11 +44,6 @@ void MFXADSR::setParams(const float attack, const float decay, const float susta
         mDecay = decay;
         mSustain = sustain;
         mRelease = release;
-
-        
     }
-    
-    
-
 }
 

@@ -29,11 +29,9 @@ inline void paintComponentLabel(Graphics& g, Component* inComponent, juce::Strin
     
     if (isHorisontalSlider)
         g.drawFittedText(label, x, y - 10,
-                         w, h, Justification::centred, 1);
+            w, h, Justification::centred, 1);
     else
         g.drawFittedText(label, x, y + 5, w, h, Justification::centred, 1);
-
-    
 }
 
 

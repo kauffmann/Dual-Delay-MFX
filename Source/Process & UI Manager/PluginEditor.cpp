@@ -65,8 +65,7 @@ PluginEditor::~PluginEditor()
 {
     setLookAndFeel(nullptr);
     mMenuBar->removeFxTypeComboListener(mFxPanel.get());
-    mMenuBar->removeFxSettingsListener(mFxPanel.get());
-    
+    mMenuBar->removeFxSettingsListener(mFxPanel.get());   
 }
 
 //==============================================================================
@@ -85,7 +84,6 @@ void PluginEditor::resized()
         mOutputGainPanel->setBounds (area.removeFromRight (sidebarWidth));
         mMenuBar->setBounds (area.removeFromTop(35 )); 
         mFxPanel->setBounds(area.removeFromTop (230));
-    
 }
 
 
@@ -111,7 +109,7 @@ WrappedRasterAudioProcessorEditor::WrappedRasterAudioProcessorEditor(PluginProce
     if (auto* constrainer = getConstrainer())
     {
         constrainer->setFixedAspectRatio(static_cast<double> (originalWidth) / static_cast<double> (originalHeight));
-        constrainer->setSizeLimits(originalWidth / 4, originalHeight / 4, originalWidth * 2, originalHeight * 2);    // was not * 2 , only width and height
+        constrainer->setSizeLimits(originalWidth / 4, originalHeight / 4, originalWidth * 2, originalHeight * 2);
     }
 
     double sizeRatio = mProcessor.getResizeFactor(); // was 1
@@ -127,8 +125,6 @@ WrappedRasterAudioProcessorEditor::WrappedRasterAudioProcessorEditor(PluginProce
 
 void WrappedRasterAudioProcessorEditor::resized()
 {
-    
-
     const auto scaleFactor = static_cast<float> (getWidth()) / originalWidth;
     mProcessor.setResizeFactor(scaleFactor);
 
@@ -136,8 +132,6 @@ void WrappedRasterAudioProcessorEditor::resized()
     //{
     //    properties->setValue("sizeRatio", scaleFactor);     // setScaleValue(scaleFactor);
     //}
-    
-    
     rasterComponent.setTransform(AffineTransform::scale(scaleFactor));
     rasterComponent.setBounds(0, 0, originalWidth, originalHeight);
 }

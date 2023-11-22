@@ -69,8 +69,7 @@ public:
     }
     
 private:
-    
-    
+ 
     juce::dsp::Oscillator<double> mLfo;
     juce::SmoothedValue<double> mSmoother;
     

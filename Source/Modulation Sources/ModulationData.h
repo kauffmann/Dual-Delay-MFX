@@ -55,25 +55,16 @@ struct ModulationData
             mModulatorOutput[i].clear(0, spec.maximumBlockSize);
         }
         
-        mModulationTargetData.resize(10);  // was 6
-        
-        
+        mModulationTargetData.resize(10);  
         
         mLfoModulator1->prepare(spec);
         mLfoModulator2->prepare(spec);
-        
-        
-        
         
         mEnvelopeFollower->prepare(spec);
         
         mADSR->prepare(spec);
         mADSR2->prepare(spec);
     }
-    
-    
-    
-    
     
     /** @param bufferWriterPointer is data to feed envelope follower*/  // I don't use playhead, refactor out.
     void processModulationOutput(juce::AudioPlayHead* playHead, float* bufferWriterPointer, int numSamples, double sampleRate, juce::MidiBuffer& midiMessages)
@@ -106,10 +97,8 @@ struct ModulationData
 
             if (currentMessage.isNoteOn()) {
 
-                notes[currentMessage.getNoteNumber()] = 0; // note is on
+                notes[currentMessage.getNoteNumber()] = 0; // 0 means note is on
 
-                
-                
                 mADSR->updateADSR();
                 
                 // we start attack phase of envelope
@@ -131,8 +120,6 @@ struct ModulationData
 
             else if (currentMessage.isNoteOff())
             {
-                
-
                 notes[currentMessage.getNoteNumber()] = 1; // note is off
                 int isAllNoteOff = 0;
 
@@ -141,7 +128,6 @@ struct ModulationData
                     isAllNoteOff += notes[i]; // sum current note on/off values
                 }
 
-
                 // If isAllNoteOff is equal 127 all notes are off and we can trigger envelope release state. The idea is to have a kind of poly triggered ADSR.
                 //  If one or more keys are down then note off must note be triggered.
                 // Instead envelope will start from begining (attack phase, noteOn() above). 
@@ -149,16 +135,11 @@ struct ModulationData
                 {
                     mADSR->noteOff();
                     mADSR2->noteOff();
-                    mIsMidi = false;
-                    
+                    mIsMidi = false;   
                 }
-
             }
-
-                
-
             
-            // Reading values from active envelope    
+            // Reading/storing values from active envelope    
             modulatorsWriterPointer[adsr][i] = mADSR->isActive() ? mADSR->getNextSample() : 0.0f;
             modulatorsWriterPointer[adsr2][i] = mADSR2->isActive() ? mADSR2->getNextSample() : 0.0f;
 
@@ -172,30 +153,18 @@ struct ModulationData
                 {
                     
                     modSumRateLFO1 +=  modulatorsWriterPointer[std::get<0>(set)][i] * std::get<2>(set);
-                    
                 }
                 
                 else if (std::get<1>(set) == Wildcard)
                 {
-                    
-                    modSumRateLFO2 +=  modulatorsWriterPointer[std::get<0>(set)][i] * std::get<2>(set);
-                    
+                    modSumRateLFO2 +=  modulatorsWriterPointer[std::get<0>(set)][i] * std::get<2>(set);   
                 }
                 
                 else if (std::get<1>(set) == EnvelopeSensitivity)
                 {
-                    
-                    modSumRateEnv +=  modulatorsWriterPointer[std::get<0>(set)][i] * std::get<2>(set);
-                    
-                    
+                    modSumRateEnv +=  modulatorsWriterPointer[std::get<0>(set)][i] * std::get<2>(set);   
                 }
-        
             }
-            
-           
-            
-            
-            
             
             if (!(bool)mIsSyncLFO1)
             {
@@ -223,18 +192,13 @@ struct ModulationData
                 
             
         }// end main loop
-        
-        
-        
-        
-    
+       
     }
     
-    //
+   
     
     void initializeModulationSources()
-    {
-      
+    {   
         mLfoModulator1 = std::make_unique<MFXLFO2>();
         mLfoModulator2 = std::make_unique<MFXLFO2>();
         mEnvelopeFollower = std::make_unique<MFXEnvelopeFollower<float>>();
@@ -245,7 +209,7 @@ struct ModulationData
     
     
     
-
+    //---------------------------------------------------------------------------------------------------------------------------------------------------------
     
     std::unique_ptr<MFXLFO2> mLfoModulator1;  // Remember changes made to original reset() in JUCE OSC class
     std::unique_ptr<MFXLFO2> mLfoModulator2;
@@ -268,24 +232,15 @@ struct ModulationData
     float mCurrentLFO1ParamRate {0.0f};
     float mCurrentLFO1ParamNote {0.0f};
     
-    
-
-    
     double mCurrentParamBpm {0.0f};
     bool mIsSyncLFO1 {false};
-    bool mIsSyncLFO2 {false};
-    
-    
+    bool mIsSyncLFO2 {false};    
     
     float mCurrentLFO2ParamRate {0.0f};
     float mCurrentLFO2ParamNote {0.0f};
-    
-    //juce::AudioPlayHead::CurrentPositionInfo info;
-    
     bool isLFO1Trigger{false};
     bool isLFO2Trigger{ false };
 
-    
     // Is receiving midi state
     bool mIsMidi{ false };
 
