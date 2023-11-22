@@ -24,11 +24,7 @@
 #include "MFXUsedParameters.h"
 
 
-
-//==============================================================================
-/**
-*/
-class PluginEditor : public Component //public juce::AudioProcessorEditor
+class PluginEditor : public Component
 {
 public:
     PluginEditor (PluginProcessor&);

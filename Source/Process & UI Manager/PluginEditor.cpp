@@ -10,7 +10,7 @@
   ==============================================================================
 */
 
-#include "PluginProcessor.h"   // why double this, also in header
+#include "PluginProcessor.h"  
 #include "PluginEditor.h"
 
 
@@ -18,17 +18,11 @@
 //==============================================================================
 PluginEditor::PluginEditor (PluginProcessor& p)
     : audioProcessor(p)
-    //: AudioProcessorEditor (&p), audioProcessor (p)     was
-{
-   
-    
-    
+{    
     mLookAndFeel = std::make_unique<MFXLookAndFeel>(); // good, no need to delete in destructor.
     // Will apply lookAndFell behaviour to "this" and all object(child components) that exist inside this parent/main component it. All mainPanels component is therefor affected.
-    setLookAndFeel(mLookAndFeel.get());
-    
+    setLookAndFeel(mLookAndFeel.get());   
     //LookAndFeel::setDefaultLookAndFeel(mLookAndFeel.get()); // if addressed anywhere in app/this class, this is the default. not a requirement.
-    
     
     
     // Call chain: call this. constructor starts, child component constructer gets called, then this.resized(),
