@@ -56,9 +56,7 @@ static const String directorySeparator = "/";
 
 
 
-//==============================================================================
-/**
-*/
+
 class PluginProcessor  : public juce::AudioProcessor /*, public juce::AudioProcessorListener*/
 {
 public:
@@ -143,7 +141,7 @@ public:
     
     
     
-    // UI related data that need to keep state regardless if UI gets destroyed(window closed). TODO Rename UIDynamicData ?
+    // UI related data that need to keep state regardless if UI gets destroyed(window closed).
     struct UIPersistentData
     {
         bool mIsParallelModeOn = false;
@@ -156,11 +154,11 @@ public:
         bool mIsPresetLoaded = false;
         
         
-        
+        // Array that store GUI parameter values as strings (value + extention, e.g. %, ms, hz) that can be accessed and displayed below UI sliders. See FXPanel(line 175-300). 
         juce::String mParameterValueText[mFXParameter_TotalNumParameters] =
         {
             
-            // Names here are just for readerbility, they all get overwritten by createParameterLayout / lambda function
+            // Names here are just for readerbility, they all get overwritten by createParameterLayout and in FXPanel(line 175-300), that read UI element value and store in here.
             "Input", //  Delay Input Gain
             "Rate", //  Chorus
             "Depth", //  Chorus
@@ -372,8 +370,9 @@ public:
         {
             unlockFile.create();
         }
-        else {
-        unlockFile.deleteFile();
+        else 
+        {
+            unlockFile.deleteFile();
         }
 
         MemoryBlock destinationData;
@@ -554,13 +553,6 @@ private:
     bool isSmoothed = true; 
     //-------------------------------------------------------------------------------------------
     
-    
-    
-    
-    juce::SmoothedValue<double> mDelay1SmoothedWideTime; // do I use it?
-    juce::SmoothedValue<double> mDelay1SmoothedWideBeat;
-    juce::SmoothedValue<double> mDelay2SmoothedWideTime;
-    juce::SmoothedValue<double> mDelay2SmoothedWideBeat;
 
     
 

@@ -367,6 +367,10 @@ FodyWeavers.xsd
 Builds/VisualStudio2022/
 Builds/MacOSX/
 
+# exclude Graphic assets
+Graphic Assets/
+
+
 # exclude JuceLibraryCode
 # JuceLibraryCode/
 

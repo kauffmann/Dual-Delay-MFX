@@ -298,49 +298,32 @@ void PluginProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     
     
     // update mIsUnlocked var
-    readUnlockedStatus();
-    
-   
-    
-   
-
-    
+    readUnlockedStatus();    
 }
 
 void PluginProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
+    
     for (int i = 0; i < 2; i++)
     {
         mLowCutFilters[i]->reset();
         mHighCutFilters[i]->reset();
-    }
-    
-    
+    }            
     
     mCopyBuffer.clear();
-    
     mReverb->reset();
-    
     mMoogFilter->reset();
     mDelayLine1->reset();
     mDelayLine2->reset(); 
-    
-    
     mDucking.reset();
     mDuckingParallel.reset();
     mData.mEnvelopeFollower->reset();
     mData.mLfoModulator1->reset();
     mData.mLfoModulator2->reset();
-    
     mWetBuffer.clear();
-
-    
-    
     mChorus2->reset(); 
-    
-    
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -400,8 +383,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
         mWetBuffer.setSize(4, buffer.getNumSamples());
         mWetBuffer.clear();
         
-        jassert(buffer.getNumSamples() == mWetBuffer.getNumSamples()); // this is to alert if buffers still don't match
-        
+        jassert(buffer.getNumSamples() == mWetBuffer.getNumSamples()); // this is to alert if buffers still don't match     
     }
     
     
@@ -411,9 +393,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
     
     juce::ignoreUnused(midiMessages);
     
-    /*if you're not planning on writing to the data, you should always
-     use getReadPointer instead.*/
-
+    
     // to access read/write main Buffer
     float* bufferWriterPointer[2] = { buffer.getWritePointer (0), buffer.getWritePointer (1) } ;
     
@@ -438,8 +418,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
     //    // this code if your algorithm always overwrites all the output channels.
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
     {
-         buffer.clear (i, 0, buffer.getNumSamples());
-        
+         buffer.clear (i, 0, buffer.getNumSamples());    
     }
 
     
@@ -451,9 +430,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
     
     // InGain --------------------------------------------------------------------------------------------------
     for (int channel = 0; channel < totalNumInputChannels; channel++)
-    {
-        
-        
+    { 
         auto& inputGain = *parameters.getRawParameterValue(MFXParameterID[mFXParameter_InputGain]);
         mInputGain[channel]->process(bufferWriterPointer[channel],
                                      inputGain, numSamplesToRender);
@@ -470,7 +447,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
     
     
     for (auto& rmsLevel : rmsLevelsIn)
-        rmsLevel.skip(numSamplesToRender);
+         rmsLevel.skip(numSamplesToRender);
     
     rmsFifoIn.push(buffer);
     
@@ -483,7 +460,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
 
     
     
-    // Modulation
+    // Modulation----------------------------------------------------------------------------------------------------
     
     updateModulationTargetData();
     setEnvelopeFollowerParameters();
@@ -501,13 +478,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
     
     
     // Main Delay 1 ------------------------------------------------------------------------------------------------
-   
-
-    
-    
-   
-
-
+  
     for(int i = 0; i < buffer.getNumSamples(); i++)
     {
         setDelay1Parameters();
@@ -527,38 +498,27 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
     
     
     if (addDelay > 0.0f)
-    {
-        
-        
+    {      
         if (!parallelMode)
-        {
-            
-            
+        {       
             for(int i = 0; i < buffer.getNumSamples(); i++)
             {
                 setDelay2Parameters();
                 modulateDelay2Parameters(i);
                 mDelayLine2->process(wetBufferWriterPointer[0][i], wetBufferWriterPointer[1][i],
-                                     wetBufferWriterPointer[0][i], wetBufferWriterPointer[1][i]);
-                
+                                     wetBufferWriterPointer[0][i], wetBufferWriterPointer[1][i]);       
             }
-           
-            
         }
         else
         {
-            
             for(int i = 0; i < buffer.getNumSamples(); i++)
             {
                 setDelay2Parameters();
                 modulateDelay2Parameters(i);
                 mDelayLine2->process(bufferWriterPointer[0][i], bufferWriterPointer[1][i],
-                                     wetBufferWriterPointer[2][i], wetBufferWriterPointer[3][i]);
-             
-                
+                                     wetBufferWriterPointer[2][i], wetBufferWriterPointer[3][i]);       
             }
         }
-        
     }
     
     
@@ -624,9 +584,6 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
     if (!parallelMode)
     {
         procesDualFilterSerial();
-        
-       
-        
     }
     
     
@@ -726,20 +683,14 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
     
     if(allFX)
     {
-
         for (int i = 0; i < buffer.getNumSamples(); ++i)
         {
             setGlobalDryWetParameters(i);
             const auto& dry = mSmoothingGlobalDry.getNextValue();
             const auto& wet = mSmoothingGlobalWet.getNextValue();
             buffer.setSample(0, i, buffer.getSample(0, i) * dry + mWetBuffer.getSample(0, i) * wet );
-            buffer.setSample(1, i, buffer.getSample(1, i) * dry + mWetBuffer.getSample(1, i) * wet );
-           
+            buffer.setSample(1, i, buffer.getSample(1, i) * dry + mWetBuffer.getSample(1, i) * wet );  
         }
-        
-        
-        
-        
     }
     
     
@@ -757,17 +708,13 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
         if(allFX)
         {
             mBitCrusher->process(buffer); 
-            
-
         }
         else
         {
             constexpr int numChannels = 2;
             auto tempBuffer = juce::AudioBuffer<float>(mWetBuffer.getArrayOfWritePointers(), numChannels, mWetBuffer.getNumSamples());
             mBitCrusher->process(tempBuffer);
-        }
-        
-        
+        }   
     }
     
     if (allFX)
@@ -780,7 +727,6 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
             mMoogFilter->modulateParameters(i);
             mMoogFilter->process(bufferWriterPointer[0][i], 0);
             mMoogFilter->process(bufferWriterPointer[1][i], 1);
-
         }
     }
     
@@ -796,10 +742,8 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
             
             mMoogFilter->modulateParameters(i);
             mMoogFilter->process(wetBufferWriterPointer[0][i], 0);
-            mMoogFilter->process(wetBufferWriterPointer[1][i], 1);
-            
+            mMoogFilter->process(wetBufferWriterPointer[1][i], 1);    
         }
-        
     }
     
     
@@ -809,21 +753,17 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
     if (addChorus > 0.0f)
     {
         setChorusParameters();
-        
-    
+
         if(allFX)
         {
             mChorus2->process(buffer);
         }
         else
-        {
-           
-            constexpr int numChannels = 2;
-            
+        {  
+            constexpr int numChannels = 2;   
             auto tempBuffer = juce::AudioBuffer<float>(mWetBuffer.getArrayOfWritePointers(), numChannels, mWetBuffer.getNumSamples());
             mChorus2->process(tempBuffer);
         }
-        
     }
     
     
@@ -851,7 +791,6 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
             juce::dsp::AudioBlock<float> block { tempBuffer };
             mJPhasor.process (juce::dsp::ProcessContextReplacing<float> (block));
         }
-        
     }
     
     
@@ -901,11 +840,9 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
         {
             setGlobalDryWetParameters(i);
             const auto& dry = mSmoothingGlobalDry.getNextValue();
-            const auto& wet = mSmoothingGlobalWet.getNextValue();
-            
+            const auto& wet = mSmoothingGlobalWet.getNextValue();   
             buffer.setSample(0, i, buffer.getSample(0, i) * dry + mWetBuffer.getSample(0, i) * wet );
             buffer.setSample(1, i, buffer.getSample(1, i) * dry + mWetBuffer.getSample(1, i) * wet );
-            
         }
     }
     
@@ -947,12 +884,10 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
     // This protect plugin from audio boost in DAW if something goes wrong TODO: not sure about boost level 20.0f 
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        if (buffer.getMagnitude(channel, 0, buffer.getNumSamples()) > 20.0f) {
-            buffer.clear(channel, 0, buffer.getNumSamples());
-            
+        if (buffer.getMagnitude(channel, 0, buffer.getNumSamples()) > 20.0f) 
+        {
+            buffer.clear(channel, 0, buffer.getNumSamples());    
         }
-    
-    
     }
 
 
@@ -981,13 +916,9 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
             {
                  buffer.clear(channel, 0, buffer.getNumSamples());
             }
-
-
-
         }
-    
     }
-    // ------------------------------------------------------------------------------------------------------------------
+    
     
 
 }
@@ -1023,7 +954,6 @@ void PluginProcessor::getStateInformation (juce::MemoryBlock& destData)
     
     if (readUnlockedStatus()) 
     {
-
         juce::ValueTree params("Params");
 
         for (auto& param : getParameters())
@@ -1075,11 +1005,9 @@ void PluginProcessor::setStateInformation (const void* data, int sizeInBytes)
             params = preset.getChildWithName("LastPresetName");
 
             mPresetManager->setCurrentPresetName(params.getPropertyAsValue("presetname", nullptr).toString());
-
         }
 
         mPresetNameChangeEvent.sendActionMessage("Update");
-
     }
 }
 
@@ -2693,7 +2621,8 @@ float PluginProcessor::getRmsLevelIn(const int channel)
         processLevelValue(rmsLevelsIn[channel], Decibels::gainToDecibels(rmsCalculationBufferIn.getRMSLevel(channel, 0, rmsWindowSize)));
         return rmsLevelsIn[channel].getCurrentValue();
     }
-    else {
+    else 
+    {
         return 0.0f;
     }
 }
@@ -2710,7 +2639,8 @@ float PluginProcessor::getRmsLevelOut(const int channel)
         return rmsLevelsOut[channel].getCurrentValue();
     }
 
-    else {
+    else 
+    {
         return 0.0f;
     }
     
@@ -2729,6 +2659,7 @@ void PluginProcessor::processLevelValue(LinearSmoothedValue<float>& smoothedValu
             return;
         }
     }
+    
     smoothedValue.setCurrentAndTargetValue(value);
 }
 
@@ -2767,18 +2698,13 @@ void PluginProcessor::initializeDSP()
         mHighCutFilters[i] = std::make_unique<MFXSimpleFilter>();
     }
     
-    
     mReverb = std::make_unique<MFXReverb>(mData);
-    //mPhaser = std::make_unique<MFXPhaser>();
     mBitCrusher = std::make_unique<MFXBitCrusher>();
-    
     mMoogFilter = std::make_unique<MFXMoogFilter>(mData);
     mDelayLine1 = std::make_unique<MFXDelayLine>();
     mDelayLine2 = std::make_unique<MFXDelayLine>();
     mStereo = std::make_unique<MFXStereo>();
-    //mChorus = std::make_unique<ChorusFlanger<float>>();
     mChorus2 = std::make_unique <MFXChorus>();
-    
 }
 
 void PluginProcessor::getDawPlayHeadInfo()
@@ -2791,35 +2717,20 @@ void PluginProcessor::getDawPlayHeadInfo()
         AudioPlayHead::CurrentPositionInfo playposinfo; 
         /* details about the transport's
         position at the start of the current processing block - the first sample accuracy only. */
-        //playHead->getCurrentPosition(playposinfo);  was
         auto playinfo = playHead->getPosition();
         
-        
-        
         // we track Bpm from DAW and use that to set DelayTimesInSamples, based on note
-        //double beatPrSecond = playposinfo.bpm / 60.0;      was
         double beatPrSecond = *playinfo->getBpm() / 60.0;
         mSampleTimeOneBeat = getSampleRate() / beatPrSecond;
         
-        //mRelativePosition = playposinfo.ppqPosition; delete this?
-        //mBpm = playposinfo.bpm;  was
         mBpm = *playinfo->getBpm();
-        //mCurrentPosition = playposinfo.timeInSamples; delete this?
-        
-        
-        //mIsPlaying = playposinfo.isPlaying; was
+      
         mIsPlaying = playinfo->getIsPlaying();
         
-        
-        //mTimeInSamples = playposinfo.timeInSamples;  was
         mTimeInSamples = *playinfo->getTimeInSamples();
         
-        //mIsLooping = playposinfo.isLooping;  was
         mIsLooping = playinfo->getIsLooping();
-        
     }
-    
-    
 }
 
 
@@ -2854,21 +2765,13 @@ void PluginProcessor::setDelay1Parameters()
 
     
     mDelayLine1->setFadeParams(mFadeFrequencyDelay1->load(), mIsFadeModeDelay1->load());
-    
-    
- 
-    
     mDelayLine1->setDelayWideSampleTime(); // is also called in modulateDelay1Parameters
-    
     
 }
 
 
 void PluginProcessor::modulateDelay1Parameters(int processLoopIndex)
 {
-    
-    
-    
     auto modSumLeftTime = 0.0f;
     auto modSumRightTime = 0.0f;
     auto modSumLeftRightTime = 0.0f;
@@ -2977,10 +2880,7 @@ void PluginProcessor::modulateDelay1Parameters(int processLoopIndex)
     
     
     mDelayLine1->setDelayWideSampleTime();
-    mDelayLine1->setFeedbackGainSmooth();
-    
-   
-    
+    mDelayLine1->setFeedbackGainSmooth();  
 }
 
 
@@ -3295,20 +3195,15 @@ void PluginProcessor::setGlobalDryWetParameters(int processLoopIndex)
         
         auto modDry = modSumDry > 0.0f ? dry + ((2.0f - dry) * modSumDry) : dry + (dry * modSumDry);
         mGainMappedDry = jmap(modDry, 0.0f, 2.0f, -12.0f, 12.0f);
-        mGainMappedDry = Decibels::decibelsToGain(mGainMappedDry, -12.0f);
-        
+        mGainMappedDry = Decibels::decibelsToGain(mGainMappedDry, -12.0f);        
     }
     else
     {
         mGainMappedDry = jmap(dry, 0.0f, 2.0f, -12.0f, 12.0f);
         mGainMappedDry = Decibels::decibelsToGain(mGainMappedDry, -12.0f);
-        
     }
     
     mSmoothingGlobalDry.setTargetValue(mGainMappedDry);
-   
-    
-    
 }
 
 // Update FX params ================================================================================
@@ -3339,9 +3234,6 @@ void PluginProcessor::setChorusParameters()
             modSumWet +=  modulatorsWriterPointer[std::get<0>(set)][0] * std::get<2>(set);
     }
     
-    
-    
-    
     if (modSumWet != 0)
     {
         auto modWet = modSumWet > 0.0f ? dryWetChorus + ((1.0f - dryWetChorus) * modSumWet) : dryWetChorus + (dryWetChorus * modSumWet);
@@ -3358,14 +3250,11 @@ void PluginProcessor::setChorusParameters()
     mChorus2->setDepthParameter(modulationDepth.load());
     mChorus2->setStereoWidthParameter(centerDelay.load());
     mChorus2->setFeedbackGainParameter(feedback.load()); 
-    
 }
 
 
 void PluginProcessor::setBitcrusherParameters()
 {
-
-    
     // Modulated by block (reading phase locked lfo position, see setLFOParameters). Can I here any difference compared to by sample?
     
     float modSumWet = 0.0f;
@@ -3420,8 +3309,7 @@ void PluginProcessor::setBitcrusherParameters()
         const auto& resolutionMod = modSumBitDepth > 0.0f ? currentRes + ((16.0f - currentRes) * modSumBitDepth)
         : std::fmax( currentRes + (currentRes * modSumBitDepth), 2.0f);
         
-        mBitCrusher->setResolution(resolutionMod);
-        
+        mBitCrusher->setResolution(resolutionMod);       
     }
     
     else
@@ -3489,10 +3377,10 @@ void PluginProcessor::setPhaserParameters()
         auto modSumWet = 0.0f;
     
         float* modulatorsWriterPointer[5] = { mData.mModulatorOutput[LFO1].getWritePointer(0),
-                                          mData.mModulatorOutput[LFO2].getWritePointer(0),
-                                          mData.mModulatorOutput[EnvF].getWritePointer(0),
-                                          mData.mModulatorOutput[adsr].getWritePointer(0),
-                                          mData.mModulatorOutput[adsr2].getWritePointer(0) };
+                                              mData.mModulatorOutput[LFO2].getWritePointer(0),
+                                              mData.mModulatorOutput[EnvF].getWritePointer(0),
+                                              mData.mModulatorOutput[adsr].getWritePointer(0),
+                                              mData.mModulatorOutput[adsr2].getWritePointer(0) };
     
     
         for (auto set : mData.mModulationTargetData)
@@ -3541,8 +3429,6 @@ void PluginProcessor::setEnvelopeFollowerParameters()
 
     
     mData.mEnvelopeFollower->setThreshold(-60.0f);
-    /** Sets the ratio (must be higher or equal to 1) */
-    //mEnvelopeFollower.setRatio (sensitivity);
     
     /** Sets the attack time in milliseconds */
     mData.mEnvelopeFollower->setAttack (attack);
