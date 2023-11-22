@@ -363,9 +363,6 @@ bool PluginProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 
 void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
-
-    
-
     /*
      The maximumExpectedSamplesPerBlock value is a strong hint about the maximum
      number of samples that will be provided in each block. You may want to use
@@ -385,10 +382,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
         
         jassert(buffer.getNumSamples() == mWetBuffer.getNumSamples()); // this is to alert if buffers still don't match     
     }
-    
-    
-    
-    
+     
     juce::ScopedNoDenormals noDenormals;
     
     juce::ignoreUnused(midiMessages);
@@ -401,9 +395,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
     float* wetBufferWriterPointer[4] = { mWetBuffer.getWritePointer (0), mWetBuffer.getWritePointer (1),
                                          mWetBuffer.getWritePointer (2), mWetBuffer.getWritePointer (3) };
     
-    
-    
-    
+      
     auto numSamplesToRender = buffer.getNumSamples();
     
     
@@ -423,10 +415,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
 
     
     
-    
-    
-    
-    
+   
     
     // InGain --------------------------------------------------------------------------------------------------
     for (int channel = 0; channel < totalNumInputChannels; channel++)
@@ -454,7 +443,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
     
     
     // Get playhead info ----------------------------------------------------------------------------------------
-    getDawPlayHeadInfo();
+    setDawPlayHeadInfo();
     
     
 
@@ -2707,7 +2696,7 @@ void PluginProcessor::initializeDSP()
     mChorus2 = std::make_unique <MFXChorus>();
 }
 
-void PluginProcessor::getDawPlayHeadInfo()
+void PluginProcessor::setDawPlayHeadInfo()
 {
     // This only gives info about start of audio blok!
     

@@ -491,7 +491,7 @@ private:
     
     
     
-    void getDawPlayHeadInfo();
+    void setDawPlayHeadInfo();
     
     void setDelay1Parameters();
     
