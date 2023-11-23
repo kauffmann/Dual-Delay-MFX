@@ -1002,7 +1002,9 @@ void PluginProcessor::setStateInformation (const void* data, int sizeInBytes)
 
 
     
-    
+// I really wish that I had orgainized order better from the start. A hard reminder - PLAN your work. But not always easy as eksperimenting and changes/new functions are added to project during development.
+// Refactor order will not affect APVTS, it will work just fine. It is time consuming, but if time I will refactor this.
+
 AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLayout()
 {
     

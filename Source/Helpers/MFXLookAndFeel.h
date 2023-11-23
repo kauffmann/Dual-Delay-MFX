@@ -5,7 +5,6 @@
     
     Author:  Michael Kauffmann
  
-    Contain lots of comment code. I'll keep it for now.
 
   ==============================================================================
 */

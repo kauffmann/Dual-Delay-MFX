@@ -5,10 +5,7 @@
     
     Author:  Michael Kauffmann
  
-    I really wish that I had orgainized /naming better from the start.
-    But it is what it is. Class is not for reuse, and since I'm the only one to maintain and extend it should be fine.
-    In future projects I can use a unordered_map. I keep MFXParameter enum for unique key(int) and then use different map<int,String> containing ID, labels....
-    Then order doesn't matter. Easier to maintain adding new parameters.  
+   
 
   ==============================================================================
 */
