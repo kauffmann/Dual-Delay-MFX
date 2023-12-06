@@ -47,8 +47,7 @@ public:
             noise.add((r.nextFloat() - .5)*2);
         }
         
-        return noise;
-        
+        return noise;   
     }
     
     

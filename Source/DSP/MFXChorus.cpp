@@ -5,7 +5,10 @@
     
     Author:  Michael Kauffmann
 
-    Add chorus to incoming audio. 
+    Add chorus to incoming audio. To use this class:
+    
+    prepare must be called when initialize instance, DAW also call this if samplerate or buffer size change.
+    Pass a audiobuffer& reference to proces(). 
 
   ==============================================================================
 */
@@ -14,10 +17,7 @@
 
 MFXChorus::MFXChorus()
 {
-    
-
-
-    mLfoChorus1.initialise([](double x)
+    mLfoChorus1.initialise( [] (double x)
         {
             x = x / juce::MathConstants<double>::pi;
             return  juce::jmin(2.0 + 2.0 * x, std::abs((x - 0.5) * 2.0) - 1.0); 
@@ -32,12 +32,7 @@ MFXChorus::MFXChorus()
 
         },128 );
 
-
-    
-
-    mStereoWidth = std::make_unique<MFXStereo>();
-
-    
+    mStereoWidth = std::make_unique<MFXStereo>();    
 }
 
 MFXChorus::~MFXChorus(){}
@@ -52,20 +47,10 @@ void MFXChorus::prepare(const juce::dsp::ProcessSpec& spec)
     mDelayCLine2 = std::make_unique<dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd>>((spec.sampleRate * 0.015) + (mDeltaSampleTime * 2));
     mDelayCLine2->prepare(spec);
 
-   /* mDelayCLine3 = std::make_unique<dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd>>(spec.sampleRate);
-    mDelayCLine3->prepare(spec);*/
-    
-    
-    
-
-    
     mLfoChorus1.prepare(spec);
     mLfoChorus2.prepare(spec);
-    //mLfoChorus3.prepare(spec);
-
-    mCurrentSampleRate = spec.sampleRate;
-
     
+    mCurrentSampleRate = spec.sampleRate;
 }
 
 void MFXChorus::process(juce::AudioBuffer<float>& buffer) noexcept
@@ -77,8 +62,6 @@ void MFXChorus::process(juce::AudioBuffer<float>& buffer) noexcept
     float delaytimeSampleOut1Ch1 = 0.0f;
     float delaytimeSampleOut2Ch0 = 0.0f;
     float delaytimeSampleOut2Ch1 = 0.0f;
-    /*float delaytimeSampleOut3Ch0 = 0.0f;
-    float delaytimeSampleOut3Ch1 = 0.0f;*/
     float delaytimeSampleOutSumCh0 = 0.0f;
     float delaytimeSampleOutSumCh1 = 0.0f;
 
@@ -91,18 +74,14 @@ void MFXChorus::process(juce::AudioBuffer<float>& buffer) noexcept
     {
         double readhead1 = getReadHead(mDelayLine1);
         double readhead2 = getReadHead(mDelayLine2);
-        //float readhead3 = getReadHead(mDelayLine3);
         
-
         for (size_t channel = 0;  channel < 2;  channel++)
         {
-            
             if(channel == 0)
             {
                 writeSampleToDelayLine(bufferWriter[channel][i], channel, feedbackValue1Ch0, feedbackValue2Ch0);
                 delaytimeSampleOut1Ch0 = readFromDelayLine(readhead1, channel, mDelayLine1);
                 delaytimeSampleOut2Ch0 = readFromDelayLine(readhead2, channel, mDelayLine2);
-                //delaytimeSampleOut3Ch0 = readFromDelayLine(readhead3, channel, mDelayLine3);
             }
 
             if (channel == 1)
@@ -110,8 +89,6 @@ void MFXChorus::process(juce::AudioBuffer<float>& buffer) noexcept
                 writeSampleToDelayLine(bufferWriter[channel][i], channel, feedbackValue1Ch1, feedbackValue2Ch1);
                 delaytimeSampleOut1Ch1 = readFromDelayLine(readhead1, channel, mDelayLine1);
                 delaytimeSampleOut2Ch1 = readFromDelayLine(readhead2, channel, mDelayLine2);
-                //delaytimeSampleOut3Ch1 = readFromDelayLine(readhead3, channel, mDelayLine3);
-
             }
                 
         }
@@ -123,11 +100,9 @@ void MFXChorus::process(juce::AudioBuffer<float>& buffer) noexcept
         feedbackValue2Ch1 = tanh_clip(delaytimeSampleOut2Ch1 * mFeedBackGainParameter);
 
 
-        // Samples from all delaylines are summed      Change / 2 ?
-        delaytimeSampleOutSumCh0 = (delaytimeSampleOut1Ch0 + delaytimeSampleOut2Ch0); // +delaytimeSampleOut3Ch0;
-        delaytimeSampleOutSumCh1 = (delaytimeSampleOut1Ch1 + delaytimeSampleOut2Ch1); // + delaytimeSampleOut3Ch0;
-        
-        
+        // Samples from all delaylines are summed
+        delaytimeSampleOutSumCh0 = (delaytimeSampleOut1Ch0 + delaytimeSampleOut2Ch0); 
+        delaytimeSampleOutSumCh1 = (delaytimeSampleOut1Ch1 + delaytimeSampleOut2Ch1); 
         
         mStereoWidth->processWidth(delaytimeSampleOutSumCh0, delaytimeSampleOutSumCh1);
 
@@ -146,15 +121,12 @@ void MFXChorus::reset() noexcept
 
     if (mDelayCLine2 != nullptr)
         mDelayCLine2->reset();
-    
-    //mDelayCLine3->reset();
 }
 
 void MFXChorus::writeSampleToDelayLine(float& sample, int channel, float& feedbackValue1, float& feedbackValue2)
 {
     mDelayCLine1->pushSample(channel, sample + feedbackValue1);
     mDelayCLine2->pushSample(channel, sample + feedbackValue2);
-    //mDelayCLine3->pushSample(channel, sample);
 }
 
 
@@ -175,12 +147,7 @@ float MFXChorus::readFromDelayLine(double readSampleTimeIndex, int channel, Dela
         else
             return mDelayCLine2->popSample(channel, readSampleTimeIndex);
         break;
-    //case mDelayLine3:
-    //    if (channel == 0)
-    //        return mDelayCLine3->popSample(channel, readSampleTimeIndex);
-    //    else
-    //        return mDelayCLine3->popSample(channel, readSampleTimeIndex + 25.0f); // add sample time to get stereo 
-    //    break;
+  
     default: jassertfalse; // should not be here
         return 0.02f;
         
@@ -216,15 +183,7 @@ double MFXChorus::getReadHead(DelayLine lineToFeedLFO) noexcept
         return readHead_2;
     }
         break;
-    //case mDelayLine3:
-    //{
-    //    auto lfoOut3 = mLfoChorus3.processSample(0.0f) * mDepthParameter;
-
-    //    // get Time in samples. Time sweeps whithin 5 - 15ms.
-    //    float readHead_3 = jmap<float>(lfoOut3, -1.0f, 1.0f, 0.005f, 0.015) * mCurrentSampleRate;
-    //    return readHead_3;
-    //}
-    //    break;
+    
     default: jassertfalse; // should not be here
         return 0.0;
         break;

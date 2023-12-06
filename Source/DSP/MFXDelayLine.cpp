@@ -5,6 +5,17 @@
     
     Author:  Michael Kauffmann
 
+    To use this class:
+    PrepareToProcess must be called when initialize and whenever samplerate or buffer size change in DAW.
+    In PluginProcesser::procesblok() loop audiobuffer calling process() passing a bufferWriterPointer to unprocessed audiobuffer and another (wet)audiobuffer to put processed audio samples.
+    You will need two audiobuffers, the one recieved from DAW(unprocessed audio) and one you create to hold processd audio (wet).
+    In processBlok you must add (wet)audiobuffer samples to unprocessed audiobuffer.
+
+
+    Proces of delay left and right channel are basically the same. 
+    Consider refactor to one function that takes left or right specific parameters as input. 
+    It keeps code more simple to read and maintain and also more robust.
+
   ==============================================================================
 */
 
@@ -50,10 +61,6 @@ void MFXDelayLine::prepareToProcess(const juce::dsp::ProcessSpec& spec)
 void MFXDelayLine::process(float& leftCh, float& rightCh,
                            float& leftWetCh, float& rightWetCh)
 {
-   
-    
-
-    
     // Experiment: Linear Fade sync. unlike LFO. Does this assure perfect sync fade values ? -------------------------------------------------------------------
     
      mCountSamples++;
@@ -93,8 +100,6 @@ void MFXDelayLine::process(float& leftCh, float& rightCh,
     //Process and remap LFO output. 1: 0 - 1(abs) 2: 1 - 0 (abs value)
   
     double lfoOutputAbs = std::fabs(mLFO.processSample(0.0)); 
-   
-    
     double lfoOutputAbsReversed = 0.9999999999 - lfoOutputAbs;
 
     
@@ -159,9 +164,7 @@ void MFXDelayLine::process(float& leftCh, float& rightCh,
                 
             if (time > mDelayLine->getMaximumDelayInSamples())
                 time = mDelayLine->getMaximumDelayInSamples();
-                
-           
-                
+                    
             delayed_left = mDelayLine->popSample(0, time);
         }
         
@@ -181,15 +184,11 @@ void MFXDelayLine::process(float& leftCh, float& rightCh,
 
         if (mIsFade == 1.0f) 
         {
-           
             double time = juce::jmax(juce::jmin((mLeftTime * (mSampleRate * 4.0)) - wideInSampleTimeSmoothed, mSampleRate * 4.0), 0.0);
             
             if (time > mDelayLine->getMaximumDelayInSamples())
                 time = mDelayLine->getMaximumDelayInSamples();
             
-            
-            
-
             delayed_left =  readFadeValue(time, lfoOutputAbs, lfoOutputAbsReversed, mFadeLeft); 
             
         }
@@ -200,10 +199,7 @@ void MFXDelayLine::process(float& leftCh, float& rightCh,
             if (time > mDelayLine->getMaximumDelayInSamples())
                 time = mDelayLine->getMaximumDelayInSamples();
 
-            
-            
             delayed_left = mDelayLine->popSample(0,time);
-           
         }
             
         
@@ -230,13 +226,10 @@ void MFXDelayLine::process(float& leftCh, float& rightCh,
         
         if(valueToIndex == 0)
             valueToIndex = 1;
-        
-        
        
         if (mIsFade == 1.0f)
         { 
-            double time = sync(valueToIndex, mTimeModeRight,
-                                                     mSampleTimeOneBeat  + wideInSampleTimeSmoothed); 
+            double time = sync(valueToIndex, mTimeModeRight, mSampleTimeOneBeat  + wideInSampleTimeSmoothed); 
 
             if (time > mDelayLine->getMaximumDelayInSamples())
                 time = mDelayLine->getMaximumDelayInSamples();
@@ -248,8 +241,7 @@ void MFXDelayLine::process(float& leftCh, float& rightCh,
         else
         {
 
-            double time = smoothFilter.processSample(1, sync(valueToIndex, mTimeModeRight,
-                                              mSampleTimeOneBeat + wideInSampleTimeSmoothed ));
+            double time = smoothFilter.processSample(1, sync(valueToIndex, mTimeModeRight, mSampleTimeOneBeat + wideInSampleTimeSmoothed ));
 
             if (time > mDelayLine->getMaximumDelayInSamples())
                 time = mDelayLine->getMaximumDelayInSamples();
@@ -288,11 +280,8 @@ void MFXDelayLine::process(float& leftCh, float& rightCh,
 
         else
         {
-
-
             // sampletime to read behind dry signal. Do max/min to avoid negative values.
-            double time = smoothFilter.processSample(1,
-                                              juce::jmax(juce::jmin((mRightTime * (mSampleRate * 4.0)) + wideInSampleTimeSmoothed, mSampleRate * 4.0), 0.0));
+            double time = smoothFilter.processSample(1,juce::jmax(juce::jmin((mRightTime * (mSampleRate * 4.0)) + wideInSampleTimeSmoothed, mSampleRate * 4.0), 0.0));
 
             if (time > mDelayLine->getMaximumDelayInSamples())
                 time = mDelayLine->getMaximumDelayInSamples();

@@ -21,8 +21,7 @@
 enum DelayLine
 {
     mDelayLine1 = 0,
-    mDelayLine2,
-    mDelayLine3
+    mDelayLine2
 };
 
 class MFXChorus
@@ -78,10 +77,7 @@ public:
     inline void setRateParameter(const float& rate) noexcept
     {
         mLfoChorus1.setFrequency(rate);
-
         mLfoChorus2.setFrequency(rate * 3.1f);
-
-        //mLfoChorus3.setFrequency(rate * 3.0f);   
     }
     
 
@@ -96,7 +92,6 @@ public:
     inline void setFeedbackGainParameter(const float& feedbackGain) noexcept
     {
         mFeedBackGainParameter = feedbackGain;
-
     }
 
     
@@ -110,18 +105,12 @@ private:
     // This is where audio data is stored from buffer. 
     std::unique_ptr<juce::dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> > mDelayCLine1;
     std::unique_ptr<juce::dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> > mDelayCLine2;
-    //std::unique_ptr<juce::dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> > mDelayCLine3;
 
-    
-    
-    
-
-   
    
     // LFO data
     juce::dsp::Oscillator<double> mLfoChorus1;
     juce::dsp::Oscillator<double> mLfoChorus2;
-    juce::dsp::Oscillator<double> mLfoChorus3;
+    
     
 
 
@@ -139,9 +128,6 @@ private:
     
     float mStereoAmountParameter{ 0.0f };
 
-    
-
-   
     std::unique_ptr<MFXStereo> mStereoWidth;
 
     // add sample time difference to to one of the channels to get stereo 

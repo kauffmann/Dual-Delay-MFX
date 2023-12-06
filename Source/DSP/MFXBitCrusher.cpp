@@ -25,11 +25,7 @@ MFXBitCrusher::~MFXBitCrusher(){}
 //==============================================================================
 void MFXBitCrusher::prepareToPlay (const juce::dsp::ProcessSpec& spec)
 {
-    
     mSampleRate = spec.sampleRate;
-    
-    
-    
 }
 
 void MFXBitCrusher::reset()
@@ -41,11 +37,7 @@ void MFXBitCrusher::reset()
 
 
 void MFXBitCrusher::process (AudioBuffer<float>& inBuffer)
-{
-   
-    
-    
-    
+{   
     int numSamples = inBuffer.getNumSamples();
     
     float noiseAmt = -120 + 120*(mNoise /100); // dB
@@ -98,9 +90,6 @@ void MFXBitCrusher::process (AudioBuffer<float>& inBuffer)
         
         for (int i=0; i < numSamples; i++)
         {
-            
-            
-            
             float bitDepth = mResolution;
             const int& rateDivide = mDownsample;
             
@@ -108,8 +97,6 @@ void MFXBitCrusher::process (AudioBuffer<float>& inBuffer)
             
             int val = roundToInt(data[i] * totalQLevels);
             data[i] = val / totalQLevels;
-            
-            
             
             // this is samplerate
             if (rateDivide > 1)
@@ -119,8 +106,6 @@ void MFXBitCrusher::process (AudioBuffer<float>& inBuffer)
             
         }
     }
-    
-
     
     // Mix
     FloatVectorOperations::multiply(currentOutputBuffer.getWritePointer(0), mDryWetMix, currentOutputBuffer.getNumSamples());
@@ -133,10 +118,6 @@ void MFXBitCrusher::process (AudioBuffer<float>& inBuffer)
     {
         inBuffer.addFrom(chan, 0, currentOutputBuffer, chan, 0, currentOutputBuffer.getNumSamples());
     }
-    
-    
-    
-    
 }
 
 

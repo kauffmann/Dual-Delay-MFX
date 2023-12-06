@@ -7,7 +7,7 @@
  
     To use global variables, #include "MFXUsedParametersTest.h"
  
-    I really wish that I had orgainized /naming better from the start. A hard reminder - PLAN your work. But not always easy as changes/new functions are added to project during development.
+    I really wish that I had organized/naming better from the start. A hard reminder - PLAN your work. But not always easy as changes/new functions are added to project during development.
     But it is what it is. Class is not for reuse, and since I'm the only one to maintain and extend it should be fine. But never again this mess!
     If I change order in enum all arrays (ID,Label, DefaultValue...) must match this order. But as long as this order match there will be no problems in my code elsewhere.
     It is time consuming and risk of error to do this, but can be done.

@@ -22,6 +22,7 @@ void MFXMoogFilter::prepareToProces (const juce::dsp::ProcessSpec& spec) noexcep
 {
     mFilter.prepare (spec);
     mFilter.setEnabled(true);
+    mIsPrepared = true;
 }
 
 
@@ -29,8 +30,13 @@ void MFXMoogFilter::prepareToProces (const juce::dsp::ProcessSpec& spec) noexcep
 
 void MFXMoogFilter::process(float& sample, const int& channel ) noexcept
 {
-    mFilter.updateSmoothers();
-    sample = mFilter.processSample(sample, channel);
+    if (mIsPrepared)
+    {
+        mFilter.updateSmoothers();
+        sample = mFilter.processSample(sample, channel);
+    }
+
+    jassert(mIsPrepared);
 }
 
 

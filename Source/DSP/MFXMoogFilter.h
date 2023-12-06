@@ -59,7 +59,7 @@ private:
     
     float mCurrentCutoffValue{10000.0f}, mCurrentResonansValue{0.0f}, mCurrentDriveValue{1.0f};
     int mCurrentTypeValue{0};
-    //bool isPrepared { false };
+    bool mIsPrepared { false };
     
 
     

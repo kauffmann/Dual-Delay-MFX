@@ -16,22 +16,12 @@ MFXReverb::MFXReverb(ModulationData& data): mData(data){}
 MFXReverb::~MFXReverb(){}
 
 
-
-
-
-
-
-
 void MFXReverb::prepareToProces (const double sampleRate, int samplesPerBlock, int totalNumOutputChannels)
 {
     juce::dsp::ProcessSpec spec;
     spec.maximumBlockSize = samplesPerBlock;
     spec.sampleRate = sampleRate;
     spec.numChannels = totalNumOutputChannels;
-    
-    
-    
-    
     reverb.reset();
     reverb.setSampleRate(sampleRate);
 }
