@@ -17,9 +17,11 @@
 const juce::String MFXParameterID[] =
 {
     "inputgain",
+    /* Chorus ----------*/
     "chorusrate",
     "chorusdepth",
     "choruswetdry",
+    /* Delay 2 ---------*/
     "delaytime", // delay 2
     "delayfeedback",
     "delaywetdry",   
@@ -30,19 +32,22 @@ const juce::String MFXParameterID[] =
     "delay2_link_feedback",
     "delay2_smoothing",
     "delay2_pingpong", // delay 2 end
+    
     "fxtype",
     "outputgain",
+    /* Reverb ---------*/
     "reverbsize",
     "reverbwidth",
     "reverbdamping",
     "reverbdry",
     "reverbwet",
     "reverbfreeze",
-    /* Moogy Filter */
+    /* Moogy Filter ---*/
     "filtercutoff",
     "filterresonans",
     "filterDrive",
     "filtertype",
+    /* Delay 1 ---------*/
     "dlineleftdelaytime",  // Delay 1
     "dlinerightdelaytime",
     "dlineleftfeedback",
@@ -50,50 +55,59 @@ const juce::String MFXParameterID[] =
     "dlinelink",
     "dlinefeedbacklink",
     "dlinesmoothing",
-    //"modlforate",
-    //"modlfodepth",
     "delaytimemode1",
     "delaytimemode2",
+
     "chorus_center_delay",
     "chorus_feedback",
+    /* Phaser -----------*/
     "phaser_rate",
     "phaser_depth",
     "phaser_centerfrequency",
     "phaser_feedback",
     "phaser_drywet",
+
     "delaytimemode3", // Main Right
     "pingpong",
+    /* Bit Chrusher ----*/
     "noise_amount",
     "rate_redux",
     "bit_redux",
     "bit_drywet",
-    //"delayline_morph_left_to_right",
-    //"delayline_morph_right_to_left",
+  
     "all_fx_processing",
     "parallel_mode",
+    /* Ducking ---------*/
     "ducking_threshold",
     "ducking_amount",
     "ducking_attack",
     "ducking_release",
+
     "main_delay_wide",
+    
     "global_wet",
     "global_dry",
+    
     "delay_wide",
+    
     "ducking_mode",
     "fx_level_mode",
     "mix_mode",
+    /* Shaper LPF/HPF ----*/
     "lowcut_delay1",
     "lowcut_delay2",
     "highcut_delay1",
     "highcut_delay2",
+
     "cut_mode",
     "stereo_width",
     "mid_side_mode",
+    /* Ducking -----------*/
     "ducking_threshold_parallel",
     "ducking_amount_parallel",
     "ducking_attack_parallel",
     "ducking_release_parallel",
-    /* Advanced EnvF */
+    /* Advanced EnvF -----*/
     "advanced_envf_sensitivity",
     "advanced_envf_attack",
     "advanced_envf_release",
@@ -101,7 +115,7 @@ const juce::String MFXParameterID[] =
     "advanced_envf_target1_amount",
     "advanced_envf_target2",
     "advanced_envf_target2_amount",
-    /* Advanced LFO1 */
+    /* Advanced LFO1 ------*/
     "advanced_lfo1_sync",
     "advanced_lfo1_rate",
     "advanced_lfo1_note",
@@ -110,7 +124,7 @@ const juce::String MFXParameterID[] =
     "advanced_lfo1_target1_amount",
     "advanced_lfo1_target2",
     "advanced_lfo1_target2_amount",
-    /* Advanced LFO2 */
+    /* Advanced LFO2 -------*/
     "advanced_lfo2_sync",
     "advanced_lfo2_rate",
     "advanced_lfo2_note",
@@ -119,7 +133,7 @@ const juce::String MFXParameterID[] =
     "advanced_lfo2_target1_amount",
     "advanced_lfo2_target2",
     "advanced_lfo2_target2_amount",
-    /*-------------Fade Slider and related------*/
+    /* Fade Slider and related */
     "fade_frequency_delay1",
     "fade_is_fade_delay1",
     
@@ -297,6 +311,7 @@ const juce::String MFXParameterLabel[] =
     
 };
 
+// To DO: refactor this out and put values directly in APVTS parameter init (pluginporcessor.cpp). 
 float MFXParameterDefaultValue[] =
 {
     0.0f, //  inGain

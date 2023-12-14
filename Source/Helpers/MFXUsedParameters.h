@@ -10,14 +10,9 @@
     I really wish that I had organized/naming better from the start. A hard reminder - PLAN your work. But not always easy as changes/new functions are added to project during development.
     But it is what it is. Class is not for reuse, and since I'm the only one to maintain and extend it should be fine. But never again this mess!
     If I change order in enum all arrays (ID,Label, DefaultValue...) must match this order. But as long as this order match there will be no problems in my code elsewhere.
-    It is time consuming and risk of error to do this, but can be done.
+    It is time consuming and risk of error to do this, but can be done. TODO::Consider refactor this. I hate look at this.
 
-    In future projects I can use a unordered_map. I keep MFXParameter enum for unique key(int) and then use different map<int,String>
-    containing ID, labels....all share same unique key. E.g. mapID(mFXParameter_ChorusRate, "name"), mapLabel(mFXParameter_ChorusRate, "label"). Search/access are O(1).
-    Then order doesn't matter. Easier to maintain adding new parameters. If I want to change key names in enum I can rename this here and all reference will resonate change.
-    And I can simply re-order the keys here, maps will still work. 
-    
-    TODO::Consider refactor this. I hate look at this.
+    Lesson learned: You code, refactor if necessary and then test your work. Not refactor leads to hard read/maintan later on.
 
     Reason having arrays that can be accessed by enum is to eliminate errors. You should not write the name of the ID or label... each time you need to use it in code - high risk of error.
     In this project I use ID, labels.... multiple times, so this is a great solution.  
@@ -31,7 +26,7 @@
 
 #include <JuceHeader.h>
 
-    // This is used to unified access index in arrays MFXParameterID,Label...
+// This is used to unified access index in arrays MFXParameterID,Label..from multiple locations. Using this makes code easier to read/maintain 
 enum MFXParameter
 {
     mFXParameter_InputGain = 0,
