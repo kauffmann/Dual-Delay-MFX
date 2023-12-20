@@ -176,20 +176,20 @@ void MFXFxPanel::paint(Graphics& g)
         // Should have been in param init lambda (PluginProcessor::createParameterLayout()) but valueText was not updated correct when timeMode changed.
         if (slider->getName() == "Time Left")
         {
-            float TimeModeIndexDelay = mStyle == mFxPanelStyle_Delay1 ? mProcessor->parameters.getRawParameterValue( MFXParameterID[mFXParameter_DelayTimeMode2])->load()
-            : mProcessor->parameters.getRawParameterValue( MFXParameterID[mFXParameter_DelayTimeMode1])->load();
+            float TimeModeIndexDelay = mStyle == mFxPanelStyle_Delay1 ? mProcessor->parameters.getRawParameterValue( MFXParameterID[mFXParameter_Delay1TimeModeLeft])->load()
+            : mProcessor->parameters.getRawParameterValue( MFXParameterID[mFXParameter_Delay2TimeModeLeft])->load();
             float value = slider->getValue();
             
             String valueToText = (TimeModeIndexDelay > 0)
             ? setValueToNoteText(value, TimeModeIndexDelay)
             : String((value * 4000),1) + setValueToNoteText(value,TimeModeIndexDelay);
             
-            mStyle == mFxPanelStyle_Delay1 ? mProcessor->getAccessToUIPersistentData().mParameterValueText[mFXParameter_Delay1LeftDelayTime] = valueToText
-            : mProcessor->getAccessToUIPersistentData().mParameterValueText[mFXParameter_DelayTime] = valueToText;
+            mStyle == mFxPanelStyle_Delay1 ? mProcessor->getAccessToUIPersistentData().mParameterValueText[mFXParameter_Delay1TimeLeft] = valueToText
+            : mProcessor->getAccessToUIPersistentData().mParameterValueText[mFXParameter_Delay2TimeLeft] = valueToText;
         }
         else if (slider->getName() == "Time Right")
         {
-            float TimeModeIndexDelay = mStyle == mFxPanelStyle_Delay1 ? mProcessor->parameters.getRawParameterValue( MFXParameterID[mFXParameter_DelayTimeMode3])->load()
+            float TimeModeIndexDelay = mStyle == mFxPanelStyle_Delay1 ? mProcessor->parameters.getRawParameterValue( MFXParameterID[mFXParameter_Delay1TimeModeRight])->load()
             : mProcessor->parameters.getRawParameterValue( MFXParameterID[mFXParameter_Delay2TimeModeRight])->load();
             float value = slider->getValue();
             
@@ -197,7 +197,7 @@ void MFXFxPanel::paint(Graphics& g)
             ? setValueToNoteText(value, TimeModeIndexDelay)
             : String((value * 4000),1) + setValueToNoteText(value,TimeModeIndexDelay);
             
-            mStyle == mFxPanelStyle_Delay1 ? mProcessor->getAccessToUIPersistentData().mParameterValueText[mFXParameter_Delay1RightDelayTime] = valueToText
+            mStyle == mFxPanelStyle_Delay1 ? mProcessor->getAccessToUIPersistentData().mParameterValueText[mFXParameter_Delay1TimeRight] = valueToText
             : mProcessor->getAccessToUIPersistentData().mParameterValueText[mFXParameter_Delay2TimeRight] = valueToText;
         }
     
@@ -330,9 +330,9 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             const auto& image_TimeLink2Off =  ImageCache::getFromMemory(BinaryData::New_link_off_org__2_png, BinaryData::New_link_off_org__2_pngSize);
             const auto& image_TimeLink2On =  ImageCache::getFromMemory(BinaryData::New_link_on_org2_org_2_png, BinaryData::New_link_on_org2_org_2_pngSize);
             MFXParameterButton* timeLinkD2 =
-            new MFXParameterButton(mProcessor->parameters, MFXParameterID[mFXParameter_Delay2Link],
-                                   MFXParameterLabel[mFXParameter_Delay2Link],
-                                   image_TimeLink2Off, image_TimeLink2On, mProcessor, mFXParameter_Delay2Link);
+            new MFXParameterButton(mProcessor->parameters, MFXParameterID[mFXParameter_Delay2LinkTime],
+                                   MFXParameterLabel[mFXParameter_Delay2LinkTime],
+                                   image_TimeLink2Off, image_TimeLink2On, mProcessor, mFXParameter_Delay2LinkTime);
             timeLinkD2->setBounds(146, 132, 45, 45);
             
             
@@ -370,9 +370,9 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             
             
             MFXParameterSlider* timeLeftD2 =
-            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_DelayTime],
-                                   MFXParameterLabel[mFXParameter_DelayTime],
-                                   mFXParameter_DelayTime, mProcessor);
+            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay2TimeLeft],
+                                   MFXParameterLabel[mFXParameter_Delay2TimeLeft],
+                                   mFXParameter_Delay2TimeLeft, mProcessor);
             timeLeftD2->setBounds(x, y, slider_size, slider_size);
             
             
@@ -380,12 +380,12 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             addAndMakeVisible(timeLeftD2);
             mSliders.add(timeLeftD2);
             
-            mDelayTimeModeLeft = std::make_unique<MFXParameterComboBox>( mProcessor->parameters, MFXParameterID[mFXParameter_DelayTimeMode1], mProcessor);
+            mDelayTimeModeLeft = std::make_unique<MFXParameterComboBox>( mProcessor->parameters, MFXParameterID[mFXParameter_Delay2TimeModeLeft], mProcessor);
             
             
-            mDelayTimeModeLeft->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DelayTimeMode1])->getAllValueStrings() ,1);
+            mDelayTimeModeLeft->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2TimeModeLeft])->getAllValueStrings() ,1);
             
-            auto modeValue = mProcessor->parameters.getRawParameterValue(MFXParameterID[mFXParameter_DelayTimeMode1]);
+            auto modeValue = mProcessor->parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2TimeModeLeft]);
             mDelayTimeModeLeft->setSelectedItemIndex(modeValue->load());
             
             int xTimeCombo = x + (slider_size);
@@ -404,9 +404,9 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             
             
             MFXParameterSlider* feedbackLeftD2 =
-            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_DelayFeedback],
-                                   MFXParameterLabel[mFXParameter_DelayFeedback],
-                                   mFXParameter_DelayFeedback, mProcessor);
+            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay2LeftFeedback],
+                                   MFXParameterLabel[mFXParameter_Delay2LeftFeedback],
+                                   mFXParameter_Delay2LeftFeedback, mProcessor);
             feedbackLeftD2->setBounds(x, y, slider_size, slider_size);
             
             
@@ -415,9 +415,9 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             x = x + (slider_size * 2.0);
             
             MFXParameterSlider* offsetD2 =
-            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay_Wide],
-                                   MFXParameterLabel[mFXParameter_Delay_Wide],
-                                   mFXParameter_Delay_Wide, mProcessor);
+            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay2_Offset],
+                                   MFXParameterLabel[mFXParameter_Delay2_Offset],
+                                   mFXParameter_Delay2_Offset, mProcessor);
             offsetD2->setBounds(x, y, slider_size, slider_size);
             addAndMakeVisible(offsetD2);
             mSliders.add(offsetD2);
@@ -486,9 +486,9 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
 
             if (mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_IsFadeMode_Delay2])->getValue() == 0.0f)
             {
-                MFXParameterSlider* smoothingD2 = new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay2Smoothing],
-                                                                         MFXParameterLabel[mFXParameter_Delay2Smoothing],
-                                                                         mFXParameter_Delay2Smoothing, mProcessor);
+                MFXParameterSlider* smoothingD2 = new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay2Repitch],
+                                                                         MFXParameterLabel[mFXParameter_Delay2Repitch],
+                                                                         mFXParameter_Delay2Repitch, mProcessor);
                 smoothingD2->setBounds(x, y, slider_size, slider_size);
                 addAndMakeVisible(smoothingD2);
                 mSliders.add(smoothingD2);
@@ -582,9 +582,9 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             y = (getHeight() * 0.9) - (slider_size);
             
             MFXParameterSlider* centerDelay =
-            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_ChorusCenterDelay],
-                                   MFXParameterLabel[mFXParameter_ChorusCenterDelay],
-                                   mFXParameter_ChorusCenterDelay, mProcessor);
+            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_ChorusWidth],
+                                   MFXParameterLabel[mFXParameter_ChorusWidth],
+                                   mFXParameter_ChorusWidth, mProcessor);
             centerDelay->setBounds(x, y, slider_size, slider_size);
             addAndMakeVisible(centerDelay);
             mSliders.add(centerDelay);
@@ -943,32 +943,32 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
                
                 // Delay time,mode 1
                 
-                mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DelayTimeMode2])->setValueNotifyingHost(randomValue.nextFloat());
-                mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DelayTimeMode3])->setValueNotifyingHost(randomValue.nextFloat());
+                mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1TimeModeLeft])->setValueNotifyingHost(randomValue.nextFloat());
+                mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1TimeModeRight])->setValueNotifyingHost(randomValue.nextFloat());
                                 
                
-                if (mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DelayTimeMode2])->getValue() > 0.0f)
-                    mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1LeftDelayTime])->setValueNotifyingHost(jmap(randomValue.nextFloat(), 0.25f, 1.0f));
+                if (mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1TimeModeLeft])->getValue() > 0.0f)
+                    mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1TimeLeft])->setValueNotifyingHost(jmap(randomValue.nextFloat(), 0.25f, 1.0f));
                 else
-                    mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1LeftDelayTime])->setValueNotifyingHost(jmap(randomValue.nextFloat(), 0.01f, 0.25f));
+                    mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1TimeLeft])->setValueNotifyingHost(jmap(randomValue.nextFloat(), 0.01f, 0.25f));
                 
                 
-                if(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DelayTimeMode3])->getValue() > 0.0f)
-                   mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1RightDelayTime])->setValueNotifyingHost(jmap(randomValue.nextFloat(), 0.25f, 1.0f));
+                if(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1TimeModeRight])->getValue() > 0.0f)
+                   mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1TimeRight])->setValueNotifyingHost(jmap(randomValue.nextFloat(), 0.25f, 1.0f));
                 else
-                    mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1RightDelayTime])->setValueNotifyingHost(jmap(randomValue.nextFloat(), 0.01f, 0.25f));
+                    mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1TimeRight])->setValueNotifyingHost(jmap(randomValue.nextFloat(), 0.01f, 0.25f));
 
 
 
 
                 // Delay time,mode 2
-                mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DelayTimeMode1])->setValueNotifyingHost(randomValue.nextFloat());
+                mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2TimeModeLeft])->setValueNotifyingHost(randomValue.nextFloat());
                 mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2TimeModeRight])->setValueNotifyingHost(randomValue.nextFloat());
 
-                if (mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DelayTimeMode1])->getValue() > 0.0f)
-                    mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DelayTime])->setValueNotifyingHost(jmap(randomValue.nextFloat(), 0.25f, 1.0f));
+                if (mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2TimeModeLeft])->getValue() > 0.0f)
+                    mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2TimeLeft])->setValueNotifyingHost(jmap(randomValue.nextFloat(), 0.25f, 1.0f));
                 else
-                    mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DelayTime])->setValueNotifyingHost(jmap(randomValue.nextFloat(), 0.01f, 0.25f));
+                    mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2TimeLeft])->setValueNotifyingHost(jmap(randomValue.nextFloat(), 0.01f, 0.25f));
 
 
                 if (mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2TimeModeRight])->getValue() > 0.0f)
@@ -979,7 +979,7 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
 
 
                 // other - parallel/serial, Delay 1/2 level
-                mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DelayWetDry])->setValueNotifyingHost(randomValue.nextFloat());
+                mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2WetDry])->setValueNotifyingHost(randomValue.nextFloat());
                 mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Parallel_Mode])->setValueNotifyingHost(randomValue.nextBool());
                 
                 mProcessor->setClearBuffer(true);
@@ -1044,9 +1044,9 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             const auto& image_TimeLinkOff =  ImageCache::getFromMemory(BinaryData::New_link_off_org__2_png, BinaryData::New_link_off_org__2_pngSize);
             const auto& image_TimeLinkOn =  ImageCache::getFromMemory(BinaryData::New_link_on_org2_org_2_png, BinaryData::New_link_on_org2_org_2_pngSize);
             MFXParameterButton* timeLink =
-            new MFXParameterButton(mProcessor->parameters, MFXParameterID[mFXParameter_DlineLink],
-                                   MFXParameterLabel[mFXParameter_DlineLink],
-                                   image_TimeLinkOff, image_TimeLinkOn, mProcessor, mFXParameter_DlineLink);
+            new MFXParameterButton(mProcessor->parameters, MFXParameterID[mFXParameter_Delay1LinkTime],
+                                   MFXParameterLabel[mFXParameter_Delay1LinkTime],
+                                   image_TimeLinkOff, image_TimeLinkOn, mProcessor, mFXParameter_Delay1LinkTime);
             timeLink->setBounds(146,132,45, 45);
             
             addAndMakeVisible(timeLink);
@@ -1057,8 +1057,8 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             const auto& image_FeedbackOff =  ImageCache::getFromMemory(BinaryData::New_link_off_org__2_png, BinaryData::New_link_off_org__2_pngSize);
             const auto& image_FeedbackOn =  ImageCache::getFromMemory(BinaryData::New_link_on_org2_org_2_png, BinaryData::New_link_on_org2_org_2_pngSize);
             MFXParameterButton* feedbackLink =
-            new MFXParameterButton(mProcessor->parameters, MFXParameterID[mFXParameter_DlineLinkFeedback],
-                                   MFXParameterLabel[mFXParameter_DlineLinkFeedback],
+            new MFXParameterButton(mProcessor->parameters, MFXParameterID[mFXParameter_Delay1LinkFeedback],
+                                   MFXParameterLabel[mFXParameter_Delay1LinkFeedback],
                                    image_FeedbackOff, image_FeedbackOn, mProcessor);
             feedbackLink->setBounds(314,132,45, 45);
             
@@ -1070,9 +1070,9 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             const auto& image_PingPongOn =  ImageCache::getFromMemory(BinaryData::New_PingPong_On_darker_org2_png, BinaryData::New_PingPong_On_darker_org2_pngSize);
         
             MFXParameterButton* pingpong =
-            new MFXParameterButton(mProcessor->parameters, MFXParameterID[mFXParameter_Pingpong],
-                                   MFXParameterLabel[mFXParameter_Pingpong],
-                                   image_PingPongOff, image_PingPongOn, mProcessor, mFXParameter_Pingpong);
+            new MFXParameterButton(mProcessor->parameters, MFXParameterID[mFXParameter_Delay1Pingpong],
+                                   MFXParameterLabel[mFXParameter_Delay1Pingpong],
+                                   image_PingPongOff, image_PingPongOn, mProcessor, mFXParameter_Delay1Pingpong);
             pingpong->setBounds(202,121, button_size, button_size);
             
             addAndMakeVisible(pingpong);
@@ -1085,9 +1085,9 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
         
             
             MFXParameterSlider* timeLeft =
-            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay1LeftDelayTime],
-                                   MFXParameterLabel[mFXParameter_Delay1LeftDelayTime],
-                                   mFXParameter_Delay1LeftDelayTime, mProcessor);
+            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay1TimeLeft],
+                                   MFXParameterLabel[mFXParameter_Delay1TimeLeft],
+                                   mFXParameter_Delay1TimeLeft, mProcessor);
             timeLeft->setBounds(x, y, slider_size, slider_size);
             
             addAndMakeVisible(timeLeft);
@@ -1096,15 +1096,15 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             
             
             
-            mDelayTimeModeMain1 = std::make_unique<MFXParameterComboBox>( mProcessor->parameters, MFXParameterID[mFXParameter_DelayTimeMode2], mProcessor);
+            mDelayTimeModeMain1 = std::make_unique<MFXParameterComboBox>( mProcessor->parameters, MFXParameterID[mFXParameter_Delay1TimeModeLeft], mProcessor);
             
             
             
             
             
-            mDelayTimeModeMain1->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DelayTimeMode2])->getAllValueStrings() ,1);
+            mDelayTimeModeMain1->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1TimeModeLeft])->getAllValueStrings() ,1);
             
-            auto modeValue = mProcessor->parameters.getRawParameterValue(MFXParameterID[mFXParameter_DelayTimeMode2]);
+            auto modeValue = mProcessor->parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1TimeModeLeft]);
             mDelayTimeModeMain1->setSelectedItemIndex(modeValue->load());
             
             int xTimeCombo = x + (slider_size);
@@ -1128,18 +1128,18 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             
             
             MFXParameterSlider* feedbackLeft =
-            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_DlineLeftFeedback],
-                                   MFXParameterLabel[mFXParameter_DlineLeftFeedback],
-                                   mFXParameter_DlineLeftFeedback, mProcessor);
+            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay1LeftFeedback],
+                                   MFXParameterLabel[mFXParameter_Delay1LeftFeedback],
+                                   mFXParameter_Delay1LeftFeedback, mProcessor);
             feedbackLeft->setBounds(x, y, slider_size, slider_size);
             addAndMakeVisible(feedbackLeft);
             mSliders.add(feedbackLeft);
             x = x + (slider_size * 2.0);
             
             MFXParameterSlider* offset =
-            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Main_Delay_Wide],
-                                   MFXParameterLabel[mFXParameter_Main_Delay_Wide],
-                                   mFXParameter_Main_Delay_Wide, mProcessor);
+            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay1_Offset],
+                                   MFXParameterLabel[mFXParameter_Delay1_Offset],
+                                   mFXParameter_Delay1_Offset, mProcessor);
 
             offset->setBounds(x, y, slider_size, slider_size);
             addAndMakeVisible(offset);
@@ -1149,21 +1149,21 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             y = (getHeight() * 0.9) - (slider_size);
             
             MFXParameterSlider* timeRight =
-            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay1RightDelayTime],
-                                   MFXParameterLabel[mFXParameter_Delay1RightDelayTime],
-                                   mFXParameter_Delay1RightDelayTime, mProcessor);
+            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay1TimeRight],
+                                   MFXParameterLabel[mFXParameter_Delay1TimeRight],
+                                   mFXParameter_Delay1TimeRight, mProcessor);
             timeRight->setBounds(x, y, slider_size, slider_size);
             
             addAndMakeVisible(timeRight);
             mSliders.add(timeRight);
             
             
-            mDelayTimeModeMain2 = std::make_unique<MFXParameterComboBox>( mProcessor->parameters, MFXParameterID[mFXParameter_DelayTimeMode3], mProcessor);
+            mDelayTimeModeMain2 = std::make_unique<MFXParameterComboBox>( mProcessor->parameters, MFXParameterID[mFXParameter_Delay1TimeModeRight], mProcessor);
             
             
-            mDelayTimeModeMain2->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DelayTimeMode3])->getAllValueStrings() ,1);
+            mDelayTimeModeMain2->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1TimeModeRight])->getAllValueStrings() ,1);
             
-            auto modeValueRight = mProcessor->parameters.getRawParameterValue(MFXParameterID[mFXParameter_DelayTimeMode3]);
+            auto modeValueRight = mProcessor->parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1TimeModeRight]);
             mDelayTimeModeMain2->setSelectedItemIndex(modeValueRight->load());
             
             mDelayTimeModeMain2->setBounds(xTimeCombo + 15,
@@ -1183,9 +1183,9 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
 
             
             MFXParameterSlider* feedbackRight =
-            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_DlineRightFeedback],
-                                   MFXParameterLabel[mFXParameter_DlineRightFeedback],
-                                   mFXParameter_DlineRightFeedback, mProcessor);
+            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay1RightFeedback],
+                                   MFXParameterLabel[mFXParameter_Delay1RightFeedback],
+                                   mFXParameter_Delay1RightFeedback, mProcessor);
             feedbackRight->setBounds(x, y, slider_size, slider_size);
             addAndMakeVisible(feedbackRight);
             mSliders.add(feedbackRight);
@@ -1218,9 +1218,9 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             {
               
                 MFXParameterSlider* smoothing =
-                new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_DlineSmoothing],
-                MFXParameterLabel[mFXParameter_DlineSmoothing],
-                mFXParameter_DlineSmoothing, mProcessor);
+                new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay1_Repitch],
+                MFXParameterLabel[mFXParameter_Delay1_Repitch],
+                mFXParameter_Delay1_Repitch, mProcessor);
                 smoothing->setBounds(x, y, slider_size, slider_size);
                 addAndMakeVisible(smoothing);
                 mSliders.add(smoothing);
@@ -2515,9 +2515,9 @@ void MFXFxPanel::createFXLevelsUI()
     
     
     MFXParameterSlider* addDelay =
-    new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_DelayWetDry],
-                           MFXParameterLabel[mFXParameter_DelayWetDry],
-                           mFXParameter_DelayWetDry, mProcessor);
+    new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay2WetDry],
+                           MFXParameterLabel[mFXParameter_Delay2WetDry],
+                           mFXParameter_Delay2WetDry, mProcessor);
     addDelay->setBounds(x, y - 78, horisontalSlider_width, horisontalSlider_height);
     addDelay->setSliderStyle(MFXParameterSlider::SliderStyle::LinearHorizontal);
     addDelay->setColour(Slider::trackColourId, juce::Colour::fromRGB(235, 73, 249));

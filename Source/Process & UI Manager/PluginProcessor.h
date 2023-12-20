@@ -154,7 +154,8 @@ public:
         bool mIsPresetLoaded = false;
         
         
-        // Array that store GUI parameter values as strings (value + extention, e.g. %, ms, hz) that can be accessed and displayed below UI sliders. See FXPanel(line 175-300). 
+        // Array that store GUI parameter values as strings (value + extention, e.g. %, ms, hz) that can be accessed, using enum in MFXUsedParameters, and displayed below UI sliders. See FXPanel(line 175-300). 
+        // We need this here because it must be persistent during loaded plugins life time in DAW. For that reason same array in MFXUsedParameters.cpp is not used. 
         juce::String mParameterValueText[mFXParameter_TotalNumParameters] =
         {
             

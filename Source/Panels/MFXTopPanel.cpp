@@ -232,10 +232,10 @@ void MFXTopPanel::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
         if(!mProcessor->getAccessToUIPersistentData().mIsSliderTouchedByUser && this->isShowing() == 1.0f) // isShow prevent DAW recall saved session to trigger this code, setting link to 0
         {
             // reset link time/feed - because if on and jumps to new preset that is off will cause error
-            mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2Link])->setValueNotifyingHost(0.0f);
-            mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DlineLink])->setValueNotifyingHost(0.0f);
+            mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2LinkTime])->setValueNotifyingHost(0.0f);
+            mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1LinkTime])->setValueNotifyingHost(0.0f);
             mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2LinkFeedback])->setValueNotifyingHost(0.0f);
-            mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_DlineLinkFeedback])->setValueNotifyingHost(0.0f);
+            mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1LinkFeedback])->setValueNotifyingHost(0.0f);
             
             presetManager->loadPreset(mCurrentIndex);
             // use in FXPanel timer callback - setFXStyle(). 

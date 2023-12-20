@@ -48,43 +48,43 @@ PluginProcessor::PluginProcessor()
     mBitCrusherDryWetMix = parameters.getRawParameterValue(MFXParameterID[mFXParameter_BitDryWet]);
 
     // Delay 1 parameters
-    mDelay1LeftTime = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1LeftDelayTime]);
-    mDelay1RightTime = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1RightDelayTime]);
-    mDelay1LeftFeedback = parameters.getRawParameterValue(MFXParameterID[mFXParameter_DlineLeftFeedback]);;
-    mDelay1RightFeedback = parameters.getRawParameterValue(MFXParameterID[mFXParameter_DlineRightFeedback]);
-    mDelay1Width = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Main_Delay_Wide]);
-    mSmoothingDelay1 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_DlineSmoothing]);
+    mDelay1LeftTime = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1TimeLeft]);
+    mDelay1RightTime = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1TimeRight]);
+    mDelay1LeftFeedback = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1LeftFeedback]);;
+    mDelay1RightFeedback = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1RightFeedback]);
+    mDelay1Width = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1_Offset]);
+    mSmoothingDelay1 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1_Repitch]);
     mFadeFrequencyDelay1 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_FadeFrequency_Delay1]);
     mIsFadeModeDelay1 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_IsFadeMode_Delay1]);
 
 
-    mTimeModeLeftDelay1 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_DelayTimeMode2]);
-    mTimeModeRightDelay1 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_DelayTimeMode3]);
-    mPingPongDelay1 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Pingpong]);
-    mDelay1LinkTime = parameters.getRawParameterValue(MFXParameterID[mFXParameter_DlineLink]);
+    mTimeModeLeftDelay1 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1TimeModeLeft]);
+    mTimeModeRightDelay1 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1TimeModeRight]);
+    mPingPongDelay1 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1Pingpong]);
+    mDelay1LinkTime = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1LinkTime]);
 
 
     // Delay 2 parameters
-    mDelay2LeftTime = parameters.getRawParameterValue(MFXParameterID[mFXParameter_DelayTime]);
+    mDelay2LeftTime = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2TimeLeft]);
     mDelay2RightTime = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2TimeRight]);
-    mDelay2LeftFeedback = parameters.getRawParameterValue(MFXParameterID[mFXParameter_DelayFeedback]);
+    mDelay2LeftFeedback = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2LeftFeedback]);
     mDelay2RightFeedback = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2RightFeedback]);
-    mDelay2Width = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay_Wide]);
+    mDelay2Width = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2_Offset]);
     
     /* in serial mode @param wetLevel (DUAL delay) sets balance of Dual delay (full at 1)
      and main delay (main delay full at 0, gone at 1). 0.5 is equal balanced.
      in parallel mode @param wetLevel (DUAL delay) only sets dry/wet of Dual delay, and is not connected with main delay */
-    mMixDelay2 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_DelayWetDry]);
+    mMixDelay2 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2WetDry]);
     
-    mSmoothingDelay2 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2Smoothing]);
+    mSmoothingDelay2 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2Repitch]);
     mFadeFrequencyDelay2 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_FadeFrequency_Delay2]);
     mIsFadeModeDelay2 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_IsFadeMode_Delay2]);
 
-    mTimeModeLeftDelay2 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_DelayTimeMode1]);
+    mTimeModeLeftDelay2 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2TimeModeLeft]);
     mTimeModeRightDelay2 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2TimeModeRight]);
     mPingPongDelay2 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2_Pingpong]);
     mChainModeDelay2 = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Parallel_Mode]);
-    mDelay2LinkTime = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2Link]);
+    mDelay2LinkTime = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2LinkTime]);
 
     // Global Dry/wet level
     mGlobalDry = parameters.getRawParameterValue(MFXParameterID[mFXParameter_Global_Dry]);
@@ -482,7 +482,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
     
     // Delay 2 DUAL --------------------------------------------------------------------------------------------------
     
-    auto& addDelay = *parameters.getRawParameterValue(MFXParameterID[mFXParameter_DelayWetDry]);
+    auto& addDelay = *parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2WetDry]);
     auto& parallelMode = *parameters.getRawParameterValue(MFXParameterID[mFXParameter_Parallel_Mode]);
     
     
@@ -525,7 +525,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::Midi
     {
         procesDualFilterParallel();
         
-        auto& wet = *parameters.getRawParameterValue(MFXParameterID[mFXParameter_DelayWetDry]);
+        auto& wet = *parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2WetDry]);
         
         // Parallel ducking on each delayline
         setDuckingParameters(); // Delay 1
@@ -1022,48 +1022,60 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     // if more params is added after release build, then version2 = 2 is added to new params
     
 
+    /*--------------------------------Gain In/Out-----------------------------------------------------------*/
+
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID { MFXParameterID[mFXParameter_InputGain], version1},
                                                            MFXParameterLabel[mFXParameter_InputGain],
-                                                           NormalisableRange<float>(-70.0f,12.0f, 0.001f, 1.7f),
-                                                           MFXParameterDefaultValue[mFXParameter_InputGain],
+                                                           NormalisableRange<float>(-70.0f,12.0f, 0.001f, 1.7f), 0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = (value > -70.0f) ?
                                                                String (value, 1 ) + " dB" : "-inf dB";
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_InputGain] = valueToText;
                                                                
                                                                return valueToText;
                                                            }
                                                            ));
+
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID{ MFXParameterID[mFXParameter_OutputGain],version1 },
+                                                           MFXParameterLabel[mFXParameter_OutputGain],
+                                                           NormalisableRange<float>(-70.0f, 12.0f, 0.001f, 1.7f), 0.0f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText = (value > -70.0f) ?
+                                                               String(value, 1) + " dB" : "-inf dB";
+
+                                                               return valueToText;
+                                                           }
+                                                           ));
     
-    
+    /*--------------------------------Chorus-----------------------------------------------------------*/
+
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID { MFXParameterID[mFXParameter_ChorusRate], version1},
                                                            MFXParameterLabel[mFXParameter_ChorusRate],
-                                                           NormalisableRange<float>(0.01f,5.0f, 0.001f, 0.45f),
-                                                           MFXParameterDefaultValue[mFXParameter_ChorusRate],
+                                                           NormalisableRange<float>(0.01f,5.0f, 0.001f, 0.45f),0.4f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                String (value, 1) + " Hz";
-                                                               //mUIData.mParameterValueText[mFXParameter_ChorusRate] = valueToText;
+                                                               
                                                                
                                                                return valueToText;
                                                            }));
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID { MFXParameterID[mFXParameter_ChorusDepth], version1},
                                                            MFXParameterLabel[mFXParameter_ChorusDepth],
-                                                           NormalisableRange<float>(0.0f, 1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_ChorusDepth],
+                                                           NormalisableRange<float>(0.0f, 1.0f, 0.001f), 0.4f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                String (static_cast<int>(value * 10)) + " ms";
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_ChorusDepth] = valueToText;
+                                                               
                                                                
                                                                return valueToText;
                                                            }
@@ -1071,30 +1083,24 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID { MFXParameterID[mFXParameter_ChorusWetDry], version1},
                                                            MFXParameterLabel[mFXParameter_ChorusWetDry],
-                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_ChorusWetDry],
+                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                String (value * 100,1) + " %";
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_ChorusWetDry] = valueToText;
-                                                               
                                                                return valueToText;
                                                            }));
     
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_ChorusCenterDelay], version1},   // TODO: change to mFXParameter_Phase
-                                                           MFXParameterLabel[mFXParameter_ChorusCenterDelay],
-                                                           NormalisableRange<float>(0.0f, 0.5f, 0.001f, 0.45f),
-                                                           MFXParameterDefaultValue[mFXParameter_ChorusCenterDelay],
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_ChorusWidth], version1},
+                                                           MFXParameterLabel[mFXParameter_ChorusWidth],
+                                                           NormalisableRange<float>(0.0f, 0.5f, 0.001f, 0.45f), 0.25f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
-                                                               String (value * 2,1);
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_ChorusCenterDelay] = valueToText;
+                                                               String (value * 2,1);                                         
                                                                
                                                                return valueToText;
                                                            }
@@ -1102,64 +1108,48 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID { MFXParameterID[mFXParameter_ChorusFeedback], version1},
                                                            MFXParameterLabel[mFXParameter_ChorusFeedback],
-                                                           NormalisableRange<float>(0.0f, 1.0f, 0.001f),    // changed range from - 1.0f to 1.0f
-                                                           MFXParameterDefaultValue[mFXParameter_ChorusFeedback],
+                                                           NormalisableRange<float>(0.0f, 1.0f, 0.001f), 0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
-                                                               String (value * 100,1) + " %";
+                                                               String (value * 100,1) + " %";                                                                                                                        
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_ChorusFeedback] = valueToText;
-                                                            
                                                                return valueToText;
                                                            }
                                                            ));
    
-    /*Delay 2*/
+    /* -------------------------------------------------Delay 2-----------------------------------------------------------------------------------------*/
     
-    params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_DelayTimeMode1], version1},
-                                                                   MFXParameterLabel[mFXParameter_DelayTimeMode1],
-                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},
-                                                                   MFXParameterDefaultValue[mFXParameter_DelayTimeMode1]));
+    params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Delay2TimeModeLeft], version1},
+                                                                   MFXParameterLabel[mFXParameter_Delay2TimeModeLeft],
+                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},0.0f));
     
     params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Delay2TimeModeRight], version1},
                                                                    MFXParameterLabel[mFXParameter_Delay2TimeModeRight],
-                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},
-                                                                   MFXParameterDefaultValue[mFXParameter_Delay2TimeModeRight]));
+                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},0.0f));
     
     
     
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_DelayTime], version1},
-                                                           MFXParameterLabel[mFXParameter_DelayTime],
-                                                           NormalisableRange<float>(0.00025f, 1.0f, 0.000001f, 0.8f),
-                                                           MFXParameterDefaultValue[mFXParameter_DelayTime],
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay2TimeLeft], version1},
+                                                           MFXParameterLabel[mFXParameter_Delay2TimeLeft],
+                                                           NormalisableRange<float>(0.00025f, 1.0f, 0.000001f, 0.8f),0.2f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [&] (float value, int) -> String
                                                            {
-//                                                               auto TimeModeIndexDelay = mDelayLine2->getLeftTimeModeIndexDelay();
-//                                                               String valueToText = (TimeModeIndexDelay > 0)
-//                                                               ? setValueToNoteText(value, TimeModeIndexDelay)
-//                                                               : String((value * 4000),1) + setValueToNoteText(value, TimeModeIndexDelay);
-//                                                            
-//                                                               mUIData.mParameterValueText[mFXParameter_DelayTime] = valueToText;
+//                                                               
                                                                
-                                                               return mUIData.mParameterValueText[mFXParameter_DelayTime]; //valueToText;
+                                                               return mUIData.mParameterValueText[mFXParameter_Delay2TimeLeft]; //valueToText;
                                                            }));
     
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay2TimeRight],version1},
                                                            MFXParameterLabel[mFXParameter_Delay2TimeRight],
-                                                           NormalisableRange<float>(0.00025f,1.0f, 0.000001f, 0.8f),
-                                                           MFXParameterDefaultValue[mFXParameter_Delay2TimeRight],
+                                                           NormalisableRange<float>(0.00025f,1.0f, 0.000001f, 0.8f),0.2f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [&] (float value, int) -> String
                                                            {
-//                                                               auto TimeModeIndexDelay = mDelayLine2->getRightTimeModeIndexDelay();
-//                                                               String valueToText = (TimeModeIndexDelay > 0)
-//                                                               ? setValueToNoteText(value, TimeModeIndexDelay)
-//                                                               : String((value * 4000),1) + setValueToNoteText(value, TimeModeIndexDelay);
-//                                                               mUIData.mParameterValueText[mFXParameter_Delay2TimeRight] = valueToText;
+//                                                              
                                                                
                                                                return mUIData.mParameterValueText[mFXParameter_Delay2TimeRight]; //valueToText;
                                                            }));
@@ -1169,17 +1159,15 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
 
     
     
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_DelayFeedback],version1},
-                                                           MFXParameterLabel[mFXParameter_DelayFeedback],
-                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_DelayFeedback],
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay2LeftFeedback],version1},
+                                                           MFXParameterLabel[mFXParameter_Delay2LeftFeedback],
+                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),0.5f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int)
                                                            {
                                                                String valueToText = String (static_cast<int>(jmap(value, 0.0f, 1.0f, 0.0f, 1.2f)
                                                                                                              * 100)) + " %";
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_DelayFeedback] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -1188,221 +1176,191 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay2RightFeedback],version1},
                                                            MFXParameterLabel[mFXParameter_Delay2RightFeedback],
-                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_Delay2RightFeedback],
+                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),0.5f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int)
                                                            {
                                                                String valueToText = String (static_cast<int>(jmap(value, 0.0f, 1.0f, 0.0f, 1.2f)
                                                                                                              * 100)) + " %";
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_Delay2RightFeedback] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
     
-    params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Delay2Link],version1},
-                                                          MFXParameterLabel[mFXParameter_Delay2Link],
-                                                          MFXParameterDefaultValue[mFXParameter_Delay2Link]));
+    params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Delay2LinkTime],version1},
+                                                          MFXParameterLabel[mFXParameter_Delay2LinkTime], static_cast<bool>(0.0f)));
     
     
     params.push_back(std::make_unique<AudioParameterBool>(ParameterID { MFXParameterID[mFXParameter_Delay2LinkFeedback],version1},
-                                                          MFXParameterLabel[mFXParameter_Delay2LinkFeedback],
-                                                          MFXParameterDefaultValue[mFXParameter_Delay2LinkFeedback]));
+                                                          MFXParameterLabel[mFXParameter_Delay2LinkFeedback], static_cast<bool>(0.0f)));
     
     params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Delay2_Pingpong],version1},
-                                                          MFXParameterLabel[mFXParameter_Delay2_Pingpong],
-                                                          MFXParameterDefaultValue[mFXParameter_Delay2_Pingpong]));
+                                                          MFXParameterLabel[mFXParameter_Delay2_Pingpong], static_cast<bool>(0.0f)));
     
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay2Smoothing],version1},
-                                                           MFXParameterLabel[mFXParameter_Delay2Smoothing],
-                                                           NormalisableRange<float>(0.1f,20000.0f,0.001f), // was 10 - 20000
-                                                           MFXParameterDefaultValue[mFXParameter_Delay2Smoothing],
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay2Repitch],version1},
+                                                           MFXParameterLabel[mFXParameter_Delay2Repitch],
+                                                           NormalisableRange<float>(0.1f,20000.0f,0.001f), 
+                                                           200.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String ( roundToInt(value/200) ) + " %";
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_Delay2Smoothing] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
+
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID{ MFXParameterID[mFXParameter_FadeFrequency_Delay2],version1 },
+                                                           MFXParameterLabel[mFXParameter_FadeFrequency_Delay2],
+                                                           NormalisableRange<float>(0.3f, 25.0f, 0.001f, 0.3f),2.0f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText = String(value, 2) + " ";
+
+                                                               return valueToText;
+                                                            }));
+
+   
+
+    params.push_back(std::make_unique<AudioParameterBool>(ParameterID{ MFXParameterID[mFXParameter_IsFadeMode_Delay2],version1 },
+                                                          MFXParameterLabel[mFXParameter_IsFadeMode_Delay2], static_cast<bool>(0.0f)));
     
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay_Wide],version1},
-                                                           MFXParameterLabel[mFXParameter_Delay_Wide],
-                                                           NormalisableRange<float>(-20.0f, 20.0f, 0.0001f),
-                                                           MFXParameterDefaultValue[mFXParameter_Delay_Wide],
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay2_Offset],version1},
+                                                           MFXParameterLabel[mFXParameter_Delay2_Offset],
+                                                           NormalisableRange<float>(-20.0f, 20.0f, 0.0001f),0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value/20,1);
                                                                
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_Delay_Wide] = valueToText;
+                                                           
                                                                
                                                                return valueToText;
                                                            }));
     
     
     
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_DelayWetDry],version1},
-                                                           MFXParameterLabel[mFXParameter_DelayWetDry],
-                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_DelayWetDry],
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay2WetDry],version1},
+                                                           MFXParameterLabel[mFXParameter_Delay2WetDry],
+                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value * 100,1) + " %";
                                                                
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_DelayWetDry] = valueToText;
-                                                               
                                                                return valueToText;
                                                            }));
     
+
+    /*-----------------------------------------------Select FX combobox------------------------------------------------------------------------*/
     
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_FXType],version1},
                                                            MFXParameterLabel[mFXParameter_FXType],
-                                                           NormalisableRange<float>(0.0f,6.0f),     // changed range from 5 to 6
-                                                           MFXParameterDefaultValue[mFXParameter_FXType]));
+                                                           NormalisableRange<float>(0.0f,6.0f), 0.0f));
     
     
     
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_OutputGain],version1},
-                                                           MFXParameterLabel[mFXParameter_OutputGain],
-                                                           NormalisableRange<float>(-70.0f,12.0f, 0.001f, 1.7f),
-                                                           MFXParameterDefaultValue[mFXParameter_OutputGain],
-                                                           String(), AudioProcessorParameter::genericParameter,
-                                                           [] (float value, int) -> String
-                                                           {
-                                                               String valueToText = (value > -70.0f) ?
-                                                               String (value, 1 ) + " dB" : "-inf dB";
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_OutputGain] = valueToText;
-                                                               
-                                                               return valueToText;
-                                                           }
-                                                           ));
+    /*-----------------------------------------------Reverb------------------------------------------------------------------------*/
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_ReverbSize],version1},
                                                            MFXParameterLabel[mFXParameter_ReverbSize],
-                                                           NormalisableRange<float>(0.0f, 1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_ReverbSize],
+                                                           NormalisableRange<float>(0.0f, 1.0f, 0.001f),0.9f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
-                                                               String valueToText = String (value * 100,1) + " ";;
-                                                               
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_ReverbSize] = valueToText;
+                                                               String valueToText = String (value * 100,1) + " ";;                                     
                                                                
                                                                return valueToText;
                                                            }));
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID { MFXParameterID[mFXParameter_ReverbWidth],version1},
                                                            MFXParameterLabel[mFXParameter_ReverbWidth],
-                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_ReverbWidth],
+                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),0.6f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value * 100,1) + " %";
                                                                
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_ReverbWidth] = valueToText;
-                                                               
                                                                return valueToText;
                                                            }));
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID { MFXParameterID[mFXParameter_ReverbDamping],version1},
                                                            MFXParameterLabel[mFXParameter_ReverbDamping],
-                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_ReverbDamping],
+                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),0.2f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
-                                                               String valueToText = String (value * 100,1) + " %";;
-                                                               
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_ReverbDamping] = valueToText;
+                                                               String valueToText = String (value * 100,1) + " %";
                                                                
                                                                return valueToText;
                                                            }));
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID { MFXParameterID[mFXParameter_ReverbDry],version1},
                                                            MFXParameterLabel[mFXParameter_ReverbDry],
-                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_ReverbDry],
-                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),0.6f,
                                                            [] (float value, int) -> String
                                                            {
-                                                               String valueToText = String (value * 100,1) + " %";;
-                                                               
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_ReverbDry] = valueToText;
+                                                               String valueToText = String (value * 100,1) + " %";
                                                                
                                                                return valueToText;
                                                            }));
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_ReverbWet],version1},
                                                            MFXParameterLabel[mFXParameter_ReverbWet],
-                                                           NormalisableRange<float>(0.0f,0.35f, 0.001f),   // changed from 0-1
-                                                           MFXParameterDefaultValue[mFXParameter_ReverbWet],
-                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           NormalisableRange<float>(0.0f,0.35f, 0.001f), 0.0f,
                                                            [] (float value, int) -> String
                                                            {
-                                                               String valueToText = String (value * 285.714286,1) + " %";;
+                                                               String valueToText = String (value * 285.714286,1) + " %";
                                                                
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_ReverbWet] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
     
     params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_ReverbFreeze],version1},
-                                                           MFXParameterLabel[mFXParameter_ReverbFreeze],
-                                                           MFXParameterDefaultValue[mFXParameter_ReverbFreeze]));
-    
+                                                           MFXParameterLabel[mFXParameter_ReverbFreeze], static_cast<bool>(0.0f)));
+
+    /*-----------------------------------------------Ladder Filter------------------------------------------------------------------------*/
+
+
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_FilterCutoff],version1},
                                                            MFXParameterLabel[mFXParameter_FilterCutoff],
-                                                           NormalisableRange<float>(20.0f,15000.0f, 0.01, 0.3),
-                                                           MFXParameterDefaultValue[mFXParameter_FilterCutoff],
+                                                           NormalisableRange<float>(20.0f,15000.0f, 0.01, 0.3),15000.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                (value < 1000.0f) ? String (value,1) + " Hz" : String (value/1000,1) + " KHz";
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_FilterCutoff] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
+
+
+
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_FilterResonans],version1},
                                                            MFXParameterLabel[mFXParameter_FilterResonans],
-                                                           NormalisableRange<float>(0.1f,1.0f,0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_FilterResonans],
+                                                           NormalisableRange<float>(0.1f,1.0f,0.001f), 0.1f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value,1);
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_FilterResonans] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
        
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_FilterDrive],version1},
                                                            MFXParameterLabel[mFXParameter_FilterDrive],
-                                                           NormalisableRange<float>(1.0f,20.0f,0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_FilterDrive],
+                                                           NormalisableRange<float>(1.0f,20.0f,0.001f), 0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value,1);
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_FilterDrive] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -1410,63 +1368,50 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID { MFXParameterID[mFXParameter_FilterType],version1},
                                                                    MFXParameterLabel[mFXParameter_FilterType],
-                                                                   juce::StringArray { "LPF12", "LPF24", "BPF12", "BPF24", "HPF12", "HPF24" },
-                                                                   MFXParameterDefaultValue[mFXParameter_FilterType]));
+                                                                   juce::StringArray { "LPF12", "LPF24", "BPF12", "BPF24", "HPF12", "HPF24" },0.0f));
     
-    params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_DelayTimeMode2],version1},
-                                                                   MFXParameterLabel[mFXParameter_DelayTimeMode2],
-                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},
-                                                                   MFXParameterDefaultValue[mFXParameter_DelayTimeMode2]));
+
+
+    /*--------------------------------------------------------Delay 1----------------------------------------------------------------------------------------------*/
+
+
+    params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Delay1TimeModeLeft],version1},
+                                                                   MFXParameterLabel[mFXParameter_Delay1TimeModeLeft],
+                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},0.0f));
     
-    params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_DelayTimeMode3],version1},
-                                                                   MFXParameterLabel[mFXParameter_DelayTimeMode3],
-                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},
-                                                                   MFXParameterDefaultValue[mFXParameter_DelayTimeMode3])); // added 6 juli
     
-    /*Delay 1*/
     
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay1LeftDelayTime],version1},
-                                                           MFXParameterLabel[mFXParameter_Delay1LeftDelayTime],
-                                                           NormalisableRange<float>(0.00025f, 1.0f, 0.000001f,0.8f),
-                                                           MFXParameterDefaultValue[mFXParameter_Delay1LeftDelayTime],
+    
+    
+    params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Delay1TimeModeRight],version1},
+                                                                   MFXParameterLabel[mFXParameter_Delay1TimeModeRight],
+                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},0.0f));
+    
+    
+    
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay1TimeLeft],version1},
+                                                           MFXParameterLabel[mFXParameter_Delay1TimeLeft],
+                                                           NormalisableRange<float>(0.00025f, 1.0f, 0.000001f,0.8f),0.2f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [&] (float value, int) -> String
                                                            {
-//                                                               auto TimeModeIndexDelay = mDelayLine1->getLeftTimeModeIndexDelay();
-//                                                               //auto TimeModeIndexDelay = mTimeModeLeftDelay1->load();
-//                                                               String valueToText = (TimeModeIndexDelay > 0)
-//                                                               ? setValueToNoteText(value, TimeModeIndexDelay)
-//                                                               : String((value * 4000),1)
-//                                                                         + setValueToNoteText(value,TimeModeIndexDelay);
-//                                                              
-                                                               //mUIData.mParameterValueText[mFXParameter_Delay1LeftDelayTime] = valueToText;
                                                                
-                                                               return mUIData.mParameterValueText[mFXParameter_Delay1LeftDelayTime];
+                                                               return mUIData.mParameterValueText[mFXParameter_Delay1TimeLeft];
                                                            }));
     
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay1RightDelayTime],version1},
-                                                           MFXParameterLabel[mFXParameter_Delay1RightDelayTime],
-                                                           NormalisableRange<float>(0.00025f, 1.0f, 0.000001f, 0.8f), // 0.000001f, 0.8f
-                                                           MFXParameterDefaultValue[mFXParameter_Delay1RightDelayTime],
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay1TimeRight],version1},
+                                                           MFXParameterLabel[mFXParameter_Delay1TimeRight],
+                                                           NormalisableRange<float>(0.00025f, 1.0f, 0.000001f, 0.8f),0.2f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [&] (float value, int) -> String
                                                            {
-//                                                               auto TimeModeIndexDelay = mDelayLine1->getRightTimeModeIndexDelay();
-//                                                               //auto TimeModeIndexDelay = mTimeModeRightDelay1->load();
-//                                                               String valueToText = (TimeModeIndexDelay > 0)
-//                                                               ? setValueToNoteText(value, TimeModeIndexDelay)
-//                                                               : String((value * 4000),1)
-//                                                                       + setValueToNoteText(value, TimeModeIndexDelay);
-//                                                               mUIData.mParameterValueText[mFXParameter_Delay1RightDelayTime] = valueToText;
                                                         
-                                                               
-                                                               return mUIData.mParameterValueText[mFXParameter_Delay1RightDelayTime]; //valueToText;
+                                                               return mUIData.mParameterValueText[mFXParameter_Delay1TimeRight]; //valueToText;
                                                            }));
     
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_DlineLeftFeedback],version1},
-                                                           MFXParameterLabel[mFXParameter_DlineLeftFeedback],
-                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_DlineLeftFeedback],
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay1LeftFeedback],version1},
+                                                           MFXParameterLabel[mFXParameter_Delay1LeftFeedback],
+                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),0.5f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
@@ -1474,15 +1419,12 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                String valueToText = String ( jmap(value, 0.0f, 1.0f, 0.0f, 1.2f)
                                                                                               * 100, 1 ) + " %";
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_DlineLeftFeedback] = valueToText;
-                                                               
                                                                return valueToText;
                                                            }));
     
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_DlineRightFeedback],version1},
-                                                           MFXParameterLabel[mFXParameter_DlineRightFeedback],
-                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_DlineRightFeedback],
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay1RightFeedback],version1},
+                                                           MFXParameterLabel[mFXParameter_Delay1RightFeedback],
+                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),0.5f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
@@ -1490,142 +1432,155 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                String valueToText = String ( jmap(value, 0.0f, 1.0f, 0.0f, 1.2f)
                                                                                             * 100, 1 ) + " %";
                                                                
-                                                            //   mUIData.mParameterValueText[mFXParameter_DlineRightFeedback] = valueToText;
-                                                               
                                                                return valueToText;
                                                            }));
     
     
     
-    params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_DlineLink],version1},
-                                                          MFXParameterLabel[mFXParameter_DlineLink],
-                                                          MFXParameterDefaultValue[mFXParameter_DlineLink]));
+    params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Delay1LinkTime],version1},
+                                                          MFXParameterLabel[mFXParameter_Delay1LinkTime], static_cast<bool>(0.0f)));
 
     
-    params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_DlineLinkFeedback],version1},
-                                                          MFXParameterLabel[mFXParameter_DlineLinkFeedback],
-                                                          MFXParameterDefaultValue[mFXParameter_DlineLinkFeedback]));
+    params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Delay1LinkFeedback],version1},
+                                                          MFXParameterLabel[mFXParameter_Delay1LinkFeedback], static_cast<bool>(0.0f)));
     
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_DlineSmoothing],version1},
-                                                           MFXParameterLabel[mFXParameter_DlineSmoothing],
-                                                           NormalisableRange<float>(0.1f,20000.0f,0.001f), 
-                                                           MFXParameterDefaultValue[mFXParameter_DlineSmoothing],
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Delay1_Repitch],version1},
+                                                           MFXParameterLabel[mFXParameter_Delay1_Repitch],
+                                                           NormalisableRange<float>(0.1f,20000.0f,0.001f), 200.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String ( roundToInt(value/200) ) + " %";
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_DlineSmoothing] = valueToText;
-                                                               
                                                                return valueToText;
                                                            }));
 
-    
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID{ MFXParameterID[mFXParameter_FadeFrequency_Delay1],version1 },
+                                                           MFXParameterLabel[mFXParameter_FadeFrequency_Delay1],
+                                                           NormalisableRange<float>(0.3f, 25.0f, 0.001f, 0.3f), 0.2f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText = String(value, 2) + " ";
+
+                                                               return valueToText;
+                                                           }));
+
+
+
+    params.push_back(std::make_unique<AudioParameterBool>(ParameterID{ MFXParameterID[mFXParameter_IsFadeMode_Delay1],version1 },
+                                                          MFXParameterLabel[mFXParameter_IsFadeMode_Delay1], static_cast<bool>(0.0f)));
+
+    params.push_back(std::make_unique<AudioParameterBool>(ParameterID{ MFXParameterID[mFXParameter_Delay1Pingpong],version1 },
+                                                          MFXParameterLabel[mFXParameter_Delay1Pingpong], static_cast<bool>(0.0f)));
+
+
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID{ MFXParameterID[mFXParameter_Delay1_Offset],version1 },
+                                                           MFXParameterLabel[mFXParameter_Delay1_Offset],
+                                                           NormalisableRange<float>(-20.0f, 20.0f, 0.0001f), 0.0f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText = String(value / 20, 1);
+
+                                                               return valueToText;
+                                                           }));
+
+
+
+    /*--------------------------------------------------------Phaser----------------------------------------------------------------------------------------------*/
+
     
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_PhaserRate],version1},
                                                            MFXParameterLabel[mFXParameter_PhaserRate],
-                                                           NormalisableRange<float>(0.0f,99.0f, 0.001f, 0.45f),
-                                                           MFXParameterDefaultValue[mFXParameter_PhaserRate],
+                                                           NormalisableRange<float>(0.0f,99.0f, 0.001f, 0.45f),0.4f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                String (value, 1) + " Hz";
-                                                               //mUIData.mParameterValueText[mFXParameter_PhaserRate] = valueToText;
+                                                               
                                                                
                                                                return valueToText;
                                                            }));
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_PhaserDepth],version1},
                                                            MFXParameterLabel[mFXParameter_PhaserDepth],
-                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_PhaserDepth],
+                                                           NormalisableRange<float>(0.0f,1.0f, 0.001f), 0.4f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                String (value * 100, 1) + " %";
-                                                               //mUIData.mParameterValueText[mFXParameter_PhaserDepth] = valueToText;
+                                                               
                                                                
                                                                return valueToText;
                                                            }));
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_PhaserCenterFrequency],version1},
                                                            MFXParameterLabel[mFXParameter_PhaserCenterFrequency],
-                                                           NormalisableRange<float>(20.0f,20000.0f, 0.01f, 0.45f), // moved true
-                                                           MFXParameterDefaultValue[mFXParameter_PhaserCenterFrequency],
+                                                           NormalisableRange<float>(20.0f,20000.0f, 0.01f, 0.45f),1500.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                String (value, 1) + " Hz";
-                                                               //mUIData.mParameterValueText[mFXParameter_PhaserCenterFrequency] = valueToText;
+                                                               
                                                                
                                                                return valueToText;
                                                            }));
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_PhaserFeedback],version1},
                                                            MFXParameterLabel[mFXParameter_PhaserFeedback],
-                                                           NormalisableRange<float>(-1.0f, 1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_PhaserFeedback],
+                                                           NormalisableRange<float>(-1.0f, 1.0f, 0.001f),0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                String (value * 100,1) + " %";
-                                                               //mUIData.mParameterValueText[mFXParameter_PhaserFeedback] = valueToText;
+                                                               
                                                                
                                                                return valueToText;
                                                            }));
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_PhaserDryWet],version1},
                                                            MFXParameterLabel[mFXParameter_PhaserDryWet],
-                                                           NormalisableRange<float>(0.0f, 1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_PhaserDryWet],
+                                                           NormalisableRange<float>(0.0f, 1.0f, 0.001f),0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
-                                                               String valueToText = String (value * 100,1) + " %";;
+                                                               String valueToText = String (value * 100,1) + " %";
                                                                
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_PhaserDryWet] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
     
 
-    // used by delay 1. move up
-    params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Pingpong],version1},
-                                                          MFXParameterLabel[mFXParameter_Pingpong],
-                                                          MFXParameterDefaultValue[mFXParameter_Pingpong]));
+    
+    /*--------------------------------------------------------BitChrusher----------------------------------------------------------------------------------------------*/
+
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_NoiseAmount],version1},
                                                            MFXParameterLabel[mFXParameter_NoiseAmount],
-                                                           NormalisableRange<float>(0.0f, 100.0f, 0.001f, 0.9f), // added skew 0.9
-                                                           MFXParameterDefaultValue[mFXParameter_NoiseAmount],
+                                                           NormalisableRange<float>(0.0f, 100.0f, 0.001f, 0.9f),48.5f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
-                                                               String valueToText = String (value,1) + " %";;
+                                                               String valueToText = String (value,1) + " %";
                                                                
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_NoiseAmount] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_RateRedux],version1},
                                                            MFXParameterLabel[mFXParameter_RateRedux],
-                                                           NormalisableRange<float>(1.0f, 50.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_RateRedux],
+                                                           NormalisableRange<float>(1.0f, 50.0f, 0.001f),39.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
-                                                               String valueToText = String (static_cast<int>(value)) + " ";;
+                                                               String valueToText = String (static_cast<int>(value)) + " ";
                                                                
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_RateRedux] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -1633,59 +1588,118 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_BitRedux],version1},
                                                            MFXParameterLabel[mFXParameter_BitRedux],
-                                                           NormalisableRange<float>(2.0f, 16.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_BitRedux],
+                                                           NormalisableRange<float>(2.0f, 16.0f, 0.001f),4.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
-                                                               String valueToText = String (static_cast<int>(value)) + " bit";;
+                                                               String valueToText = String (static_cast<int>(value)) + " bit";
                                                                
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_BitRedux] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_BitDryWet],version1},
                                                            MFXParameterLabel[mFXParameter_BitDryWet],
-                                                           NormalisableRange<float>(0.0f, 1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_BitDryWet],
+                                                           NormalisableRange<float>(0.0f, 1.0f, 0.001f),0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
-                                                               String valueToText = String (value * 100,1) + " %";;
+                                                               String valueToText = String (value * 100,1) + " %";
                                                                
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_BitDryWet] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
     
    
-    
+    /* -----------------------------------------------Center Global Menu -----------------------------------------------------------------------------------------*/
+
     
 
     params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_AllFxProcessing],version1},
-                                                          MFXParameterLabel[mFXParameter_AllFxProcessing],
-                                                          MFXParameterDefaultValue[mFXParameter_AllFxProcessing]));
+                                                          MFXParameterLabel[mFXParameter_AllFxProcessing], static_cast<bool>(0.0f)));
     
     
     params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Parallel_Mode],version1},
-                                                          MFXParameterLabel[mFXParameter_Parallel_Mode],
-                                                          MFXParameterDefaultValue[mFXParameter_Parallel_Mode]));
+                                                          MFXParameterLabel[mFXParameter_Parallel_Mode], static_cast<bool>(0.0f)));
+
+    params.push_back(std::make_unique<AudioParameterBool>(ParameterID{ MFXParameterID[mFXParameter_Ducking_Mode],version1 },
+                                                          MFXParameterLabel[mFXParameter_Ducking_Mode], static_cast<bool>(0.0f)));
+
+
+    params.push_back(std::make_unique<AudioParameterBool>(ParameterID{ MFXParameterID[mFXParameter_Mix_Mode],version1 },
+                                                                       MFXParameterLabel[mFXParameter_Mix_Mode], static_cast<bool>(0.0f)));
+
+
+    params.push_back(std::make_unique<AudioParameterBool>(ParameterID{ MFXParameterID[mFXParameter_FX_Level_Mode],version1 },
+                                                                       MFXParameterLabel[mFXParameter_FX_Level_Mode], static_cast<bool>(0.0f)));
+
+    params.push_back(std::make_unique<AudioParameterBool>(ParameterID{ MFXParameterID[mFXParameter_Cut_Mode],version1 }, 
+                                                                       MFXParameterLabel[mFXParameter_Cut_Mode], static_cast<bool>(0.0f)));
+
     
+
+    /* -----------------------------------------------Global Mix -----------------------------------------------------------------------------------------*/
+
+
+
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID{ MFXParameterID[mFXParameter_Global_Wet],version1 },
+                                                           MFXParameterLabel[mFXParameter_Global_Wet],
+                                                           NormalisableRange<float>(0.0f, 2.0f, 0.001f),1.0f,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText = String(value * 100, 1) + " %";
+
+                                                               return valueToText;
+                                                           }));
+
+
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID{ MFXParameterID[mFXParameter_Global_Dry],version1 },
+                                                           MFXParameterLabel[mFXParameter_Global_Dry],
+                                                           NormalisableRange<float>(0.0f, 2.0f, 0.001f),1.0f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText = String(value * 100, 1) + " %";
+
+                                                               return valueToText;
+                                                           }));
+
+
+
+ 
+    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID{ MFXParameterID[mFXParameter_Stereo_Width],version1 },
+                                                           MFXParameterLabel[mFXParameter_Stereo_Width],
+                                                           NormalisableRange<float>(0.0f, 1.0f, 0.01), 0.5f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText = String(value * 200, 1) + " %";
+
+                                                               return valueToText;
+                                                           }));
+
+
+    params.push_back(std::make_unique<AudioParameterBool>(ParameterID{ MFXParameterID[mFXParameter_Mid_Side_Mode],version1 },
+                                                          MFXParameterLabel[mFXParameter_Mid_Side_Mode], static_cast<bool>(0.0f)));
+
+
+
+
+
+    /* ----------------------------------------------------------Ducking single/serial. If parallel mode then delay 1 is controlled ---------*/
+
+
+
+
   
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Ducking_Threshold],version1},
                                                            MFXParameterLabel[mFXParameter_Ducking_Threshold],
-                                                           NormalisableRange<float>(-60.0f, 0.0f, 0.01f),
-                                                           MFXParameterDefaultValue[mFXParameter_Ducking_Threshold],
+                                                           NormalisableRange<float>(-60.0f, 0.0f, 0.01f),0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value,1) + " dB";
                                                                
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Ducking_Threshold] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -1693,15 +1707,12 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Ducking_Amount],version1},
                                                            MFXParameterLabel[mFXParameter_Ducking_Amount],
-                                                           NormalisableRange<float>(1.0f, 5.0f, 0.01f),
-                                                           MFXParameterDefaultValue[mFXParameter_Ducking_Amount],
+                                                           NormalisableRange<float>(1.0f, 5.0f, 0.01f),5.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value,1);
                                                                
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Ducking_Amount] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -1709,15 +1720,12 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Ducking_Attack],version1},
                                                            MFXParameterLabel[mFXParameter_Ducking_Attack],
-                                                           NormalisableRange<float>(0.01f, 3000.0f, 0.01f, 0.3f), //changed from 10000
-                                                           MFXParameterDefaultValue[mFXParameter_Ducking_Attack],
+                                                           NormalisableRange<float>(0.01f, 3000.0f, 0.01f, 0.3f),0.2f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value,1) + " ms";
                                                                
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Ducking_Attack] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -1725,31 +1733,29 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Ducking_Release],version1},
                                                            MFXParameterLabel[mFXParameter_Ducking_Release],
-                                                           NormalisableRange<float>(10.0f, 3000.0f, 0.01f, 0.3f), //changed from 10000
-                                                           MFXParameterDefaultValue[mFXParameter_Ducking_Release],
+                                                           NormalisableRange<float>(10.0f, 3000.0f, 0.01f, 0.3f), 700.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value,1) + " ms";
                                                                
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_Ducking_Release] = valueToText;
-                                                               
                                                                return valueToText;
                                                            }));
     
     
+
+    /* ------------------------------------------------Ducking parallel. If parallel mode then delay 1 is controlled ------------------------------------------------*/
+
+
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Ducking_Threshold_Parallel],version1},
                                                            MFXParameterLabel[mFXParameter_Ducking_Threshold_Parallel],
-                                                           NormalisableRange<float>(-60.0f, 0.0f, 0.01f),
-                                                           MFXParameterDefaultValue[mFXParameter_Ducking_Threshold_Parallel],
+                                                           NormalisableRange<float>(-60.0f, 0.0f, 0.01f),0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value,1) + " dB";
                                                                
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Ducking_Threshold_Parallel] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -1757,15 +1763,11 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Ducking_Amount_Parallel],version1},
                                                            MFXParameterLabel[mFXParameter_Ducking_Amount_Parallel],
-                                                           NormalisableRange<float>(1.0f, 5.0f, 0.01f),
-                                                           MFXParameterDefaultValue[mFXParameter_Ducking_Amount_Parallel],
+                                                           NormalisableRange<float>(1.0f, 5.0f, 0.01f),5.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value,1);
-                                                               
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Ducking_Amount_Parallel] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -1773,15 +1775,12 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Ducking_Attack_Parallel],version1},
                                                            MFXParameterLabel[mFXParameter_Ducking_Attack_Parallel],
-                                                           NormalisableRange<float>(0.01f, 3000.0f, 0.01f, 0.3f), //changed from 10000
-                                                           MFXParameterDefaultValue[mFXParameter_Ducking_Attack_Parallel],
+                                                           NormalisableRange<float>(0.01f, 3000.0f, 0.01f, 0.3f), 0.2f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value,1) + " ms";
                                                                
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Ducking_Attack_Parallel] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -1789,96 +1788,36 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Ducking_Release_Parallel],version1},
                                                            MFXParameterLabel[mFXParameter_Ducking_Release_Parallel],
-                                                           NormalisableRange<float>(10.0f, 3000.0f, 0.01f, 0.3f), //changed from 10000
-                                                           MFXParameterDefaultValue[mFXParameter_Ducking_Release_Parallel],
+                                                           NormalisableRange<float>(10.0f, 3000.0f, 0.01f, 0.3f), 700.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value,1) + " ms";
                                                                
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_Ducking_Release_Parallel] = valueToText;
-                                                               
-                                                               return valueToText;
-                                                           }));
-    
-    
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Main_Delay_Wide],version1},
-                                                           MFXParameterLabel[mFXParameter_Main_Delay_Wide],
-                                                           NormalisableRange<float>(-20.0f, 20.0f, 0.0001f),
-                                                           MFXParameterDefaultValue[mFXParameter_Main_Delay_Wide],
-                                                           String(), AudioProcessorParameter::genericParameter,
-                                                           [] (float value, int) -> String
-                                                           {
-                                                               String valueToText = String (value/20,1);
-                                                               
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Main_Delay_Wide] = valueToText;
-                                                               
-                                                               return valueToText;
-                                                           }));
-    
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Global_Wet],version1},
-                                                           MFXParameterLabel[mFXParameter_Global_Wet],
-                                                           NormalisableRange<float>(0.0f,2.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_Global_Wet],
-                                                           String(), AudioProcessorParameter::genericParameter,
-                                                           [] (float value, int) -> String
-                                                           {
-                                                               String valueToText = String (value * 100,1) + " %";
-                                                               
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Global_Wet] = valueToText;
-                                                               
-                                                               return valueToText;
-                                                           }));
-    
-    
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Global_Dry],version1},
-                                                           MFXParameterLabel[mFXParameter_Global_Dry],
-                                                           NormalisableRange<float>(0.0f,2.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_Global_Dry],
-                                                           String(), AudioProcessorParameter::genericParameter,
-                                                           [] (float value, int) -> String
-                                                           {
-                                                               String valueToText = String (value * 100,1) + " %";
-                                                               
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Global_Dry] = valueToText;
-                                                               
                                                                return valueToText;
                                                            }));
     
     
     
-    
-    params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Ducking_Mode],version1},
-                                                          MFXParameterLabel[mFXParameter_Ducking_Mode],
-                                                          MFXParameterDefaultValue[mFXParameter_Ducking_Mode]));
+
     
     
-    params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Mix_Mode],version1},
-                                                          MFXParameterLabel[mFXParameter_Mix_Mode],
-                                                          MFXParameterDefaultValue[mFXParameter_Mix_Mode]));
     
+    /* -------------------------------------------------------------------------Shaper--------------------------------------------------------------*/
+
     
-    params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_FX_Level_Mode],version1},
-                                                          MFXParameterLabel[mFXParameter_FX_Level_Mode],
-                                                          MFXParameterDefaultValue[mFXParameter_FX_Level_Mode]));
     
     /* Shaper Panel Simple Filters Params*/
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Lowcut_Delay1],version1},
                                                            MFXParameterLabel[mFXParameter_Lowcut_Delay1],
-                                                           NormalisableRange<float>(20.0f,20000.0f, 0.01, 0.3),
-                                                           MFXParameterDefaultValue[mFXParameter_Lowcut_Delay1],
+                                                           NormalisableRange<float>(20.0f,20000.0f, 0.01, 0.3),20.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                (value < 1000.0f) ? String (value,1) + " Hz" : String (value/1000,1) + " KHz";
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Lowcut_Delay1] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -1886,15 +1825,13 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Lowcut_Delay2],version1},
                                                            MFXParameterLabel[mFXParameter_Lowcut_Delay2],
-                                                           NormalisableRange<float>(20.0f,20000.0f, 0.01, 0.3),
-                                                           MFXParameterDefaultValue[mFXParameter_Lowcut_Delay2],
+                                                           NormalisableRange<float>(20.0f,20000.0f, 0.01, 0.3),20.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                (value < 1000.0f) ? String (value,1) + " Hz" : String (value/1000,1) + " KHz";
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_Lowcut_Delay2] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -1902,15 +1839,12 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Highcut_Delay1],version1},
                                                            MFXParameterLabel[mFXParameter_Highcut_Delay1],
-                                                           NormalisableRange<float>(20.0f,20000.0f, 0.01, 0.3),
-                                                           MFXParameterDefaultValue[mFXParameter_Highcut_Delay1],
+                                                           NormalisableRange<float>(20.0f,20000.0f, 0.01, 0.3),20000.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                (value < 1000.0f) ? String (value,1) + " Hz" : String (value/1000,1) + " KHz";
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Highcut_Delay1] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -1918,63 +1852,34 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Highcut_Delay2],version1},
                                                            MFXParameterLabel[mFXParameter_Highcut_Delay2],
-                                                           NormalisableRange<float>(20.0f,20000.0f, 0.01, 0.3),
-                                                           MFXParameterDefaultValue[mFXParameter_Highcut_Delay2],
+                                                           NormalisableRange<float>(20.0f,20000.0f, 0.01, 0.3),20000.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                (value < 1000.0f) ? String (value,1) + " Hz" : String (value/1000,1) + " KHz";
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_Highcut_Delay2] = valueToText;
-                                                               
                                                                return valueToText;
                                                            }));
     
     
-    params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Cut_Mode],version1},  // ??????? what????  Shaper
-                                                          MFXParameterLabel[mFXParameter_Cut_Mode],
-                                                          MFXParameterDefaultValue[mFXParameter_Cut_Mode]));
-    
-    /* MIX Panel Params*/
-    
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Stereo_Width],version1},
-                                                           MFXParameterLabel[mFXParameter_Stereo_Width],
-                                                           NormalisableRange<float>(0.0f, 1.0f, 0.01),
-                                                           MFXParameterDefaultValue[mFXParameter_Stereo_Width],
-                                                           String(), AudioProcessorParameter::genericParameter,
-                                                           [] (float value, int) -> String
-                                                           {
-                                                               String valueToText = String (value * 200,1) + " %";
-                                                               
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Stereo_Width] = valueToText;
-                                                               
-                                                               return valueToText;
-                                                           }));
     
     
-    params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Mid_Side_Mode],version1},
-                                                          MFXParameterLabel[mFXParameter_Mid_Side_Mode],
-                                                          MFXParameterDefaultValue[mFXParameter_Mid_Side_Mode]));
     
     
-    /* Advanced Panel Params Envelope follower*/
+    /* -------------------------------------------------------Advanced Panel Params Envelope follower------------------------------------------------------------------------------------*/
     
     
 
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Advanced_EnvF_Sensitivity],version1},
                                                            MFXParameterLabel[mFXParameter_Advanced_EnvF_Sensitivity],
-                                                           NormalisableRange<float>(1.0f, 5.0f, 0.01f),
-                                                           MFXParameterDefaultValue[mFXParameter_Advanced_EnvF_Sensitivity],
+                                                           NormalisableRange<float>(1.0f, 5.0f, 0.01f), 5.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value,1);
                                                                
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Advanced_EnvF_Sensitivity] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -1982,15 +1887,12 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Advanced_EnvF_Attack],version1},
                                                            MFXParameterLabel[mFXParameter_Advanced_EnvF_Attack],
-                                                           NormalisableRange<float>(0.01f, 25000.0f, 0.01f, 0.3f),
-                                                           MFXParameterDefaultValue[mFXParameter_Advanced_EnvF_Attack],
+                                                           NormalisableRange<float>(0.01f, 25000.0f, 0.01f, 0.3f),0.1f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value / 10.0f ,1) + " ms";
                                                                
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Advanced_EnvF_Attack] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -1998,15 +1900,12 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Advanced_EnvF_Release],version1},
                                                            MFXParameterLabel[mFXParameter_Advanced_EnvF_Release],
-                                                           NormalisableRange<float>(10.0f, 6000.0f, 0.01f, 0.3f), //changed from 10000
-                                                           MFXParameterDefaultValue[mFXParameter_Advanced_EnvF_Release],
+                                                           NormalisableRange<float>(10.0f, 6000.0f, 0.01f, 0.3f),280.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value,1) + " ms";
                                                                
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Advanced_EnvF_Release] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -2022,22 +1921,18 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                        "Echo/Out", "Dry/Out", "Stereo Width",
                                                                        "Delay 2 Wet","Chorus Wet","Phaser Wet", "Bit Crusher Wet","Bit Crusher Resolution", "Bit Crusher Downsample",
                                                                        "Bit Crusher Noise", "Reverb Wet","Reverb Size","Reverb Width",
-                                                                       "LFO 1 Rate", "LFO 2 Rate"},
-                                                                   MFXParameterDefaultValue[mFXParameter_Advanced_EnvF_Target1]));
+                                                                       "LFO 1 Rate", "LFO 2 Rate"},0.0f));
     
     
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Advanced_EnvF_Target1_Amount],version1},
                                                            MFXParameterLabel[mFXParameter_Advanced_EnvF_Target1_Amount],
-                                                           NormalisableRange<float>( -1.0f, 1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_Advanced_EnvF_Target1_Amount],
+                                                           NormalisableRange<float>( -1.0f, 1.0f, 0.001f), 0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                String (value,1);
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Advanced_EnvF_Target1_Amount] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -2053,47 +1948,39 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                        "Echo/Out", "Dry/Out", "Stereo Width",
                                                                        "Delay 2 Wet","Chorus Wet","Phaser Wet", "Bit Crusher Wet","Bit Crusher Resolution", "Bit Crusher Downsample",
                                                                        "Bit Crusher Noise", "Reverb Wet","Reverb Size","Reverb Width",
-                                                                       "LFO 1 Rate", "LFO 2 Rate"},
-                                                                   MFXParameterDefaultValue[mFXParameter_Advanced_EnvF_Target2]));
+                                                                       "LFO 1 Rate", "LFO 2 Rate"},0.0f));
     
     
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Advanced_EnvF_Target2_Amount],version1},
                                                            MFXParameterLabel[mFXParameter_Advanced_EnvF_Target2_Amount],
-                                                           NormalisableRange<float>( -1.0f, 1.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_Advanced_EnvF_Target2_Amount],
+                                                           NormalisableRange<float>( -1.0f, 1.0f, 0.001f),0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                String (value,1);
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_Advanced_EnvF_Target2_Amount] = valueToText;
-                                                               
                                                                return valueToText;
                                                            }));
     
     
-    /* Advanced Panel Params LFO1*/
+    /* -----------------------------------------------------------------Advanced Panel Params LFO1-----------------------------------------------------------------------------------------*/
     
         
     params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO1_Sync],version1},
-                                                          MFXParameterLabel[mFXParameter_Advanced_LFO1_Sync],
-                                                          MFXParameterDefaultValue[mFXParameter_Advanced_LFO1_Sync]));
+                                                          MFXParameterLabel[mFXParameter_Advanced_LFO1_Sync], static_cast<bool>(0.0f)));
     
     
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO1_Rate],version1},
                                                            MFXParameterLabel[mFXParameter_Advanced_LFO1_Rate],
-                                                           NormalisableRange<float>(0.01f, 20.0f, 0.0001f, 0.6f),  // set skew factor
-                                                           MFXParameterDefaultValue[mFXParameter_Advanced_LFO1_Rate],
+                                                           NormalisableRange<float>(0.01f, 20.0f, 0.0001f, 0.6f), 0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                String (value,2) + " Hz";
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Advanced_LFO1_Rate] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -2102,17 +1989,14 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                    MFXParameterLabel[mFXParameter_Advanced_LFO1_Note],
                                                                    juce::StringArray { "1", "1.", "1T", "1/2", "1/2.", "1/2T","1/4", "1/4.", "1/4T",
                                                                        "1/8", "1/8.", "1/8T", "1/16", "1/16.", "1/16T",
-                                                                       "1/32", "1/32.", "1/32T", "1/64", "1/64.", "1/64T"},
-                                                                   MFXParameterDefaultValue[mFXParameter_Advanced_LFO1_Note]
-                                                                   ));
+                                                                       "1/32", "1/32.", "1/32T", "1/64", "1/64.", "1/64T"}, 0.0f));
 
     
     
     
     params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO1_Type],version1},
                                                                    MFXParameterLabel[mFXParameter_Advanced_LFO1_Type],
-                                                                   juce::StringArray { "Sin", "U-Ramp", "Square", "Triangle", "D-Ramp"},
-                                                                   MFXParameterDefaultValue[mFXParameter_Advanced_LFO1_Type]));
+                                                                   juce::StringArray { "Sin", "U-Ramp", "Square", "Triangle", "D-Ramp"}, 0.0f));
     
     
     params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO1_Target1],version1},
@@ -2125,22 +2009,18 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                        "Echo/Out", "Dry/Out", "Stereo Width",
                                                                        "Delay 2 Wet","Chorus Wet","Phaser Wet", "Bit Crusher Wet","Bit Crusher Resolution",
                                                                        "Bit Crusher Downsample", "Bit Crusher Noise", "Reverb Wet","Reverb Size","Reverb Width",
-                                                                       "LFO 2 Rate", "Envelope Sensitivity"},
-                                                                   MFXParameterDefaultValue[mFXParameter_Advanced_LFO1_Target1]));
+                                                                       "LFO 2 Rate", "Envelope Sensitivity"}, 0.0f));
 
     
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO1_Target1_Amount],version1},
                                                            MFXParameterLabel[mFXParameter_Advanced_LFO1_Target1_Amount],
-                                                           NormalisableRange<float>( 0.0f, 1.0f, 0.00001f), // set skew factor 0.6f
-                                                           MFXParameterDefaultValue[mFXParameter_Advanced_LFO1_Target1_Amount],
+                                                           NormalisableRange<float>( 0.0f, 1.0f, 0.00001f), 0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                String (value,2);
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Advanced_LFO1_Target1_Amount] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -2156,46 +2036,38 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                        "Echo/Out", "Dry/Out", "Stereo Width",
                                                                        "Delay 2 Wet","Chorus Wet","Phaser Wet", "Bit Crusher Wet","Bit Crusher Resolution",
                                                                        "Bit Crusher Downsample", "Bit Crusher Noise", "Reverb Wet","Reverb Size","Reverb Width",
-                                                                       "LFO 2 Rate", "Envelope Sensitivity"},
-                                                                   MFXParameterDefaultValue[mFXParameter_Advanced_LFO1_Target2]));
+                                                                       "LFO 2 Rate", "Envelope Sensitivity"}, 0.0f));
     
     
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO1_Target2_Amount],version1},
                                                            MFXParameterLabel[mFXParameter_Advanced_LFO1_Target2_Amount],
-                                                           NormalisableRange<float>( 0.0f, 1.0f, 0.00001f),
-                                                           MFXParameterDefaultValue[mFXParameter_Advanced_LFO1_Target2_Amount],
+                                                           NormalisableRange<float>( 0.0f, 1.0f, 0.00001f), 0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                String (value,2);
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_Advanced_LFO1_Target2_Amount] = valueToText;
-                                                               
                                                                return valueToText;
                                                            }));
 
     
     
-    /* Advanced Panel Params LFO2*/
+    /* ------------------------------------------------------Advanced Panel Params LFO2----------------------------------------------------------------------*/
     
     
     params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO2_Sync],version1},
-                                                          MFXParameterLabel[mFXParameter_Advanced_LFO2_Sync],
-                                                          MFXParameterDefaultValue[mFXParameter_Advanced_LFO2_Sync]));
+                                                          MFXParameterLabel[mFXParameter_Advanced_LFO2_Sync], static_cast<bool>(0.0f)));
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO2_Rate],version1},
                                                            MFXParameterLabel[mFXParameter_Advanced_LFO2_Rate],
-                                                           NormalisableRange<float>(0.01f, 20.0f, 0.001f),
-                                                           MFXParameterDefaultValue[mFXParameter_Advanced_LFO2_Rate],
+                                                           NormalisableRange<float>(0.01f, 20.0f, 0.001f), 0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                String (value,2) + " Hz";
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Advanced_LFO2_Rate] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -2205,17 +2077,14 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                    MFXParameterLabel[mFXParameter_Advanced_LFO2_Note],
                                                                    juce::StringArray { "1", "1.", "1T", "1/2", "1/2.", "1/2T","1/4", "1/4.", "1/4T",
                                                                        "1/8", "1/8.", "1/8T", "1/16", "1/16.", "1/16T",
-                                                                       "1/32", "1/32.", "1/32T", "1/64", "1/64.", "1/64T"},
-                                                                   MFXParameterDefaultValue[mFXParameter_Advanced_LFO2_Note]
-                                                                   ));
+                                                                       "1/32", "1/32.", "1/32T", "1/64", "1/64.", "1/64T"}, 0.0f));
     
     
     
     
     params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO2_Type],version1},
                                                                    MFXParameterLabel[mFXParameter_Advanced_LFO2_Type],
-                                                                   juce::StringArray { "Sin", "U-Ramp", "Square", "Triangle", "D-Ramp"},
-                                                                   MFXParameterDefaultValue[mFXParameter_Advanced_LFO2_Type]));
+                                                                   juce::StringArray { "Sin", "U-Ramp", "Square", "Triangle", "D-Ramp"}, 0.0f));
     
     
     params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO2_Target1],version1},
@@ -2228,22 +2097,18 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                        "Echo/Out", "Dry/Out", "Stereo Width",
                                                                        "Delay 2 Wet","Chorus Wet","Phaser Wet", "Bit Crusher Wet","Bit Crusher Resolution",
                                                                        "Bit Crusher Downsample", "Bit Crusher Noise", "Reverb Wet","Reverb Size","Reverb Width",
-                                                                       "LFO 1 Rate", "Envelope Sensitivity"},
-                                                                   MFXParameterDefaultValue[mFXParameter_Advanced_LFO1_Target1]));
+                                                                       "LFO 1 Rate", "Envelope Sensitivity"}, 0.0f));
     
     
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO2_Target1_Amount],version1},
                                                            MFXParameterLabel[mFXParameter_Advanced_LFO2_Target1_Amount],
-                                                           NormalisableRange<float>( 0.0f, 1.0f, 0.00001f),
-                                                           MFXParameterDefaultValue[mFXParameter_Advanced_LFO2_Target1_Amount],
+                                                           NormalisableRange<float>( 0.0f, 1.0f, 0.00001f), 0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                String (value,2);
-                                                               
-                                                               //mUIData.mParameterValueText[mFXParameter_Advanced_LFO2_Target1_Amount] = valueToText;
                                                                
                                                                return valueToText;
                                                            }));
@@ -2259,341 +2124,259 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                        "Echo/Out", "Dry/Out", "Stereo Width",
                                                                        "Delay 2 Wet","Chorus Wet","Phaser Wet", "Bit Crusher Wet","Bit Crusher Resolution",
                                                                        "Bit Crusher Downsample", "Bit Crusher Noise", "Reverb Wet","Reverb Size","Reverb Width",
-                                                                       "LFO 1 Rate", "Envelope Sensitivity"},
-                                                                   MFXParameterDefaultValue[mFXParameter_Advanced_LFO2_Target2]));
+                                                                       "LFO 1 Rate", "Envelope Sensitivity"}, 0.0f));
     
     
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO2_Target2_Amount],version1},
                                                            MFXParameterLabel[mFXParameter_Advanced_LFO2_Target2_Amount],
-                                                           NormalisableRange<float>( 0.0f, 1.0f, 0.00001f),
-                                                           MFXParameterDefaultValue[mFXParameter_Advanced_LFO2_Target2_Amount],
+                                                           NormalisableRange<float>( 0.0f, 1.0f, 0.00001f), 0.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText =
                                                                String (value,2);
                                                                
-                                                               //mUIData.mParameterValueText[mFXParameter_Advanced_LFO2_Target2_Amount] = valueToText;
-                                                               
                                                                return valueToText;
                                                            }));
     
     
-    /* Fade related Parameters */
 
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_FadeFrequency_Delay1],version1},
-                                                           MFXParameterLabel[mFXParameter_FadeFrequency_Delay1],
-                                                           NormalisableRange<float>(0.3f, 25.0f, 0.001f, 0.3f), 
-                                                           MFXParameterDefaultValue[mFXParameter_FadeFrequency_Delay1],
-                                                           String(), AudioProcessorParameter::genericParameter,
-                                                            [](float value, int) -> String
-                                                            {
-                                                                String valueToText = String(value,2) + " ";
+  
 
-                                                                //mUIData.mParameterValueText[mFXParameter_FadeFrequency_Delay1] = valueToText;
-
-                                                                 return valueToText;
-                                                             }));
-
-    params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_FadeFrequency_Delay2],version1},
-                                                           MFXParameterLabel[mFXParameter_FadeFrequency_Delay2],
-                                                           NormalisableRange<float>(0.3f, 25.0f, 0.001f,0.3f),
-                                                           MFXParameterDefaultValue[mFXParameter_FadeFrequency_Delay2],
-                                                           String(), AudioProcessorParameter::genericParameter,
-                                                           [](float value, int) -> String
-                                                           {
-                                                               String valueToText = String(value, 2) + " ";
-
-                                                               //mUIData.mParameterValueText[mFXParameter_FadeFrequency_Delay2] = valueToText;
-
-                                                               return valueToText;
-                                                           }));
-
-    params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_IsFadeMode_Delay1],version1},
-                                                          MFXParameterLabel[mFXParameter_IsFadeMode_Delay1],
-                                                          MFXParameterDefaultValue[mFXParameter_IsFadeMode_Delay1]));
-    
-    params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_IsFadeMode_Delay2],version1},
-                                                          MFXParameterLabel[mFXParameter_IsFadeMode_Delay2],
-                                                          MFXParameterDefaultValue[mFXParameter_IsFadeMode_Delay2]));
-
-    // 2 isPitched bool ..........
-
-
-
-
-     /* MIDI Panel ADSR */
+     /* -------------------------------------------------------------MIDI Panel ADSR ----------------------------------------------------------------------------------------------------*/
 
 
 
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR_Attack],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR_Attack],
-        NormalisableRange<float>(0.0f, 20.0f, 0.001f, 0.3f), // should range be 20s
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR_Attack],
-        String(), AudioProcessorParameter::genericParameter,
-        [](float value, int) -> String
-        {
-            String valueToText = value < 1.0f ? String(value * 1000, 1) + " ms" : String(value, 1) + " s";
+                                                           MFXParameterLabel[mFXParameter_Midi_ADSR_Attack],
+                                                           NormalisableRange<float>(0.0f, 20.0f, 0.001f, 0.3f), 0.1f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText = value < 1.0f ? String(value * 1000, 1) + " ms" : String(value, 1) + " s";
 
 
-            //mUIData.mParameterValueText[mFXParameter_Midi_ADSR_Attack] = valueToText;
-
-            return valueToText;
-        }));
+                                                               return valueToText;
+                                                           }));
 
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR_Decay],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR_Decay],
-        NormalisableRange<float>(0.0f, 20.0f, 0.001f, 0.3f),
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR_Decay],
-        String(), AudioProcessorParameter::genericParameter,
-        [](float value, int) -> String
-        {
-            String valueToText = value < 1.0f ? String(value * 1000, 1) + " ms" : String(value, 1) + " s";
+                                                           MFXParameterLabel[mFXParameter_Midi_ADSR_Decay],
+                                                           NormalisableRange<float>(0.0f, 20.0f, 0.001f, 0.3f), 0.3f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText = value < 1.0f ? String(value * 1000, 1) + " ms" : String(value, 1) + " s";
 
-
-            //mUIData.mParameterValueText[mFXParameter_Midi_ADSR_Decay] = valueToText;
-
-            return valueToText;
-        }));
+                                                                return valueToText;
+                                                           }));
 
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR_Sustain],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR_Sustain],
-        NormalisableRange<float>(0.0f, 1.0f, 0.001f), //changed from 10000
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR_Sustain],
-        String(), AudioProcessorParameter::genericParameter,
-        [](float value, int) -> String
-        {
-            String valueToText = String(value, 1);
+                                                           MFXParameterLabel[mFXParameter_Midi_ADSR_Sustain],
+                                                           NormalisableRange<float>(0.0f, 1.0f, 0.001f), 0.4f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText = String(value, 1);
 
-
-            //mUIData.mParameterValueText[mFXParameter_Midi_ADSR_Sustain] = valueToText;
-
-            return valueToText;
-        }));
+                                                               return valueToText;
+                                                           }));
 
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR_Release],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR_Release],
-        NormalisableRange<float>(0.0f, 20.0f, 0.001f, 0.3f), //changed from 10000
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR_Release],
-        String(), AudioProcessorParameter::genericParameter,
-        [](float value, int) -> String
-        {
-            String valueToText = value < 1.0f ? String(value * 1000, 1) + " ms" : String(value, 1) + " s";
+                                                           MFXParameterLabel[mFXParameter_Midi_ADSR_Release],
+                                                           NormalisableRange<float>(0.0f, 20.0f, 0.001f, 0.3f), 0.2f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText = value < 1.0f ? String(value * 1000, 1) + " ms" : String(value, 1) + " s";
 
-
-            //mUIData.mParameterValueText[mFXParameter_Midi_ADSR_Release] = valueToText;
-
-            return valueToText;
-        }));
+                                                               return valueToText;
+                                                           }));
 
     // String array Must match enum ModulationTargetIndex (in MFXUsedParameters)
     params.push_back(std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR_Target1],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR_Target1],
-        juce::StringArray { "None", "Delay 1 Left", "Delay 1 Right", "Delay 1 L+R", "Delay 1 Offset",
-        "Feedback 1 Left", "Feedback 1 Right", "Feedback 1 L+R",
-        "Delay 2 Left", "Delay 2 Right", "Delay 2 L+R", "Delay 2 Offset",
-        "Feedback 2 Left", "Feedback 2 Right", "Feedback 2 L+R",
-        "Filter Cutoff", "Filter Resonans", "Filter Drive",
-        "Echo/Out", "Dry/Out", "Stereo Width",
-        "Delay 2 Wet", "Chorus Wet", "Phaser Wet", "Bit Crusher Wet", "Bit Crusher Resolution", "Bit Crusher Downsample",
-        "Bit Crusher Noise", "Reverb Wet", "Reverb Size", "Reverb Width",
-        "LFO 1 Rate", "LFO 2 Rate"},
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR_Target1]));
+                                                                  MFXParameterLabel[mFXParameter_Midi_ADSR_Target1],
+                                                                  juce::StringArray { "None", "Delay 1 Left", "Delay 1 Right", "Delay 1 L+R", "Delay 1 Offset",
+                                                                  "Feedback 1 Left", "Feedback 1 Right", "Feedback 1 L+R",
+                                                                  "Delay 2 Left", "Delay 2 Right", "Delay 2 L+R", "Delay 2 Offset",
+                                                                  "Feedback 2 Left", "Feedback 2 Right", "Feedback 2 L+R",
+                                                                  "Filter Cutoff", "Filter Resonans", "Filter Drive",
+                                                                  "Echo/Out", "Dry/Out", "Stereo Width",
+                                                                  "Delay 2 Wet", "Chorus Wet", "Phaser Wet", "Bit Crusher Wet", "Bit Crusher Resolution", "Bit Crusher Downsample",
+                                                                  "Bit Crusher Noise", "Reverb Wet", "Reverb Size", "Reverb Width",
+                                                                  "LFO 1 Rate", "LFO 2 Rate"}, 0.0f));
 
 
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR_Target1_Amount],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR_Target1_Amount],
-        NormalisableRange<float>(-1.0f, 1.0f, 0.001f),
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR_Target1_Amount],
-        String(), AudioProcessorParameter::genericParameter,
-        [](float value, int) -> String
-        {
-            String valueToText =
-                String(value, 1);
+                                                           MFXParameterLabel[mFXParameter_Midi_ADSR_Target1_Amount],
+                                                           NormalisableRange<float>(-1.0f, 1.0f, 0.001f), 0.0f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText =
+                                                               String(value, 1);
 
-            //mUIData.mParameterValueText[mFXParameter_Midi_ADSR_Target1_Amount] = valueToText;
-
-            return valueToText;
-        }));
+                                                               return valueToText;
+                                                           }));
 
 
     params.push_back(std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR_Target2],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR_Target2],
-        juce::StringArray { "None", "Delay 1 Left", "Delay 1 Right", "Delay 1 L+R", "Delay 1 Offset",
-        "Feedback 1 Left", "Feedback 1 Right", "Feedback 1 L+R",
-        "Delay 2 Left", "Delay 2 Right", "Delay 2 L+R", "Delay 2 Offset",
-        "Feedback 2 Left", "Feedback 2 Right", "Feedback 2 L+R",
-        "Filter Cutoff", "Filter Resonans", "Filter Drive",
-        "Echo/Out", "Dry/Out", "Stereo Width",
-        "Delay 2 Wet", "Chorus Wet", "Phaser Wet", "Bit Crusher Wet", "Bit Crusher Resolution", "Bit Crusher Downsample",
-        "Bit Crusher Noise", "Reverb Wet", "Reverb Size", "Reverb Width",
-        "LFO 1 Rate", "LFO 2 Rate"},
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR_Target2]));
+                                                                  MFXParameterLabel[mFXParameter_Midi_ADSR_Target2],
+                                                                  juce::StringArray { "None", "Delay 1 Left", "Delay 1 Right", "Delay 1 L+R", "Delay 1 Offset",
+                                                                  "Feedback 1 Left", "Feedback 1 Right", "Feedback 1 L+R",
+                                                                  "Delay 2 Left", "Delay 2 Right", "Delay 2 L+R", "Delay 2 Offset",
+                                                                  "Feedback 2 Left", "Feedback 2 Right", "Feedback 2 L+R",
+                                                                  "Filter Cutoff", "Filter Resonans", "Filter Drive",
+                                                                  "Echo/Out", "Dry/Out", "Stereo Width",
+                                                                  "Delay 2 Wet", "Chorus Wet", "Phaser Wet", "Bit Crusher Wet", "Bit Crusher Resolution", "Bit Crusher Downsample",
+                                                                  "Bit Crusher Noise", "Reverb Wet", "Reverb Size", "Reverb Width",
+                                                                  "LFO 1 Rate", "LFO 2 Rate"}, 0.0f));
 
 
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR_Target2_Amount],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR_Target2_Amount],
-        NormalisableRange<float>(-1.0f, 1.0f, 0.001f),
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR_Target2_Amount],
-        String(), AudioProcessorParameter::genericParameter,
-        [](float value, int) -> String
-        {
-            String valueToText =
-                String(value, 1);
+                                                           MFXParameterLabel[mFXParameter_Midi_ADSR_Target2_Amount],
+                                                           NormalisableRange<float>(-1.0f, 1.0f, 0.001f), 0.0f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText =
+                                                               String(value, 1);
 
-            //mUIData.mParameterValueText[mFXParameter_Midi_ADSR_Target2_Amount] = valueToText;
-
-            return valueToText;
-        }));
+                                                               return valueToText;
+                                                           }));
 
 
-    /* MIDI Panel ADSR 2 */
+    /* -----------------------------------------------------------MIDI Panel ADSR 2 ----------------------------------------------------------------------------*/
 
 
 
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR2_Attack],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR2_Attack],
-        NormalisableRange<float>(0.0f, 20.0f, 0.001f, 0.3f), // should range be 20s
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR2_Attack],
-        String(), AudioProcessorParameter::genericParameter,
-        [](float value, int) -> String
-        {
-            String valueToText = value < 1.0f ? String(value * 1000, 1) + " ms" : String(value, 1) + " s";
+                                                           MFXParameterLabel[mFXParameter_Midi_ADSR2_Attack],
+                                                           NormalisableRange<float>(0.0f, 20.0f, 0.001f, 0.3f),0.1f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText = value < 1.0f ? String(value * 1000, 1) + " ms" : String(value, 1) + " s";
 
 
-            //mUIData.mParameterValueText[mFXParameter_Midi_ADSR2_Attack] = valueToText;
-
-            return valueToText;
-        }));
+                                                               return valueToText;
+                                                           }));
 
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR2_Decay],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR2_Decay],
-        NormalisableRange<float>(0.0f, 20.0f, 0.001f, 0.3f),
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR2_Decay],
-        String(), AudioProcessorParameter::genericParameter,
-        [](float value, int) -> String
-        {
-            String valueToText = value < 1.0f ? String(value * 1000, 1) + " ms" : String(value, 1) + " s";
+                                                           MFXParameterLabel[mFXParameter_Midi_ADSR2_Decay],
+                                                           NormalisableRange<float>(0.0f, 20.0f, 0.001f, 0.3f), 0.3f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText = value < 1.0f ? String(value * 1000, 1) + " ms" : String(value, 1) + " s";
 
 
-            //mUIData.mParameterValueText[mFXParameter_Midi_ADSR2_Decay] = valueToText;
-
-            return valueToText;
-        }));
+                                                               return valueToText;
+                                                           }));
 
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR2_Sustain],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR2_Sustain],
-        NormalisableRange<float>(0.0f, 1.0f, 0.001f), //changed from 10000
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR2_Sustain],
-        String(), AudioProcessorParameter::genericParameter,
-        [](float value, int) -> String
-        {
-            String valueToText = String(value, 1);
+                                                           MFXParameterLabel[mFXParameter_Midi_ADSR2_Sustain],
+                                                           NormalisableRange<float>(0.0f, 1.0f, 0.001f),0.4f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText = String(value, 1);
 
-
-            //mUIData.mParameterValueText[mFXParameter_Midi_ADSR2_Sustain] = valueToText;
-
-            return valueToText;
-        }));
+                                                               return valueToText;
+                                                           }));
 
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR2_Release],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR2_Release],
-        NormalisableRange<float>(0.0f, 20.0f, 0.001f, 0.3f), //changed from 10000
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR2_Release],
-        String(), AudioProcessorParameter::genericParameter,
-        [](float value, int) -> String
-        {
-            String valueToText = value < 1.0f ? String(value * 1000, 1) + " ms" : String(value, 1) + " s";
+                                                           MFXParameterLabel[mFXParameter_Midi_ADSR2_Release],
+                                                           NormalisableRange<float>(0.0f, 20.0f, 0.001f, 0.3f), 0.2f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText = value < 1.0f ? String(value * 1000, 1) + " ms" : String(value, 1) + " s";
 
 
-            //mUIData.mParameterValueText[mFXParameter_Midi_ADSR2_Release] = valueToText;
-
-            return valueToText;
-        }));
+                                                               return valueToText;
+                                                            }));
 
     // String array Must match enum ModulationTargetIndex (in MFXUsedParameters)
     params.push_back(std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR2_Target1],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR2_Target1],
-        juce::StringArray { "None", "Delay 1 Left", "Delay 1 Right", "Delay 1 L+R", "Delay 1 Offset",
-        "Feedback 1 Left", "Feedback 1 Right", "Feedback 1 L+R",
-        "Delay 2 Left", "Delay 2 Right", "Delay 2 L+R", "Delay 2 Offset",
-        "Feedback 2 Left", "Feedback 2 Right", "Feedback 2 L+R",
-        "Filter Cutoff", "Filter Resonans", "Filter Drive",
-        "Echo/Out", "Dry/Out", "Stereo Width",
-        "Delay 2 Wet", "Chorus Wet", "Phaser Wet", "Bit Crusher Wet", "Bit Crusher Resolution", "Bit Crusher Downsample",
-        "Bit Crusher Noise", "Reverb Wet", "Reverb Size", "Reverb Width",
-        "LFO 1 Rate", "LFO 2 Rate"},
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR2_Target1]));
+                                                                  MFXParameterLabel[mFXParameter_Midi_ADSR2_Target1],
+                                                                  juce::StringArray { "None", "Delay 1 Left", "Delay 1 Right", "Delay 1 L+R", "Delay 1 Offset",
+                                                                  "Feedback 1 Left", "Feedback 1 Right", "Feedback 1 L+R",
+                                                                  "Delay 2 Left", "Delay 2 Right", "Delay 2 L+R", "Delay 2 Offset",
+                                                                  "Feedback 2 Left", "Feedback 2 Right", "Feedback 2 L+R",
+                                                                  "Filter Cutoff", "Filter Resonans", "Filter Drive",
+                                                                  "Echo/Out", "Dry/Out", "Stereo Width",
+                                                                  "Delay 2 Wet", "Chorus Wet", "Phaser Wet", "Bit Crusher Wet", "Bit Crusher Resolution", "Bit Crusher Downsample",
+                                                                  "Bit Crusher Noise", "Reverb Wet", "Reverb Size", "Reverb Width",
+                                                                  "LFO 1 Rate", "LFO 2 Rate"}, 0.0f));
 
 
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR2_Target1_Amount],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR2_Target1_Amount],
-        NormalisableRange<float>(-1.0f, 1.0f, 0.001f),
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR2_Target1_Amount],
-        String(), AudioProcessorParameter::genericParameter,
-        [](float value, int) -> String
-        {
-            String valueToText =
-                String(value, 1);
+                                                           MFXParameterLabel[mFXParameter_Midi_ADSR2_Target1_Amount],
+                                                           NormalisableRange<float>(-1.0f, 1.0f, 0.001f), 0.0f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                               String valueToText =
+                                                               String(value, 1);
 
-            //mUIData.mParameterValueText[mFXParameter_Midi_ADSR2_Target1_Amount] = valueToText;
-
-            return valueToText;
-        }));
+                                                               return valueToText;
+                                                           }));
 
 
     params.push_back(std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR2_Target2],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR2_Target2],
-        juce::StringArray { "None", "Delay 1 Left", "Delay 1 Right", "Delay 1 L+R", "Delay 1 Offset",
-        "Feedback 1 Left", "Feedback 1 Right", "Feedback 1 L+R",
-        "Delay 2 Left", "Delay 2 Right", "Delay 2 L+R", "Delay 2 Offset",
-        "Feedback 2 Left", "Feedback 2 Right", "Feedback 2 L+R",
-        "Filter Cutoff", "Filter Resonans", "Filter Drive",
-        "Echo/Out", "Dry/Out", "Stereo Width",
-        "Delay 2 Wet", "Chorus Wet", "Phaser Wet", "Bit Crusher Wet", "Bit Crusher Resolution", "Bit Crusher Downsample",
-        "Bit Crusher Noise", "Reverb Wet", "Reverb Size", "Reverb Width",
-        "LFO 1 Rate", "LFO 2 Rate"},
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR2_Target2]));
+                                                                  MFXParameterLabel[mFXParameter_Midi_ADSR2_Target2],
+                                                                  juce::StringArray { "None", "Delay 1 Left", "Delay 1 Right", "Delay 1 L+R", "Delay 1 Offset",
+                                                                  "Feedback 1 Left", "Feedback 1 Right", "Feedback 1 L+R",
+                                                                  "Delay 2 Left", "Delay 2 Right", "Delay 2 L+R", "Delay 2 Offset",
+                                                                  "Feedback 2 Left", "Feedback 2 Right", "Feedback 2 L+R",
+                                                                  "Filter Cutoff", "Filter Resonans", "Filter Drive",
+                                                                  "Echo/Out", "Dry/Out", "Stereo Width",
+                                                                  "Delay 2 Wet", "Chorus Wet", "Phaser Wet", "Bit Crusher Wet", "Bit Crusher Resolution", "Bit Crusher Downsample",
+                                                                  "Bit Crusher Noise", "Reverb Wet", "Reverb Size", "Reverb Width",
+                                                                  "LFO 1 Rate", "LFO 2 Rate"}, 0.0f));
 
 
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Midi_ADSR2_Target2_Amount],version1},
-        MFXParameterLabel[mFXParameter_Midi_ADSR2_Target2_Amount],
-        NormalisableRange<float>(-1.0f, 1.0f, 0.001f),
-        MFXParameterDefaultValue[mFXParameter_Midi_ADSR2_Target2_Amount],
-        String(), AudioProcessorParameter::genericParameter,
-        [](float value, int) -> String
-        {
-            String valueToText =
-                String(value, 1);
+                                                           MFXParameterLabel[mFXParameter_Midi_ADSR2_Target2_Amount],
+                                                           NormalisableRange<float>(-1.0f, 1.0f, 0.001f), 0.0f,
+                                                           String(), AudioProcessorParameter::genericParameter,
+                                                           [](float value, int) -> String
+                                                           {
+                                                                String valueToText =
+                                                                String(value, 1);
 
-            //mUIData.mParameterValueText[mFXParameter_Midi_ADSR2_Target2_Amount] = valueToText;
-
-            return valueToText;
-        }));
+                                                                return valueToText;
+                                                           }));
 
 
-    // Midi in LFO retrigger
+    /* ---------------------------------------------------------Midi in LFO retrigger ----------------------------------------------------------------*/
 
     params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Midi_LFO1_Retrigger],version1},
-        MFXParameterLabel[mFXParameter_Midi_LFO1_Retrigger],
-        MFXParameterDefaultValue[mFXParameter_Midi_LFO1_Retrigger]));
+                                                          MFXParameterLabel[mFXParameter_Midi_LFO1_Retrigger], static_cast<bool>(0.0f)));
 
     params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Midi_LFO2_Retrigger],version1},
-        MFXParameterLabel[mFXParameter_Midi_LFO2_Retrigger],
-        MFXParameterDefaultValue[mFXParameter_Midi_LFO2_Retrigger]));
+                                                          MFXParameterLabel[mFXParameter_Midi_LFO2_Retrigger], static_cast<bool>( 0.0f)));
+
+
+
+
+
+
+
+
     
     return { params.begin(), params.end() };
 }
@@ -3205,7 +2988,7 @@ void PluginProcessor::setChorusParameters()
     auto& modulationDepth = *parameters.getRawParameterValue(MFXParameterID[mFXParameter_ChorusDepth]);
     auto& dryWetChorus = *parameters.getRawParameterValue(MFXParameterID[mFXParameter_ChorusWetDry]);
     
-    auto& centerDelay = *parameters.getRawParameterValue(MFXParameterID[mFXParameter_ChorusCenterDelay]);
+    auto& centerDelay = *parameters.getRawParameterValue(MFXParameterID[mFXParameter_ChorusWidth]);
     auto& feedback = *parameters.getRawParameterValue(MFXParameterID[mFXParameter_ChorusFeedback]);
     
     
