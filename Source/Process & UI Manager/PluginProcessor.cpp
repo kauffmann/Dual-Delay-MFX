@@ -1022,7 +1022,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     // if more params is added after release build, then version2 = 2 is added to new params
     
 
-    /*--------------------------------Gain In/Out-----------------------------------------------------------*/
+    /*--------------------------------Gain In/Out-------------------------------------------------------------------------------------------------------*/
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID { MFXParameterID[mFXParameter_InputGain], version1},
                                                            MFXParameterLabel[mFXParameter_InputGain],
@@ -1051,7 +1051,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                            }
                                                            ));
     
-    /*--------------------------------Chorus-----------------------------------------------------------*/
+    /*--------------------------------Chorus-------------------------------------------------------------------------------------------------------------*/
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID { MFXParameterID[mFXParameter_ChorusRate], version1},
                                                            MFXParameterLabel[mFXParameter_ChorusRate],
@@ -1264,7 +1264,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     
     
-    /*-----------------------------------------------Reverb------------------------------------------------------------------------*/
+    /*-----------------------------------------------Reverb------------------------------------------------------------------------------------*/
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_ReverbSize],version1},
                                                            MFXParameterLabel[mFXParameter_ReverbSize],
@@ -1326,7 +1326,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_ReverbFreeze],version1},
                                                            MFXParameterLabel[mFXParameter_ReverbFreeze], static_cast<bool>(0.0f)));
 
-    /*-----------------------------------------------Ladder Filter------------------------------------------------------------------------*/
+    /*-----------------------------------------------Ladder Filter-----------------------------------------------------------------------------*/
 
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_FilterCutoff],version1},
@@ -1560,7 +1560,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
 
     
-    /*--------------------------------------------------------BitChrusher----------------------------------------------------------------------------------------------*/
+    /*--------------------------------------------------------BitChrusher------------------------------------------------------------------------*/
 
     
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_NoiseAmount],version1},
@@ -1613,7 +1613,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                            }));
     
    
-    /* -----------------------------------------------Center Global Menu -----------------------------------------------------------------------------------------*/
+    /* -----------------------------------------------Center Global Menu ----------------------------------------------------------------------*/
 
     
 
@@ -1640,7 +1640,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
 
     
 
-    /* -----------------------------------------------Global Mix -----------------------------------------------------------------------------------------*/
+    /* -----------------------------------------------Global Mix ---------------------------------------------------------------------------*/
 
 
 
@@ -1689,7 +1689,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
 
 
 
-    /* ----------------------------------------------------------Ducking single/serial. If parallel mode then delay 1 is controlled ---------*/
+    /* ----------------------------------------------------------Ducking single/serial. If parallel mode then delay 1 is controlled ------------*/
 
 
 
@@ -1748,7 +1748,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     
 
-    /* ------------------------------------------------Ducking parallel. If parallel mode then delay 1 is controlled ------------------------------------------------*/
+    /* ------------------------------------------------Ducking parallel. If parallel mode then delay 1 is controlled -----------------------------*/
 
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_Ducking_Threshold_Parallel],version1},
@@ -1870,7 +1870,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     
     
-    /* -------------------------------------------------------Advanced Panel Params Envelope follower------------------------------------------------------------------------------------*/
+    /* -------------------------------------------------------Advanced Panel Params Envelope follower--------------------------------------------*/
     
     
 
@@ -1968,7 +1968,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                            }));
     
     
-    /* -----------------------------------------------------------------Advanced Panel Params LFO1-----------------------------------------------------------------------------------------*/
+    /* -----------------------------------------------------------------Advanced Panel Params LFO1------------------------------------------------*/
     
         
     params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO1_Sync],version1},
@@ -2057,7 +2057,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
 
     
     
-    /* ------------------------------------------------------Advanced Panel Params LFO2----------------------------------------------------------------------*/
+    /* ------------------------------------------------------Advanced Panel Params LFO2------------------------------------------------*/
     
     
     params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO2_Sync],version1},
@@ -2147,7 +2147,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
 
   
 
-     /* -------------------------------------------------------------MIDI Panel ADSR ----------------------------------------------------------------------------------------------------*/
+     /* -------------------------------------------------------------MIDI Panel ADSR ------------------------------------------------------------------*/
 
 
 
@@ -2255,7 +2255,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                            }));
 
 
-    /* -----------------------------------------------------------MIDI Panel ADSR 2 ----------------------------------------------------------------------------*/
+    /* -----------------------------------------------------------MIDI Panel ADSR 2 ------------------------------------------------------*/
 
 
 
@@ -2365,7 +2365,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                            }));
 
 
-    /* ---------------------------------------------------------Midi in LFO retrigger ----------------------------------------------------------------*/
+    /* ---------------------------------------------------------Midi in LFO retrigger -----------------------------------------------------*/
 
     params.push_back(std::make_unique<AudioParameterBool>(ParameterID {MFXParameterID[mFXParameter_Midi_LFO1_Retrigger],version1},
                                                           MFXParameterLabel[mFXParameter_Midi_LFO1_Retrigger], static_cast<bool>(0.0f)));

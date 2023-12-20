@@ -16,17 +16,17 @@
 
 const juce::String MFXParameterID[] =
 {
-    /* --------------------------------Gain In/Out ---------*/
+    /* ----------------------------------------Gain In/Out -----------------------------------------------------*/
     "inputgain",
     "outputgain",
-    /* -------------------------------Chorus ----------*/
+    /* -----------------------------------------Chorus ---------------------------------------------------------*/
     "chorusrate",
     "chorusdepth",
     "choruswetdry",
     "chorus_width",
     "chorus_feedback",
 
-    /* --------------------------Delay 2 ----------------------------*/
+    /* ------------------------------------------Delay 2 --------------------------------------------------------*/
     "delay2_time_left", 
     "delay2_time_right",
     "delay2_feedback_left",
@@ -42,11 +42,11 @@ const juce::String MFXParameterID[] =
     "delay2_pingpong",
     "delay2_offset",
     
-    /* -----------Select FX Combobox----------*/
+    /* ------------------------------------------Select FX Combobox----------------------------------------------*/
 
     "fxtype",
     
-    /* ---------------------------------Reverb ------------------------------------------*/
+    /* --------------------------------------------Reverb -------------------------------------------------------*/
 
     "reverbsize",
     "reverbwidth",
@@ -55,14 +55,14 @@ const juce::String MFXParameterID[] =
     "reverbwet",
     "reverbfreeze",
 
-    /* -------------------------------------Moogy Filter ---*/
+    /* -----------------------------------------------Moogy Filter -----------------------------------------------*/
     "filtercutoff",
     "filterresonans",
     "filterDrive",
     "filtertype",
 
 
-    /* --------------------------Delay 1 (main)--------------*/
+    /* ------------------------------------------------Delay 1 (main)---------------------------------------------*/
     "delay1_time_left",  
     "delay1_time_right",
     "delay1_feedback_left",
@@ -78,7 +78,7 @@ const juce::String MFXParameterID[] =
     "delay1_offset",
 
     
-    /* Phaser -----------*/
+    /* -------------------------------------------------------Phaser -------------------------------------------------*/
     "phaser_rate",
     "phaser_depth",
     "phaser_centerfrequency",
@@ -87,13 +87,13 @@ const juce::String MFXParameterID[] =
 
     
     
-    /* Bit Chrusher ----*/
+    /* ----------------------------------------------------Bit Chrusher -----------------------------------------------*/
     "noise_amount",
     "rate_redux",
     "bit_redux",
     "bit_drywet",
   
-    /* Center Global Menu ---------*/
+    /* ---------------------------------------------------Center Global Menu -------------------------------------------*/
 
     "all_fx_processing",
     "parallel_mode",
@@ -103,32 +103,32 @@ const juce::String MFXParameterID[] =
     "cut_mode",
     
     
-    /* Global Mix ---------*/
+    /* ----------------------------------------------------Global Mix ---------------------------------------------------*/
 
     "global_wet",
     "global_dry",
     "stereo_width",
     "mid_side_mode",
 
-    /* Ducking single/serial (if parallel mode, delay 1 is controlled)---------*/
+    /* -------------------------------------Ducking single/serial (if parallel mode, delay 1 is controlled)---------------*/
     "ducking_threshold",
     "ducking_amount",
     "ducking_attack",
     "ducking_release",
 
-    /* Ducking parallel control delay 2-----------*/
+    /* ----------------------------------------------Ducking parallel control delay 2-------------------------------------*/
     "ducking_threshold_parallel",
     "ducking_amount_parallel",
     "ducking_attack_parallel",
     "ducking_release_parallel",
     
-    /* Shaper LPF/HPF ----*/
+    /* ------------------------------------------------------Shaper LPF/HPF ---------------------------------------------*/
     "lowcut_delay1",
     "lowcut_delay2",
     "highcut_delay1",
     "highcut_delay2",
     
-    /* Advanced EnvF -----*/
+    /* ---------------------------------------------------------Advanced EnvF --------------------------------------------*/
     "advanced_envf_sensitivity",
     "advanced_envf_attack",
     "advanced_envf_release",
@@ -136,7 +136,7 @@ const juce::String MFXParameterID[] =
     "advanced_envf_target1_amount",
     "advanced_envf_target2",
     "advanced_envf_target2_amount",
-    /* Advanced LFO1 ------*/
+    /* ------------------------------------------------------------Advanced LFO1 -----------------------------------------*/
     "advanced_lfo1_sync",
     "advanced_lfo1_rate",
     "advanced_lfo1_note",
@@ -145,7 +145,7 @@ const juce::String MFXParameterID[] =
     "advanced_lfo1_target1_amount",
     "advanced_lfo1_target2",
     "advanced_lfo1_target2_amount",
-    /* Advanced LFO2 -------*/
+    /* ----------------------------------------------------------Advanced LFO2 --------------------------------------------*/
     "advanced_lfo2_sync",
     "advanced_lfo2_rate",
     "advanced_lfo2_note",
@@ -158,7 +158,7 @@ const juce::String MFXParameterID[] =
    
    
 
-    /*-------------MIDI Panel ADSR Slider and related------*/
+    /*------------------------------------------------------MIDI Panel ADSR Slider and related------------------------------*/
     "midi_adsr_attack",
     "midi_adsr_decay",
     "midi_adsr_sustain",
@@ -168,7 +168,7 @@ const juce::String MFXParameterID[] =
     "midi_adsr_target2",
     "midi_adsr_target2_amount",
 
-    /*-------------MIDI Panel ADSR 2 Slider and related------*/
+    /*-----------------------------------------------------------MIDI Panel ADSR 2 Slider and related-----------------------*/
     "midi_adsr2_attack",
     "midi_adsr2_decay",
     "midi_adsr2_sustain",
@@ -178,7 +178,7 @@ const juce::String MFXParameterID[] =
     "midi_adsr2_target2",
     "midi_adsr2_target2_amount",
     
-    /*-------------midi input LFO retrigger------*/
+    /*-----------------------------------------------------------midi input LFO retrigger-----------------------------------*/
     "midi_lfo1_retrigger",
     "midi_lfo2_retrigger",
         
@@ -187,18 +187,18 @@ const juce::String MFXParameterID[] =
 
 const juce::String MFXParameterLabel[] =
 {
-    /* ------------Gain In/Out ------------------------------------------------------------------------------*/
+    /* ---------------------------Gain In/Out ------------------------------------------------------------------------------*/
     "Input", 
     "Output", 
 
-    /* --------------Chorus -----------------------------------------------------------------------------*/
+    /* ----------------------------------------------Chorus ----------------------------------------------------------------*/
     "Rate", 
     "Depth", 
     "Chorus", // wet balance
     "Stereo Width",
     "Feedback",
 
-    /* Delay 2 ---------*/
+    /* -----------------------------------------------Delay 2 --------------------------------------------------------------*/
     "Time Left", 
     "Time Right", 
     "Feedback Left", 
@@ -215,11 +215,11 @@ const juce::String MFXParameterLabel[] =
     "Offset",
 
 
-    /* ----------Select FX Combobox-------------------------------------------------------------------*/
+    /* ------------------------------------------Select FX Combobox--------------------------------------------------------*/
 
     "FX Type", //  FX select
 
-    /* ----------Reverb----------------------------------------------------------------------------*/
+    /* ----------------------------------------------------Reverb----------------------------------------------------------*/
     
     "Size",
     "Width", 
@@ -228,13 +228,13 @@ const juce::String MFXParameterLabel[] =
     "Reverb", //  Reverb wet
     "Freeze",
     
-    /* --------------------------Moog Filter ---------------------------------------------------*/
+    /* ------------------------------------------------------Moog Filter --------------------------------------------------*/
     "Freq", 
     "Resonans", 
     "Drive",
     "Filter Type",
     
-    /* ---------------Delay 1 (Main) -----------------------------------------------------------------*/
+    /* -------------------------------------------------------Delay 1 (Main) -----------------------------------------------*/
 
     "Time Left", 
     "Time Right", 
@@ -251,7 +251,7 @@ const juce::String MFXParameterLabel[] =
     "Offset",
 
 
-    /* ---------------Phaser -----------------------------------------------------------------*/
+    /* -----------------------------------------------------------------Phaser --------------------------------------------*/
 
     "Rate",
     "Depth",
@@ -259,14 +259,14 @@ const juce::String MFXParameterLabel[] =
     "Feedback",
     "Phaser", // Phaser wet
     
-    /* ---------------Bit Chrusher -----------------------------------------------------------------*/
+    /* ---------------------------------------------------------Bit Chrusher -----------------------------------------------*/
 
     "Noise",
     "Downsample", 
     "Resolution", 
     "BitCrusher", // Bit Crusher wet
     
-    /* -----------------------------------------------Center Global Menu ----------------------------------*/
+    /* -------------------------------------------------------------Center Global Menu -------------------------------------*/
 
     "All -> FX", 
     "Parallel",
@@ -275,7 +275,7 @@ const juce::String MFXParameterLabel[] =
     "FX Mix",
     "Shaper",
 
-    /* ------------Global Mix (dry wet(delay) audio)---------------------------------------------------------------------------*/
+    /* -------------------------------------Global Mix (dry wet(delay) audio)------------------------------------------------*/
 
     "Echo",
     "Dry", 
@@ -283,21 +283,21 @@ const juce::String MFXParameterLabel[] =
     "MS",
 
    
-    /*---------------------------------Ducking single/serial (if parallel mode, delay 1 is controlled)---------------------------------*/
+    /*---------------------------------Ducking single/serial (if parallel mode, delay 1 is controlled)-----------------------*/
 
     "Threshold",
     "Amount",
     "Speed",
     "Release",  
 
-    /* -----------------------------Ducking parallel mode, delay 2 is controlled)----------------------------------------------------*/
+    /* -----------------------------Ducking parallel mode, delay 2 is controlled)--------------------------------------------*/
 
     "Threshold 2",
     "Amount 2",
     "Speed 2",
     "Release 2",
 
-    /* ------------------------------------------------------Shaper----------------------------------------------------*/
+    /* ------------------------------------------------------Shaper----------------------------------------------------------*/
     "Lowcut", //delay1"
     "Lowcut 2", //delay2 (if parallel)"
     "Highcut", //delay1"
@@ -334,7 +334,7 @@ const juce::String MFXParameterLabel[] =
     "Amount",
    
    
-    /*--MIDI Panel ADSR Slider and related------*/
+    /*-----------------------------------------------------MIDI Panel ADSR Slider and related---------------------------------*/
     "Attack",
     "Decay",
     "Sustain",
@@ -344,7 +344,7 @@ const juce::String MFXParameterLabel[] =
     "Target 2",
     "Amount", // Target 2
 
-    /*--MIDI Panel ADSR 2 Slider and related------*/
+    /*------------------------------------------------------MIDI Panel ADSR 2 Slider and related-------------------------------*/
     "Attack",
     "Decay",
     "Sustain",
@@ -354,7 +354,7 @@ const juce::String MFXParameterLabel[] =
     "Target 2",
     "Amount", // Target 2
 
-    /*-------------MIDI input LFO retrigger------*/
+    /*-----------------------------------------------------------------MIDI input LFO retrigger--------------------------------*/
     "",
     "",
     
@@ -366,12 +366,12 @@ const juce::String MFXParameterLabel[] =
 
 const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters] =
 {
-    /* ---------------------------------------Gain In/Out ---------------------------------------------------------------------------*/
+    /* ---------------------------------------Gain In/Out ----------------------------------------------------------------------*/
 
     "input gain: controls incoming audio level. High levels can change sonic harmonics in your sound",
     "Output gain: controls audio out level",
 
-    /* --------------------------------------Chorus --------------------------------------------------------------------------------*/
+    /* --------------------------------------Chorus ----------------------------------------------------------------------------*/
 
     "Chorus rate: controls frequency it sweeps delay time",
     "Depth: sets range in ms delay time sweeps within.",
@@ -379,7 +379,7 @@ const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters] =
     "Stereo width: set mono -> stereo width", 
     "FeedBack: amount of audio reinjected into the chorus. Makes sound more resonant, changing sonic character",
     
-    /* --------------------------------------Delay 2 -------------------------------------------------------------------------------*/
+    /* --------------------------------------Delay 2 ---------------------------------------------------------------------------*/
 
     #if JUCE_WINDOWS
 	"Time Left: hold down ctrl key and mouse drag for smaller values",
@@ -407,10 +407,10 @@ const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters] =
     "Offset: set a small gap between left and right time, adding stereo width if initial time levels are identical. If modulated, repitch/fade affect sound",
 
 
-    /* --------------------------------------FX select combo box -------------------------------------------------------------------------------*/
+    /* --------------------------------------FX select combo box --------------------------------------------------------------*/
     "FX Type", 
 
-    /* --------------------------------------Reverb -------------------------------------------------------------------------------*/
+    /* --------------------------------------Reverb ---------------------------------------------------------------------------*/
 
     "Size",
     "Width: sets mono to full scale stereo", 
@@ -419,14 +419,14 @@ const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters] =
     "Reverb: sets the amount of reverb added", //  Reverb wet
     "Freeze",
 
-    /* -------------------------------------------Moog Filter -------------------------------------------------------------------------------------*/
+    /* -------------------------------------------Moog Filter -----------------------------------------------------------------*/
 
     "Frequency: controls cutoff frequency. Multimode filter is always active. Is placed before reverb FX in signal chain", 
     "Resonans", 
     "Drive",
     "Filter Type", 
     
-    /* --------------------------------------Delay 1 (Main) -------------------------------------------------------------------------------*/
+    /* --------------------------------------Delay 1 (Main) --------------------------------------------------------------------*/
 
 
      #if JUCE_WINDOWS
@@ -455,7 +455,7 @@ const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters] =
     "Ping pong: add classic ping pong effect to delay line 1. From mix menu, use stereo width to control it", 
     "Offset: set a small gap between left and right time, adding stereo width if initial time levels are identical. If modulated, repitch/fade affect sound", 
     
-    /* --------------------------------------Phaser -------------------------------------------------------------------------------*/
+    /* --------------------------------------Phaser ----------------------------------------------------------------------------*/
 
     "Rate: controls frequency it sweeps delay time", 
     "Depth: sets percent of full range delay time sweeps within", 
@@ -463,14 +463,14 @@ const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters] =
     "Feedback: negative and positive values can be used to make sound more resonant, changing sonic character", 
     "Phaser: sets the amount of phaser added", 
 
-    /* --------------------------------------Bit Chrusher -------------------------------------------------------------------------------*/
+    /* --------------------------------------Bit Chrusher ----------------------------------------------------------------------*/
     
     "Noise: can boost bit resolution effect. Try turn up noise(e.g. 70 percent), then decrease bit resolution until noise is not audible, then play a note", 
     "Downsample: levels above 1 simulate reduced sample rate", 
     "Bit resolution: simulate changing bit depth",
     "Bit Crusher: sets the amount of bit crusher added", 
 
-    /* -------------------------------------- Center Global Menu --------------------------------------------------------------------------------*/
+    /* -------------------------------------- Center Global Menu ---------------------------------------------------------------*/
 
     "All -> FX: will apply FX, multimode filter to both wet(echo) and dry audio", 
     "Parallel: this will proces delay line 1 and 2 in parallel. Delay line 2 must be activated in FX-level menu", 
@@ -479,7 +479,7 @@ const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters] =
     "Control FX levels: audio is routed in this order, and multimode filter comes before reverb. A FX is activated by setting FX level > 0",
     "Shaper: control lowpass and a highpass filter applied to delayed audio. If Parallel is selected each delay line has unique control",
 
-    /* -------------------------------------------------Global Mix ------------------------------------------------------------------------------------------*/
+    /* -------------------------------------------------Global Mix --------------------------------------------------------------*/
 
     "Echo: scale output level of delayed audio (delay 1 + delay 2)", //  Global Wet
     "Dry: scale output level of dry audio.", //  Global Dry
@@ -488,14 +488,14 @@ const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters] =
   
 
 
-    /* -------------------------------------------------Ducking ------------------------------------------------------------------------------------------*/
+    /* -------------------------------------------------Ducking -----------------------------------------------------------------*/
 
     "Threshold: control audio level ducking react to. Only levels above threshold is affected. For basic ducking there is no need to set the other parameters", // Ducking Threshold 1
     "Amount: control how much the audio above threshold is affected", // Ducking Amount 1
     "Speed: time before ducking hit audio. Normaly you want small time values", // Ducking speed 1
     "Release: time it takes to release ducking applied to audio. Values below 200 ms might cause distortion. This is normal, as it quickly return to full level", // Ducking Release 1
     
-    /* -------------------------------------------------Ducking Parallel ------------------------------------------------------------------------------------------*/
+    /* -------------------------------------------------Ducking Parallel --------------------------------------------------------*/
 
 
     "Threshold: control audio level ducking react to. Only level above threshold is affected. For basic ducking there is no need to set the other parameters", // Ducking Threshold parallel
@@ -504,7 +504,7 @@ const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters] =
     "Release: time it takes to release ducking applied to audio. Values below 200 ms might cause distortion. This is normal, as it quickly return to full level", // Ducking Release parallel    
     
 
-    /* -------------------------------------------------Shaper ------------------------------------------------------------------------------------------*/
+    /* -------------------------------------------------Shaper -----------------------------------------------------------------*/
     
     "lowcut", //delay1"
     "lowcut 2", //delay2"
@@ -514,7 +514,7 @@ const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters] =
     
     
     
-    /* Advanced EnvF */
+    /* -------------------------------------------------------Advanced EnvF ----------------------------------------------------*/
     "Sensitivity: sets sensitivity for reacting to incoming audio. Think of it as threshold where 5.0 correspond to -60 dB",
     "Attack: control how fast target param will react to incoming modulation",
     "Release: control when to release/fade out modulation on target param.",
@@ -523,7 +523,7 @@ const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters] =
     "Target 2",
     "Amount: less or higher than 0 control target param up/down direction. If target is a FX you must activate it (use FX-level menu), except multimode filter",
     
-    /* Advanced LFO1 */
+    /* ----------------------------------------------------------Advanced LFO1 -------------------------------------------------*/
     "Sync",
     "Rate: Control the frequency of the LFO",
     "Note: sync to DAW tempo",
@@ -533,7 +533,7 @@ const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters] =
     "Target 2",
     "Amount: values higher than 0 scale how much target param is modulated. If target is a FX you must activate it (FX-level menu), except multimode filter",
     
-    /* Advanced LFO2 */
+    /* ----------------------------------------------------------------Advanced LFO2 -------------------------------------------*/
     "Sync",
     "Rate: control the frequency of the LFO",
     "Note: sync to DAW tempo",
@@ -545,7 +545,7 @@ const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters] =
     
     
     
-    /* Advanced MIDI ADSR */
+    /* ----------------------------------------------------------------Advanced MIDI ADSR -------------------------------------*/
     "Attack: control how fast it will reach max level (1.0)",
     "Decay: control how fast it will fall from max level to sustain level",
     "Sustain: control the sustain level to hold",
@@ -555,7 +555,7 @@ const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters] =
     "Target 2",
     "Amount: less or higher than 0 control target param up/down direction. If target is a FX you must activate it (use FX-level menu), except multimode filter",
 
-    /* Advanced MIDI ADSR 2 */
+    /* ----------------------------------------------------------------Advanced MIDI ADSR 2 -----------------------------------*/
     "Attack: control how fast it will reach max level (1.0)",
     "Decay: control how fast it will fall from max level to sustain level",
     "Sustain: control the sustain level to hold",
@@ -565,7 +565,7 @@ const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters] =
     "Target 2",
     "Amount: less or higher than 0 control target param up/down direction. If target is a FX you must activate it (use FX-level menu), except multimode filter",
     
-    /*-------------midi input LFO retrigger------*/
+    /*-------------------------------------------------------------------midi input LFO retrigger------------------------------*/
     "If midi input is received you can retrigger LFO 1. If retrigger is on and midi is not received, then LFO is free running.",
     "If midi input is received you can retrigger LFO 2. If retrigger is on and midi is not received, then LFO is free running.",
     

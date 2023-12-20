@@ -20,7 +20,7 @@
 // This is used to unified access index in arrays MFXParameterID,Label..from multiple locations. Using this makes code easier to read/maintain 
 enum MFXParameter
 {
-    /* Gain In/Out ---------*/
+    /* Gain In/Out ------------------------------------------------------------------------------------*/
     mFXParameter_InputGain = 0,
     mFXParameter_OutputGain,
     
@@ -32,7 +32,7 @@ enum MFXParameter
     mFXParameter_ChorusFeedback,
     // -----------------------
     
-    /* Delay 2 ---------*/
+    /* Delay 2 ----------------------------------------------------------------------------------------*/
     mFXParameter_Delay2TimeLeft,
     mFXParameter_Delay2TimeRight,
     mFXParameter_Delay2LeftFeedback,
@@ -49,10 +49,10 @@ enum MFXParameter
     mFXParameter_Delay2_Offset,
 
     
-    // Select FX Combobox----------
+    /* -------------------------------------- - Select FX Combobox----------------------------------------*/
     mFXParameter_FXType, 
     
-    /* Reverb ---------*/
+    /* ---------------------------------------Reverb ------------------------------------------------------*/
     mFXParameter_ReverbSize,
     mFXParameter_ReverbWidth,
     mFXParameter_ReverbDamping,
@@ -60,13 +60,13 @@ enum MFXParameter
     mFXParameter_ReverbWet,
     mFXParameter_ReverbFreeze,
     
-    /* Moog Filter*/
+    /* -----------------------------------------Moog Filter-------------------------------------------------*/
     mFXParameter_FilterCutoff,
     mFXParameter_FilterResonans,
     mFXParameter_FilterDrive,
     mFXParameter_FilterType,
 
-    /* Delay 1 ---------*/
+    /* -------------------------------------------Delay 1 ----------------------------------------------------*/
     mFXParameter_Delay1TimeLeft, 
     mFXParameter_Delay1TimeRight,
     mFXParameter_Delay1LeftFeedback,
@@ -83,7 +83,7 @@ enum MFXParameter
     
     
     
-    /* Phaser ---------*/
+    /* -----------------------------------------------Phaser -------------------------------------------------*/
     mFXParameter_PhaserRate,
     mFXParameter_PhaserDepth,
     mFXParameter_PhaserCenterFrequency,
@@ -91,13 +91,13 @@ enum MFXParameter
     mFXParameter_PhaserDryWet,
 
 
-    /* Bit Chrusher ---------*/
+    /* ----------------------------------------------Bit Chrusher ---------------------------------------------*/
     mFXParameter_NoiseAmount,
     mFXParameter_RateRedux,
     mFXParameter_BitRedux,
     mFXParameter_BitDryWet,
     
-    /* Center Global Menu ---------*/
+    /* --------------------------------------------Center Global Menu ------------------------------------------*/
     mFXParameter_AllFxProcessing,
     mFXParameter_Parallel_Mode,
     mFXParameter_Ducking_Mode,
@@ -106,33 +106,33 @@ enum MFXParameter
     mFXParameter_Cut_Mode,
     
 
-    /* Global Mix ---------*/
+    /* --------------------------------------------Global Mix ---------------------------------------------------*/
     mFXParameter_Global_Wet,
     mFXParameter_Global_Dry,
     mFXParameter_Stereo_Width,
     mFXParameter_Mid_Side_Mode,
 
     
-    /* Ducking single/serial. If parallel mode then delay 1 is controlled ---------*/
+    /* ------------------------------Ducking single/serial. If parallel mode then delay 1 is controlled ---------*/
     mFXParameter_Ducking_Threshold, // Delay 1/serial all
     mFXParameter_Ducking_Amount,
     mFXParameter_Ducking_Attack,
     mFXParameter_Ducking_Release,
    
-    /* Ducking parallel delay 2 is controlled ---------*/
+    /* --------------------------------------Ducking parallel delay 2 is controlled ------------------------------*/
     mFXParameter_Ducking_Threshold_Parallel,
     mFXParameter_Ducking_Amount_Parallel,
     mFXParameter_Ducking_Attack_Parallel,
     mFXParameter_Ducking_Release_Parallel,
 
-    /* Shaper ---------*/
+    /* ---------------------------------------------Shaper -------------------------------------------------------*/
     mFXParameter_Lowcut_Delay1,
     mFXParameter_Lowcut_Delay2,
     mFXParameter_Highcut_Delay1,
     mFXParameter_Highcut_Delay2,     
     
     
-    /* -------- Advanced Panel------------- */
+    /* ----------------------------------------------- Advanced Panel-------------------------------------------- */
     mFXParameter_Advanced_EnvF_Sensitivity,
     mFXParameter_Advanced_EnvF_Attack,
     mFXParameter_Advanced_EnvF_Release,
@@ -162,7 +162,7 @@ enum MFXParameter
     mFXParameter_Advanced_LFO2_Target2_Amount,
 
    
-    /*-------------MIDI Panel ADSR Slider and related------*/
+    /*-----------------------------------------------MIDI Panel ADSR Slider and related-----------------------------*/
     mFXParameter_Midi_ADSR_Attack, 
     mFXParameter_Midi_ADSR_Decay,
     mFXParameter_Midi_ADSR_Sustain,
@@ -172,7 +172,7 @@ enum MFXParameter
     mFXParameter_Midi_ADSR_Target2,
     mFXParameter_Midi_ADSR_Target2_Amount,
 
-    /*-------------midi panel adsr 2 slider and related------*/
+    /*------------------------------------------------------midi panel adsr 2 slider and related-----------------------*/
     mFXParameter_Midi_ADSR2_Attack, 
     mFXParameter_Midi_ADSR2_Decay,
     mFXParameter_Midi_ADSR2_Sustain,
@@ -182,7 +182,7 @@ enum MFXParameter
     mFXParameter_Midi_ADSR2_Target2,
     mFXParameter_Midi_ADSR2_Target2_Amount,
 
-    /*-------------midi input LFO retrigger------*/
+    /*-----------------------------------------------------------------MIDI input LFO retrigger-------------------------*/
     mFXParameter_Midi_LFO1_Retrigger,
     mFXParameter_Midi_LFO2_Retrigger,
 
