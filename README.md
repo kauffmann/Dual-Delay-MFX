@@ -1,6 +1,6 @@
 
 
-# Time Razor. A dual delay (multi effect) added additional effects and a modulation engine to shape your sound.
+# Time Razor. A multi effect containing a dual delay, additional effects and a modulation engine to shape your sound.
 
 You can clone and build project in your IDE, but graphic assets are not included.
 You will need to add your own graphics and fonts. The intent of having this repo is not for you
@@ -24,3 +24,5 @@ You'll need JUCE framework, included projucer, on your computer. https://juce.co
 See and hear it in action https://www.be-good-audio.com/products
 
 Support me at https://begoodaudio.gumroad.com/l/TimeRazor
+
+
