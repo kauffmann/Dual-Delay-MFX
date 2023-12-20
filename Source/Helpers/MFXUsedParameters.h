@@ -259,7 +259,7 @@ extern const juce::String MFXParameterID [mFXParameter_TotalNumParameters];
 
 extern const juce::String MFXParameterLabel [mFXParameter_TotalNumParameters];
 
-//extern float MFXParameterDefaultValue [mFXParameter_TotalNumParameters];
+
 
 // used to set helperUIText.
 extern const juce::String MFXParameterHelpText [mFXParameter_TotalNumParameters];

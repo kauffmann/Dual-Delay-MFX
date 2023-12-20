@@ -1002,8 +1002,8 @@ void PluginProcessor::setStateInformation (const void* data, int sizeInBytes)
 
 
     
-// I really wish that I had orgainized order better from the start. A hard reminder - PLAN your work. But not always easy as eksperimenting and changes/new functions are added to project during development.
-// Refactor order will not affect APVTS, it will work just fine. It is time consuming, but if time I will refactor this.
+
+// !!!!  If order of parameters are changed it will not affect APVTS, it will work just fine. But Current existing saved preset xml files will not set parameters correct!.
 
 AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLayout()
 {
@@ -1303,6 +1303,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID { MFXParameterID[mFXParameter_ReverbDry],version1},
                                                            MFXParameterLabel[mFXParameter_ReverbDry],
                                                            NormalisableRange<float>(0.0f,1.0f, 0.001f),0.6f,
+                                                           String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value * 100,1) + " %";
@@ -1313,6 +1314,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID {MFXParameterID[mFXParameter_ReverbWet],version1},
                                                            MFXParameterLabel[mFXParameter_ReverbWet],
                                                            NormalisableRange<float>(0.0f,0.35f, 0.001f), 0.0f,
+                                                           String(), AudioProcessorParameter::genericParameter,
                                                            [] (float value, int) -> String
                                                            {
                                                                String valueToText = String (value * 285.714286,1) + " %";
@@ -1457,7 +1459,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
 
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID{ MFXParameterID[mFXParameter_FadeFrequency_Delay1],version1 },
                                                            MFXParameterLabel[mFXParameter_FadeFrequency_Delay1],
-                                                           NormalisableRange<float>(0.3f, 25.0f, 0.001f, 0.3f), 0.2f,
+                                                           NormalisableRange<float>(0.3f, 25.0f, 0.001f, 0.3f), 2.0f,
                                                            String(), AudioProcessorParameter::genericParameter,
                                                            [](float value, int) -> String
                                                            {
@@ -1645,6 +1647,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     params.push_back(std::make_unique<AudioParameterFloat>(ParameterID{ MFXParameterID[mFXParameter_Global_Wet],version1 },
                                                            MFXParameterLabel[mFXParameter_Global_Wet],
                                                            NormalisableRange<float>(0.0f, 2.0f, 0.001f),1.0f,
+                                                           String(), AudioProcessorParameter::genericParameter,
                                                            [](float value, int) -> String
                                                            {
                                                                String valueToText = String(value * 100, 1) + " %";

@@ -24,7 +24,7 @@ MFXPresetManager::MFXPresetManager(AudioProcessor* inProcessor, AudioProcessorVa
                                                                                                        mCurrentPresetName("Default"),
                                                                                                        mProcessor(inProcessor), mAPVTS(apvts)
 {
-    const String pluginName = (String) mProcessor->getName();
+    const String pluginName = (String) mProcessor->getName(); 
     
     
     // If change, Remember to change 2 locations, here and topPanel.
