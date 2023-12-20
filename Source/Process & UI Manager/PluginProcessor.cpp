@@ -1123,11 +1123,11 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Delay2TimeModeLeft], version1},
                                                                    MFXParameterLabel[mFXParameter_Delay2TimeModeLeft],
-                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},0.0f));
+                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},0));
     
     params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Delay2TimeModeRight], version1},
                                                                    MFXParameterLabel[mFXParameter_Delay2TimeModeRight],
-                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},0.0f));
+                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},0));
     
     
     
@@ -1368,7 +1368,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID { MFXParameterID[mFXParameter_FilterType],version1},
                                                                    MFXParameterLabel[mFXParameter_FilterType],
-                                                                   juce::StringArray { "LPF12", "LPF24", "BPF12", "BPF24", "HPF12", "HPF24" },0.0f));
+                                                                   juce::StringArray { "LPF12", "LPF24", "BPF12", "BPF24", "HPF12", "HPF24" },0));
     
 
 
@@ -1377,7 +1377,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
 
     params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Delay1TimeModeLeft],version1},
                                                                    MFXParameterLabel[mFXParameter_Delay1TimeModeLeft],
-                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},0.0f));
+                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},0));
     
     
     
@@ -1385,7 +1385,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
     
     params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Delay1TimeModeRight],version1},
                                                                    MFXParameterLabel[mFXParameter_Delay1TimeModeRight],
-                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},0.0f));
+                                                                   juce::StringArray { "Time: ms", "Straight", "Dotted", "Triplet"},0));
     
     
     
@@ -1921,7 +1921,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                        "Echo/Out", "Dry/Out", "Stereo Width",
                                                                        "Delay 2 Wet","Chorus Wet","Phaser Wet", "Bit Crusher Wet","Bit Crusher Resolution", "Bit Crusher Downsample",
                                                                        "Bit Crusher Noise", "Reverb Wet","Reverb Size","Reverb Width",
-                                                                       "LFO 1 Rate", "LFO 2 Rate"},0.0f));
+                                                                       "LFO 1 Rate", "LFO 2 Rate"},0));
     
     
     
@@ -1948,7 +1948,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                        "Echo/Out", "Dry/Out", "Stereo Width",
                                                                        "Delay 2 Wet","Chorus Wet","Phaser Wet", "Bit Crusher Wet","Bit Crusher Resolution", "Bit Crusher Downsample",
                                                                        "Bit Crusher Noise", "Reverb Wet","Reverb Size","Reverb Width",
-                                                                       "LFO 1 Rate", "LFO 2 Rate"},0.0f));
+                                                                       "LFO 1 Rate", "LFO 2 Rate"},0));
     
     
     
@@ -1989,14 +1989,14 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                    MFXParameterLabel[mFXParameter_Advanced_LFO1_Note],
                                                                    juce::StringArray { "1", "1.", "1T", "1/2", "1/2.", "1/2T","1/4", "1/4.", "1/4T",
                                                                        "1/8", "1/8.", "1/8T", "1/16", "1/16.", "1/16T",
-                                                                       "1/32", "1/32.", "1/32T", "1/64", "1/64.", "1/64T"}, 0.0f));
+                                                                       "1/32", "1/32.", "1/32T", "1/64", "1/64.", "1/64T"}, 0));
 
     
     
     
     params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO1_Type],version1},
                                                                    MFXParameterLabel[mFXParameter_Advanced_LFO1_Type],
-                                                                   juce::StringArray { "Sin", "U-Ramp", "Square", "Triangle", "D-Ramp"}, 0.0f));
+                                                                   juce::StringArray { "Sin", "U-Ramp", "Square", "Triangle", "D-Ramp"}, 0));
     
     
     params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO1_Target1],version1},
@@ -2009,7 +2009,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                        "Echo/Out", "Dry/Out", "Stereo Width",
                                                                        "Delay 2 Wet","Chorus Wet","Phaser Wet", "Bit Crusher Wet","Bit Crusher Resolution",
                                                                        "Bit Crusher Downsample", "Bit Crusher Noise", "Reverb Wet","Reverb Size","Reverb Width",
-                                                                       "LFO 2 Rate", "Envelope Sensitivity"}, 0.0f));
+                                                                       "LFO 2 Rate", "Envelope Sensitivity"}, 0));
 
     
     
@@ -2036,7 +2036,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                        "Echo/Out", "Dry/Out", "Stereo Width",
                                                                        "Delay 2 Wet","Chorus Wet","Phaser Wet", "Bit Crusher Wet","Bit Crusher Resolution",
                                                                        "Bit Crusher Downsample", "Bit Crusher Noise", "Reverb Wet","Reverb Size","Reverb Width",
-                                                                       "LFO 2 Rate", "Envelope Sensitivity"}, 0.0f));
+                                                                       "LFO 2 Rate", "Envelope Sensitivity"}, 0));
     
     
     
@@ -2077,14 +2077,14 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                    MFXParameterLabel[mFXParameter_Advanced_LFO2_Note],
                                                                    juce::StringArray { "1", "1.", "1T", "1/2", "1/2.", "1/2T","1/4", "1/4.", "1/4T",
                                                                        "1/8", "1/8.", "1/8T", "1/16", "1/16.", "1/16T",
-                                                                       "1/32", "1/32.", "1/32T", "1/64", "1/64.", "1/64T"}, 0.0f));
+                                                                       "1/32", "1/32.", "1/32T", "1/64", "1/64.", "1/64T"}, 0));
     
     
     
     
     params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO2_Type],version1},
                                                                    MFXParameterLabel[mFXParameter_Advanced_LFO2_Type],
-                                                                   juce::StringArray { "Sin", "U-Ramp", "Square", "Triangle", "D-Ramp"}, 0.0f));
+                                                                   juce::StringArray { "Sin", "U-Ramp", "Square", "Triangle", "D-Ramp"}, 0));
     
     
     params.push_back (std::make_unique<juce::AudioParameterChoice>(ParameterID {MFXParameterID[mFXParameter_Advanced_LFO2_Target1],version1},
@@ -2097,7 +2097,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                        "Echo/Out", "Dry/Out", "Stereo Width",
                                                                        "Delay 2 Wet","Chorus Wet","Phaser Wet", "Bit Crusher Wet","Bit Crusher Resolution",
                                                                        "Bit Crusher Downsample", "Bit Crusher Noise", "Reverb Wet","Reverb Size","Reverb Width",
-                                                                       "LFO 1 Rate", "Envelope Sensitivity"}, 0.0f));
+                                                                       "LFO 1 Rate", "Envelope Sensitivity"}, 0));
     
     
     
@@ -2124,7 +2124,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                        "Echo/Out", "Dry/Out", "Stereo Width",
                                                                        "Delay 2 Wet","Chorus Wet","Phaser Wet", "Bit Crusher Wet","Bit Crusher Resolution",
                                                                        "Bit Crusher Downsample", "Bit Crusher Noise", "Reverb Wet","Reverb Size","Reverb Width",
-                                                                       "LFO 1 Rate", "Envelope Sensitivity"}, 0.0f));
+                                                                       "LFO 1 Rate", "Envelope Sensitivity"}, 0));
     
     
     
@@ -2208,7 +2208,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                   "Echo/Out", "Dry/Out", "Stereo Width",
                                                                   "Delay 2 Wet", "Chorus Wet", "Phaser Wet", "Bit Crusher Wet", "Bit Crusher Resolution", "Bit Crusher Downsample",
                                                                   "Bit Crusher Noise", "Reverb Wet", "Reverb Size", "Reverb Width",
-                                                                  "LFO 1 Rate", "LFO 2 Rate"}, 0.0f));
+                                                                  "LFO 1 Rate", "LFO 2 Rate"}, 0));
 
 
 
@@ -2235,7 +2235,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                   "Echo/Out", "Dry/Out", "Stereo Width",
                                                                   "Delay 2 Wet", "Chorus Wet", "Phaser Wet", "Bit Crusher Wet", "Bit Crusher Resolution", "Bit Crusher Downsample",
                                                                   "Bit Crusher Noise", "Reverb Wet", "Reverb Size", "Reverb Width",
-                                                                  "LFO 1 Rate", "LFO 2 Rate"}, 0.0f));
+                                                                  "LFO 1 Rate", "LFO 2 Rate"}, 0));
 
 
 
@@ -2318,7 +2318,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                   "Echo/Out", "Dry/Out", "Stereo Width",
                                                                   "Delay 2 Wet", "Chorus Wet", "Phaser Wet", "Bit Crusher Wet", "Bit Crusher Resolution", "Bit Crusher Downsample",
                                                                   "Bit Crusher Noise", "Reverb Wet", "Reverb Size", "Reverb Width",
-                                                                  "LFO 1 Rate", "LFO 2 Rate"}, 0.0f));
+                                                                  "LFO 1 Rate", "LFO 2 Rate"}, 0));
 
 
 
@@ -2345,7 +2345,7 @@ AudioProcessorValueTreeState::ParameterLayout PluginProcessor::createParameterLa
                                                                   "Echo/Out", "Dry/Out", "Stereo Width",
                                                                   "Delay 2 Wet", "Chorus Wet", "Phaser Wet", "Bit Crusher Wet", "Bit Crusher Resolution", "Bit Crusher Downsample",
                                                                   "Bit Crusher Noise", "Reverb Wet", "Reverb Size", "Reverb Width",
-                                                                  "LFO 1 Rate", "LFO 2 Rate"}, 0.0f));
+                                                                  "LFO 1 Rate", "LFO 2 Rate"}, 0));
 
 
 
