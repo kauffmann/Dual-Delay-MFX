@@ -57,21 +57,7 @@ inline double tanh_clip(double x)
     return x * ( 27 + x * x) / ( 27 + 9 * x * x);
 }
 
-inline bool isIntegerValue(double& N)
-{
-    
-    
-    // Convert float value of N to integer
-    int X = static_cast<int>(N);
-    //roundToIntAccurate(N);
-    double temp2 = N - X;
-    
-    // If N is not equivalent to any integer
-    if (temp2 > 0) {
-        return false;
-    }
-    return true;
-}
+
 
 
 
