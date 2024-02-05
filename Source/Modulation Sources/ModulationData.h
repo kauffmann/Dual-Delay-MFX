@@ -32,6 +32,7 @@
 
 struct ModulationData
 {
+    // The constructor handles essential initialization of components
     ModulationData()
     {
         initializeModulationSources();
@@ -45,7 +46,8 @@ struct ModulationData
     
     ~ModulationData(){}
     
-    
+    // prepare function is intended for dynamic setup/init of components that may change at runtime, as DAW might change e.g. samplerate. 
+    // In that case prepare is called from audioProcessor class.
     void prepare(const juce::dsp::ProcessSpec& spec)
     {
         
