@@ -23,7 +23,7 @@
 #include "MFXLookAndFeel.h"
 #include "MFXUsedParameters.h"
 
-// Another test   again test test
+// Test
 
 class PluginEditor : public Component
 {
