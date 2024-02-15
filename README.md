@@ -21,7 +21,7 @@ You'll need JUCE framework, included projucer, on your computer. https://juce.co
 
 
 
-See and hear it in action https://www.be-good-audio.com/products
+See and hear it in action at Be Good Audio   https://kauffmannmichael.wixsite.com/my-site/products
 
 Support me at https://begoodaudio.gumroad.com/l/TimeRazor
 
