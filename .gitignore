@@ -376,3 +376,9 @@ Graphic Assets/
 
 # exclude this from mac
 .DS_Store
+
+# exclude 
+Source/Process & UI Manager
+
+# exclude 
+Source/Helpers
