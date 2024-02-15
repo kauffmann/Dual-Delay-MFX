@@ -13,7 +13,7 @@
 #include "PluginProcessor.h"  
 #include "PluginEditor.h"
 
-
+// test allowed here
 
 //==============================================================================
 PluginEditor::PluginEditor (PluginProcessor& p)
