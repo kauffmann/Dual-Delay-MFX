@@ -378,7 +378,7 @@ Graphic Assets/
 .DS_Store
 
 # exclude 
-Source/Process & UI Manager
+Source/Process & UI Manager*
 
 # exclude 
-Source/Helpers
+Source/Helpers*

@@ -23,7 +23,7 @@
 #include "MFXLookAndFeel.h"
 #include "MFXUsedParameters.h"
 
-// This is new 2024 16 feb   test test    github repo
+// Another test
 
 class PluginEditor : public Component
 {
