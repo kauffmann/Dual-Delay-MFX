@@ -215,6 +215,6 @@ void MFXLFO2::updateParamsSync(const double &bpm, const float &noteIndex, const 
 void MFXLFO2::reset(double inc) noexcept
 {
     // remember change made in JUCE source files Oscillator class::reset(param added) and Phase::reset(param added).
-    //  Making changes to files in JUCE framework is bad. TODO: overwrite instead. 
+   
     mLfo.reset(inc);
 }
