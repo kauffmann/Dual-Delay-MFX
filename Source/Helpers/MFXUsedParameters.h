@@ -30,6 +30,7 @@ enum MFXParameter
     mFXParameter_ChorusWetDry,
     mFXParameter_ChorusWidth,
     mFXParameter_ChorusFeedback,
+
     // -----------------------
     
     /* Delay 2 ----------------------------------------------------------------------------------------*/
