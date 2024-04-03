@@ -39,7 +39,7 @@ void MFXReverb::process (AudioBuffer<float>& inBuffer ) noexcept
     for (int sample = 0; sample < inBuffer.getNumSamples(); sample++)
     {
         prepareModulation(sample);
-        reverb.processStereo(&inBuffer.getWritePointer(0)[sample], &inBuffer.getWritePointer(1)[sample], 1); //see  syntVR
+        reverb.processStereo(&inBuffer.getWritePointer(0)[sample], &inBuffer.getWritePointer(1)[sample], 1); 
     }
     
  

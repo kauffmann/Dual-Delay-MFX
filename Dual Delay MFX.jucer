@@ -5,6 +5,10 @@
               headerPath="C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Process &amp; UI Manager&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Panels&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\DSP&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Helpers&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Meter&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Parameter Controls&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Modulation Sources&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Preset Manager&#10;&#10;">
   <MAINGROUP id="pwSzji" name="Dual Delay MFX">
     <GROUP id="{294B5022-14D8-6398-6333-E1A0A2796FA6}" name="Graphic Assets">
+      <GROUP id="{CCDB7190-C16E-2317-96B1-F42311840666}" name="Sliders Sprite">
+        <FILE id="EPjVzl" name="kadenze_knob.png" compile="0" resource="1"
+              file="Graphic Assets/Sliders Sprite/kadenze_knob.png"/>
+      </GROUP>
       <GROUP id="{42662D67-8B2D-9FA4-577F-E9C1436777D5}" name="Background">
         <FILE id="CtgCEN" name="BgLarge.png" compile="0" resource="1" file="Graphic Assets/Background/BgLarge.png"/>
       </GROUP>
@@ -154,6 +158,15 @@
             file="Source/Panels/MFXCreditPanel.h"/>
     </GROUP>
     <GROUP id="{ACC32B95-B3A6-0CA2-F274-03DE3D313459}" name="Helpers">
+      <FILE id="W10rwm" name="MFXJuce_LadderFilter.cpp" compile="1" resource="0"
+            file="Source/Helpers/MFXJuce_LadderFilter.cpp"/>
+      <FILE id="gmgqJO" name="MFXJuce_LadderFilter.h" compile="0" resource="0"
+            file="Source/Helpers/MFXJuce_LadderFilter.h"/>
+      <FILE id="d1uF2K" name="MFXJuce_Oscillator.h" compile="0" resource="0"
+            file="Source/Helpers/MFXJuce_Oscillator.h"/>
+      <FILE id="OCLLCf" name="MFXJuce_Phase.h" compile="0" resource="0" file="Source/Helpers/MFXJuce_Phase.h"/>
+      <FILE id="N3uL88" name="MFXJuce_Reverb.h" compile="0" resource="0"
+            file="Source/Helpers/MFXJuce_Reverb.h"/>
       <FILE id="Lx6h4o" name="MFXLookAndFeel.h" compile="0" resource="0"
             file="Source/Helpers/MFXLookAndFeel.h"/>
       <FILE id="JenwZA" name="MFXAudioHelpers.h" compile="0" resource="0"

@@ -47,7 +47,7 @@ public:
 private:
     
     Reverb reverb; // juce_reverb.h made change line 199 - dampScaleFactor
-    juce::Reverb::Parameters reverbParams;
+    Reverb::Parameters reverbParams;
     ModulationData& mData;
     float mCurrentWetLevel {0.0f};
     float mCurrentSizeLevel {0.0f};

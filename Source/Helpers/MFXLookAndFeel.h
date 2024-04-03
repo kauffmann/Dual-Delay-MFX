@@ -22,6 +22,10 @@ public:
     MFXLookAndFeel()
     {
         setColour(ComboBox::textColourId, juce::Colour::fromRGB(155,155,155));
+
+        mSliderImage = ImageCache::getFromMemory(BinaryData::kadenze_knob_png,
+            BinaryData::kadenze_knob_pngSize);
+
     }
     
     virtual ~MFXLookAndFeel(){};
@@ -182,88 +186,112 @@ public:
         
     }
     
-    
-    
-    void drawRotarySlider(juce::Graphics &g, int x, int y, int width, int height, float sliderPos, float rotaryStartAngle, float rotaryEndAngle, juce::Slider &slider) override
+
+    // Experiment sprite slider. Works, but image scaling not good, make max size images.
+
+    void drawRotarySlider(Graphics& g, int x, int y, int width, int height, float sliderPos,
+        const float rotaryStartAngle, const float rotaryEndAngle, Slider& slider) override
     {
-        
-        auto colour1 = Colours::yellow;
-        auto colour4 = Colours::whitesmoke;
-        
-        
-        // rectangle to draw our knob in
-        auto bounds = Rectangle<int>(x, y, width, height).toFloat().reduced (10);
-        
-        // various coefficients
-        auto radius = jmin (bounds.getWidth(), bounds.getHeight()) / 2.0f;
-        float centerX = x + width * 0.5;
-        float centerY = y + height * 0.5;
-        
-        // scale drawed line curve
-        float toAngle = rotaryStartAngle + (sliderPos * (rotaryEndAngle - rotaryStartAngle));
-        
-        
-        g.setGradientFill(juce::ColourGradient::vertical(Colours::transparentBlack, centerY * 1.2, Colours::floralwhite, centerY * 2.5)); 
-        
-        g.fillEllipse(bounds);
-        g.setColour(colour1.interpolatedWith (colour4, 0.55  )); //tick color
-        juce::Path dialTick;
-        dialTick.addRectangle (0, -radius + 3, 2.316f,
-                                     radius * 0.68
-                                     );
-        g.fillPath(dialTick, juce::AffineTransform::rotation(toAngle - 0.021 ).translated(centerX, centerY));
-        
-        
-     
-        // ------------------------Create outer curved line stroke--------------------------------
-        
+        const int numFrames = mSliderImage.getHeight() / mSliderImage.getWidth();
+        const int frameIdx = (int)ceil(sliderPos * (numFrames - 1));
 
-        
-        slider.setColour(Slider::rotarySliderFillColourId, colour1.interpolatedWith (colour4, 0.55  )); 
-        
-        auto fill = slider.findColour (Slider::rotarySliderFillColourId);
-        
-        auto lineW = jmin (2.58f , radius * 0.2f); // thickness (width og curved background line)
-        auto lineWbackground = jmin (7.5f, radius * 0.5f); // thickness (width og curved background line)
-        auto arcRadius = radius - lineW * 0.2f;
-        auto arcRadius2 = radius - lineW;
-        
-        
-        if (slider.isEnabled())
-        {
-            Path valueArc;
-            valueArc.addCentredArc (bounds.getCentreX(),
-                                    bounds.getCentreY(),
-                                    arcRadius2,
-                                    arcRadius2,
-                                    0.027f,
-                                    rotaryStartAngle,
-                                    toAngle,
-                                    true);
-            
-            g.setColour (fill);
-            g.strokePath (valueArc, PathStrokeType (lineW, PathStrokeType::curved, PathStrokeType::square));
-            
-        }
-        
-        // create background
-        Path backgroundArc;
-        // check addCentredArc doc, cos, sin stuff
-        backgroundArc.addCentredArc (bounds.getCentreX(),
-                                     bounds.getCentreY(),
-                                     arcRadius,
-                                     arcRadius,
-                                     0.0f,
-                                     rotaryStartAngle,
-                                     rotaryEndAngle,
-                                     true);
-        
-        g.setColour(juce::Colours::yellow.withAlpha(0.25f)); 
-        g.strokePath (backgroundArc, PathStrokeType (lineWbackground, PathStrokeType::curved, PathStrokeType::square));
+        const float radius = width * 0.5; //jmin(width * 0.5, height * 0.5);
+        const float centerX = x + radius; //width * 0.5;
+        const float centerY = y + height * 0.5;
+        const float rx = centerX - radius;
+        const float ry = centerY - radius;
 
-
-        
+        g.drawImage(mSliderImage,
+            rx,
+            ry+5, 
+            2 * radius,
+            2 * radius,
+            0,  // down from here, what part of image to draw, starting from x(0),y(frameIdx*...)), the width and height
+            frameIdx * mSliderImage.getWidth(),
+            mSliderImage.getWidth(),
+            mSliderImage.getWidth());
     }
+    
+    //void drawRotarySlider(juce::Graphics &g, int x, int y, int width, int height, float sliderPos, float rotaryStartAngle, float rotaryEndAngle, juce::Slider &slider) override
+    //{
+    //    
+    //    auto colour1 = Colours::yellow;
+    //    auto colour4 = Colours::whitesmoke;
+    //    
+    //    
+    //    // rectangle to draw our knob in
+    //    auto bounds = Rectangle<int>(x, y, width, height).toFloat().reduced (10);
+    //    
+    //    // various coefficients
+    //    auto radius = jmin (bounds.getWidth(), bounds.getHeight()) / 2.0f;
+    //    float centerX = x + width * 0.5;
+    //    float centerY = y + height * 0.5;
+    //    
+    //    // scale drawed line curve
+    //    float toAngle = rotaryStartAngle + (sliderPos * (rotaryEndAngle - rotaryStartAngle));
+    //    
+    //    
+    //    g.setGradientFill(juce::ColourGradient::vertical(Colours::transparentBlack, centerY * 1.2, Colours::floralwhite, centerY * 2.5)); 
+    //    
+    //    g.fillEllipse(bounds);
+    //    g.setColour(colour1.interpolatedWith (colour4, 0.55  )); //tick color
+    //    juce::Path dialTick;
+    //    dialTick.addRectangle (0, -radius + 3, 2.316f,
+    //                                 radius * 0.68
+    //                                 );
+    //    g.fillPath(dialTick, juce::AffineTransform::rotation(toAngle - 0.021 ).translated(centerX, centerY));
+    //    
+    //    
+    // 
+    //    // ------------------------Create outer curved line stroke--------------------------------
+    //    
+
+    //    
+    //    slider.setColour(Slider::rotarySliderFillColourId, colour1.interpolatedWith (colour4, 0.55  )); 
+    //    
+    //    auto fill = slider.findColour (Slider::rotarySliderFillColourId);
+    //    
+    //    auto lineW = jmin (2.58f , radius * 0.2f); // thickness (width og curved background line)
+    //    auto lineWbackground = jmin (7.5f, radius * 0.5f); // thickness (width og curved background line)
+    //    auto arcRadius = radius - lineW * 0.2f;
+    //    auto arcRadius2 = radius - lineW;
+    //    
+    //    
+    //    if (slider.isEnabled())
+    //    {
+    //        Path valueArc;
+    //        valueArc.addCentredArc (bounds.getCentreX(),
+    //                                bounds.getCentreY(),
+    //                                arcRadius2,
+    //                                arcRadius2,
+    //                                0.027f,
+    //                                rotaryStartAngle,
+    //                                toAngle,
+    //                                true);
+    //        
+    //        g.setColour (fill);
+    //        g.strokePath (valueArc, PathStrokeType (lineW, PathStrokeType::curved, PathStrokeType::square));
+    //        
+    //    }
+    //    
+    //    // create background
+    //    Path backgroundArc;
+    //    // check addCentredArc doc, cos, sin stuff
+    //    backgroundArc.addCentredArc (bounds.getCentreX(),
+    //                                 bounds.getCentreY(),
+    //                                 arcRadius,
+    //                                 arcRadius,
+    //                                 0.0f,
+    //                                 rotaryStartAngle,
+    //                                 rotaryEndAngle,
+    //                                 true);
+    //    
+    //    g.setColour(juce::Colours::yellow.withAlpha(0.25f)); 
+    //    g.strokePath (backgroundArc, PathStrokeType (lineWbackground, PathStrokeType::curved, PathStrokeType::square));
+
+
+    //    
+    //}
 
     
     void drawLinearSlider (Graphics& g, int x, int y, int width, int height,

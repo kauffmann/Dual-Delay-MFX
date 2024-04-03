@@ -179,14 +179,14 @@ void MFXTopPanel::paint(Graphics& g)
     
    
 
-    if (!(mProcessor->readUnlockedStatus()) && !mProcessor->getDemoMode())
+   /* if (!(mProcessor->readUnlockedStatus()) && !mProcessor->getDemoMode())
     {
        
         const auto area = getLocalBounds().removeFromTop(35);
         mUnlockPanel->setBounds(area);
 
         addAndMakeVisible(mUnlockPanel.get());
-    }
+    }*/
     
 }
 
@@ -266,7 +266,7 @@ void MFXTopPanel::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
           
              else if(mOptionalDisplay->getText() == "Save As")
              {
-                 if (mProcessor->readUnlockedStatus())     
+                 //if (mProcessor->readUnlockedStatus())     
                      displaySaveAsPopup();
              }
           
@@ -345,7 +345,7 @@ void MFXTopPanel::actionListenerCallback (const String &message)
 
 void MFXTopPanel::buttonClicked(Button* button)
 {
-    if (button->getName() == "Demo") 
+   /* if (button->getName() == "Demo") 
     {
         mProcessor->setDemoMode(true);
         mUnlockPanel->setVisible(false);
@@ -354,7 +354,7 @@ void MFXTopPanel::buttonClicked(Button* button)
     if (button->getName() == "Unlock")
     {
         mUnlockPanel->setVisible(false);
-    }
+    }*/
 }
 
 void MFXTopPanel::displaySaveAsPopup()

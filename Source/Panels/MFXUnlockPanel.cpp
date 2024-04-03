@@ -40,14 +40,14 @@ MFXUnlockPanel::MFXUnlockPanel(PluginProcessor* inProcessor) : MFXPanelBase(inPr
 
     mUnlock->onClick = [&]()
     {
-        if (mProcessor->checkLicenseKey(mInputKeyField->getText()))
+       /* if (mProcessor->checkLicenseKey(mInputKeyField->getText()))
         {
             mProcessor->saveUnlockData(true);
         }
         else
         {
             mInputKeyField->setText("Invalid licence key");
-        }     
+        }     */
     };
 
     addAndMakeVisible(mUnlock.get());

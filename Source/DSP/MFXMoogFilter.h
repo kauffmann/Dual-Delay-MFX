@@ -18,7 +18,7 @@
 
 
 
-class MFXMoogFilter
+class MFXMoogFilter 
 {
 public:
     MFXMoogFilter(ModulationData& data);
