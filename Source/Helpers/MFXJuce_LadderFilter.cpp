@@ -23,14 +23,19 @@
   ==============================================================================
 */
 
-namespace juce
-{
-namespace dsp
-{
+
+
+
+#include "MFXjuce_LadderFilter.h"
+
+//namespace juce
+//{
+//namespace dsp
+//{
 
 //==============================================================================
 template <typename SampleType>
-LadderFilter<SampleType>::LadderFilter()  : state (2)
+LadderFilter_Redesign<SampleType>::LadderFilter_Redesign()  : state (2)
 {
     setSampleRate (SampleType (1000));  // intentionally setting unrealistic default
                                         // sample rate to catch missing initialisation bugs
@@ -43,7 +48,7 @@ LadderFilter<SampleType>::LadderFilter()  : state (2)
 
 //==============================================================================
 template <typename SampleType>
-void LadderFilter<SampleType>::setMode (Mode newMode) noexcept
+void LadderFilter_Redesign<SampleType>::setMode (Mode newMode) noexcept
 {
     if (newMode == mode)
         return;
@@ -70,7 +75,7 @@ void LadderFilter<SampleType>::setMode (Mode newMode) noexcept
 
 //==============================================================================
 template <typename SampleType>
-void LadderFilter<SampleType>::prepare (const ProcessSpec& spec)
+void LadderFilter_Redesign<SampleType>::prepare (const juce::dsp::ProcessSpec& spec)
 {
     setSampleRate (SampleType (spec.sampleRate));
     setNumChannels (spec.numChannels);
@@ -79,7 +84,7 @@ void LadderFilter<SampleType>::prepare (const ProcessSpec& spec)
 
 //==============================================================================
 template <typename SampleType>
-void LadderFilter<SampleType>::reset() noexcept
+void LadderFilter_Redesign<SampleType>::reset() noexcept
 {
     for (auto& s : state)
         s.fill (SampleType (0));
@@ -90,7 +95,7 @@ void LadderFilter<SampleType>::reset() noexcept
 
 //==============================================================================
 template <typename SampleType>
-void LadderFilter<SampleType>::setCutoffFrequencyHz (SampleType newCutoff) noexcept
+void LadderFilter_Redesign<SampleType>::setCutoffFrequencyHz (SampleType newCutoff) noexcept
 {
     jassert (newCutoff > SampleType (0));
     cutoffFreqHz = newCutoff;
@@ -99,7 +104,7 @@ void LadderFilter<SampleType>::setCutoffFrequencyHz (SampleType newCutoff) noexc
 
 //==============================================================================
 template <typename SampleType>
-void LadderFilter<SampleType>::setResonance (SampleType newResonance) noexcept
+void LadderFilter_Redesign<SampleType>::setResonance (SampleType newResonance) noexcept
 {
     jassert (newResonance >= SampleType (0) && newResonance <= SampleType (1));
     resonance = newResonance;
@@ -108,7 +113,7 @@ void LadderFilter<SampleType>::setResonance (SampleType newResonance) noexcept
 
 //==============================================================================
 template <typename SampleType>
-void LadderFilter<SampleType>::setDrive (SampleType newDrive) noexcept
+void LadderFilter_Redesign<SampleType>::setDrive (SampleType newDrive) noexcept
 {
     jassert (newDrive >= SampleType (1));
 
@@ -120,7 +125,7 @@ void LadderFilter<SampleType>::setDrive (SampleType newDrive) noexcept
 
 //==============================================================================
 template <typename SampleType>
-SampleType LadderFilter<SampleType>::processSample (SampleType inputValue, size_t channelToUse) noexcept
+SampleType LadderFilter_Redesign<SampleType>::processSample (SampleType inputValue, size_t channelToUse) noexcept
 {
     auto& s = state[channelToUse];
 
@@ -148,7 +153,7 @@ SampleType LadderFilter<SampleType>::processSample (SampleType inputValue, size_
 
 //==============================================================================
 template <typename SampleType>
-void LadderFilter<SampleType>::updateSmoothers() noexcept
+void LadderFilter_Redesign<SampleType>::updateSmoothers() noexcept
 {
     cutoffTransformValue = cutoffTransformSmoother.getNextValue();
     scaledResonanceValue = scaledResonanceSmoother.getNextValue();
@@ -156,7 +161,7 @@ void LadderFilter<SampleType>::updateSmoothers() noexcept
 
 //==============================================================================
 template <typename SampleType>
-void LadderFilter<SampleType>::setSampleRate (SampleType newValue) noexcept
+void LadderFilter_Redesign<SampleType>::setSampleRate (SampleType newValue) noexcept
 {
     jassert (newValue > SampleType (0));
     cutoffFreqScaler = SampleType (-2.0 * juce::MathConstants<double>::pi) / newValue;
@@ -169,8 +174,8 @@ void LadderFilter<SampleType>::setSampleRate (SampleType newValue) noexcept
 }
 
 //==============================================================================
-template class LadderFilter<float>;
-template class LadderFilter<double>;
+template class LadderFilter_Redesign<float>;
+template class LadderFilter_Redesign<double>;
 
-} // namespace dsp
-} // namespace juce
+//} // namespace dsp
+//} // namespace juce

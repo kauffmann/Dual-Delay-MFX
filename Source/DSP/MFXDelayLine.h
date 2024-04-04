@@ -12,6 +12,8 @@
 
 #include <JuceHeader.h>
 #include "MFXAudioHelpers.h"
+#include "MFXJuce_Oscillator.h"
+
 
 enum ChannelToFade
 {
@@ -278,7 +280,8 @@ private:
 
     // use to control when to read a delay time value and scale/fade poped sample value.
     //Do std::fabs(output) .0-.1 and jmap(output, 0.0f, 1.0f, 1.0f, 0.0f);
-    juce::dsp::Oscillator<double> mLFO;
+    
+    juce::dsp::Oscillator_Redesign<double> mLFO;
     double mCurrentLfoFadeFrequency{2.0};
     bool mIsFade{ false };
     double mNewTime_Left{ 0.0 };

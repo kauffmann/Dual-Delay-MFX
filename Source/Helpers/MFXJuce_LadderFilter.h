@@ -23,10 +23,16 @@
   ==============================================================================
 */
 
-namespace juce
-{
-namespace dsp
-{
+// Refactored  line 124, comment out protect for this project. By Michael kauffmann 
+
+#pragma once
+
+#include <JuceHeader.h>
+
+//namespace juce
+//{
+//namespace dsp
+//{
 
 enum class LadderFilterMode
 {
@@ -44,7 +50,7 @@ enum class LadderFilterMode
     @tags{DSP}
 */
 template <typename SampleType>
-class LadderFilter
+class LadderFilter_Redesign
 {
 public:
     //==============================================================================
@@ -52,7 +58,7 @@ public:
 
     //==============================================================================
     /** Creates an uninitialised filter. Call prepare() before first use. */
-    LadderFilter();
+    LadderFilter_Redesign();
 
     /** Enables or disables the filter. If disabled it will simply pass through the input signal. */
     void setEnabled (bool isEnabled) noexcept    { enabled = isEnabled; }
@@ -61,7 +67,7 @@ public:
     void setMode (Mode newMode) noexcept;
 
     /** Initialises the filter. */
-    void prepare (const ProcessSpec& spec);
+    void prepare (const juce::dsp::ProcessSpec& spec);
 
     /** Returns the current number of channels. */
     size_t getNumChannels() const noexcept       { return state.size(); }
@@ -134,10 +140,10 @@ private:
     std::vector<std::array<SampleType, numStates>> state;
     std::array<SampleType, numStates> A;
 
-    SmoothedValue<SampleType> cutoffTransformSmoother, scaledResonanceSmoother;
+    juce::SmoothedValue<SampleType> cutoffTransformSmoother, scaledResonanceSmoother;
     SampleType cutoffTransformValue, scaledResonanceValue;
 
-    LookupTableTransform<SampleType> saturationLUT { [] (SampleType x) { return std::tanh (x); },
+    juce::dsp::LookupTableTransform<SampleType> saturationLUT { [] (SampleType x) { return std::tanh (x); },
                                                      SampleType (-5), SampleType (5), 128 };
 
     SampleType cutoffFreqHz { SampleType (200) };
@@ -149,5 +155,5 @@ private:
     bool enabled = true;
 };
 
-} // namespace dsp
-} // namespace juce
+//} // namespace dsp
+//} // namespace juce

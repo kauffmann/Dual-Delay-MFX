@@ -15,6 +15,7 @@
 #include <JuceHeader.h>
 #include "MFXStereo.h"
 #include "MFXAudioHelpers.h"
+#include "MFXJuce_Oscillator.h"
 
 
 
@@ -108,8 +109,8 @@ private:
 
    
     // LFO data
-    juce::dsp::Oscillator<double> mLfoChorus1;
-    juce::dsp::Oscillator<double> mLfoChorus2;
+    juce::dsp::Oscillator_Redesign <double> mLfoChorus1;
+    juce::dsp::Oscillator_Redesign<double> mLfoChorus2;
     
     
 

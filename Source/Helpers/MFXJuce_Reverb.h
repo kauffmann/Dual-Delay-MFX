@@ -20,8 +20,18 @@
   ==============================================================================
 */
 
-namespace juce
-{
+
+// Refactored dampScaleFactor line 213 for this project. by Michael Kauffmann. 
+
+
+#pragma once
+
+#include <JuceHeader.h>
+
+
+
+//namespace juce
+//{
 
 //==============================================================================
 /**
@@ -35,11 +45,11 @@ namespace juce
 
     @tags{Audio}
 */
-class Reverb
+class Reverb_Redesign
 {
 public:
     //==============================================================================
-    Reverb()
+    Reverb_Redesign()
     {
         setParameters (Parameters());
         setSampleRate (44100.0);
@@ -311,7 +321,7 @@ private:
 
     SmoothedValue<float> damping, feedback, dryGain, wetGain1, wetGain2;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Reverb)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Reverb_Redesign)
 };
 
-} // namespace juce
+//} // namespace juce

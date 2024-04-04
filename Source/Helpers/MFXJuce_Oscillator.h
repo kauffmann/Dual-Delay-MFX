@@ -23,10 +23,20 @@
   ==============================================================================
 */
 
+
+// Refactored reset() and phase dependency for this project by Michael Kauffmann. 
+
+#pragma once
+#include "MFXJuce_Phase.h"
+
+
+
 namespace juce
 {
 namespace dsp
 {
+
+
 
 /**
     Generates a signal based on a user-supplied function.
@@ -34,23 +44,24 @@ namespace dsp
     @tags{DSP}
 */
 template <typename SampleType>
-class Oscillator
+class Oscillator_Redesign
 {
 public:
     /** The NumericType is the underlying primitive type used by the SampleType (which
         could be either a primitive or vector)
     */
+    
     using NumericType = typename SampleTypeHelpers::ElementType<SampleType>::Type;
 
     /** Creates an uninitialised oscillator. Call initialise before first use. */
-    Oscillator() = default;
+    Oscillator_Redesign() = default;
 
     /** Creates an oscillator with a periodic input function (-pi..pi).
 
         If lookup table is not zero, then the function will be approximated
         with a lookup table.
     */
-    Oscillator (const std::function<NumericType (NumericType)>& function,
+    Oscillator_Redesign(const std::function<NumericType (NumericType)>& function,
                 size_t lookupTableNumPoints = 0)
     {
         initialise (function, lookupTableNumPoints);
@@ -97,7 +108,7 @@ public:
 
     //==============================================================================
     /** Called before processing starts. */
-    void prepare (const ProcessSpec& spec) noexcept
+    void prepare (const juce::dsp::ProcessSpec& spec) noexcept
     {
         sampleRate = static_cast<NumericType> (spec.sampleRate);
         rampBuffer.resize ((int) spec.maximumBlockSize);
@@ -244,7 +255,9 @@ private:
     Array<NumericType> rampBuffer;
     SmoothedValue<NumericType> frequency { static_cast<NumericType> (440.0) };
     NumericType sampleRate = 48000.0;
-    Phase<NumericType> phase;
+    Phase_Redesign<NumericType> phase;
+    
+    
 };
 
 } // namespace dsp

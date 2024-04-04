@@ -120,30 +120,30 @@ void MFXMoogFilter::updateParameters (const int filterType,
     switch (filterType)
     {
         case 0:
-            mFilter.setMode(juce::dsp::LadderFilterMode::LPF12);
+            mFilter.setMode(LadderFilterMode::LPF12);
             break;
             
         case 1:
-            mFilter.setMode(juce::dsp::LadderFilterMode::LPF24);
+            mFilter.setMode(LadderFilterMode::LPF24);
             break;
             
         case 2:
-            mFilter.setMode(juce::dsp::LadderFilterMode::BPF12);
+            mFilter.setMode(LadderFilterMode::BPF12);
             break;
             
         case 3:
-            mFilter.setMode(juce::dsp::LadderFilterMode::BPF24);
+            mFilter.setMode(LadderFilterMode::BPF24);
             break;
             
         case 4:
-            mFilter.setMode(juce::dsp::LadderFilterMode::HPF12);
+            mFilter.setMode(LadderFilterMode::HPF12);
             break;
             
         case 5:
-            mFilter.setMode(juce::dsp::LadderFilterMode::HPF24);
+            mFilter.setMode(LadderFilterMode::HPF24);
             break;
             
-        default : mFilter.setMode(juce::dsp::LadderFilterMode::LPF12);
+        default : mFilter.setMode(LadderFilterMode::LPF12);
             break;
     }
     

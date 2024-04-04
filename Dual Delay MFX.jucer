@@ -158,15 +158,15 @@
             file="Source/Panels/MFXCreditPanel.h"/>
     </GROUP>
     <GROUP id="{ACC32B95-B3A6-0CA2-F274-03DE3D313459}" name="Helpers">
-      <FILE id="W10rwm" name="MFXJuce_LadderFilter.cpp" compile="1" resource="0"
-            file="Source/Helpers/MFXJuce_LadderFilter.cpp"/>
-      <FILE id="gmgqJO" name="MFXJuce_LadderFilter.h" compile="0" resource="0"
-            file="Source/Helpers/MFXJuce_LadderFilter.h"/>
-      <FILE id="d1uF2K" name="MFXJuce_Oscillator.h" compile="0" resource="0"
-            file="Source/Helpers/MFXJuce_Oscillator.h"/>
-      <FILE id="OCLLCf" name="MFXJuce_Phase.h" compile="0" resource="0" file="Source/Helpers/MFXJuce_Phase.h"/>
-      <FILE id="N3uL88" name="MFXJuce_Reverb.h" compile="0" resource="0"
+      <FILE id="s2fetY" name="MFXjuce_LadderFilter.cpp" compile="1" resource="0"
+            file="Source/Helpers/MFXjuce_LadderFilter.cpp"/>
+      <FILE id="kfkRhS" name="MFXjuce_LadderFilter.h" compile="0" resource="0"
+            file="Source/Helpers/MFXjuce_LadderFilter.h"/>
+      <FILE id="FstSlJ" name="MFXJuce_Reverb.h" compile="0" resource="0"
             file="Source/Helpers/MFXJuce_Reverb.h"/>
+      <FILE id="BUefSw" name="MFXJuce_Oscillator.h" compile="0" resource="0"
+            file="Source/Helpers/MFXJuce_Oscillator.h"/>
+      <FILE id="BijnLe" name="MFXJuce_Phase.h" compile="0" resource="0" file="Source/Helpers/MFXJuce_Phase.h"/>
       <FILE id="Lx6h4o" name="MFXLookAndFeel.h" compile="0" resource="0"
             file="Source/Helpers/MFXLookAndFeel.h"/>
       <FILE id="JenwZA" name="MFXAudioHelpers.h" compile="0" resource="0"

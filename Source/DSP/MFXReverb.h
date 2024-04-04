@@ -13,6 +13,8 @@
 #include <JuceHeader.h>
 #include "MFXUsedParameters.h"
 #include "ModulationData.h"
+#include "MFXJuce_Reverb.h"
+
 
 class MFXReverb
 {
@@ -46,8 +48,8 @@ public:
     
 private:
     
-    Reverb reverb; // juce_reverb.h made change line 199 - dampScaleFactor
-    Reverb::Parameters reverbParams;
+    Reverb_Redesign reverb; // juce_reverb.h made change line 199 - dampScaleFactor
+    Reverb_Redesign::Parameters reverbParams;
     ModulationData& mData;
     float mCurrentWetLevel {0.0f};
     float mCurrentSizeLevel {0.0f};

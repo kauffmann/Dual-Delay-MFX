@@ -23,6 +23,10 @@
   ==============================================================================
 */
 
+// Refactored reset() for this project by Michael Kauffmann. 
+
+
+
 namespace juce
 {
 namespace dsp
@@ -37,7 +41,7 @@ namespace dsp
     @tags{DSP}
 */
 template <typename Type>
-struct Phase
+struct Phase_Redesign
 {
     /** Resets the phase to 0. */
 
