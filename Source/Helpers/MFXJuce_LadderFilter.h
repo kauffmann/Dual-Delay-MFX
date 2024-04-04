@@ -29,10 +29,7 @@
 
 #include <JuceHeader.h>
 
-//namespace juce
-//{
-//namespace dsp
-//{
+
 
 enum class LadderFilterMode
 {
@@ -155,5 +152,4 @@ private:
     bool enabled = true;
 };
 
-//} // namespace dsp
-//} // namespace juce
+

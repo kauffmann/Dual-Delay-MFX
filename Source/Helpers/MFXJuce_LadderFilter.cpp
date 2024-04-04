@@ -28,10 +28,7 @@
 
 #include "MFXjuce_LadderFilter.h"
 
-//namespace juce
-//{
-//namespace dsp
-//{
+
 
 //==============================================================================
 template <typename SampleType>
@@ -176,6 +173,3 @@ void LadderFilter_Redesign<SampleType>::setSampleRate (SampleType newValue) noex
 //==============================================================================
 template class LadderFilter_Redesign<float>;
 template class LadderFilter_Redesign<double>;
-
-//} // namespace dsp
-//} // namespace juce
