@@ -1009,7 +1009,8 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
 
             mSetRandomAllValues->setBounds(100, 145, 45, 45);
 
-            addAndMakeVisible(mSetRandomAllValues.get());
+            // We have no presets in this show version of Time Razor. Clicking this dice cause app to crash. 
+            //addAndMakeVisible(mSetRandomAllValues.get());
 
 
             mSetRandomAllValues->onStateChange = [&]()

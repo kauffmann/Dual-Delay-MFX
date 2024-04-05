@@ -29,7 +29,7 @@ enum LfoStyle
 };
 
 
-       
+
 
         class MFXLFO2
         {

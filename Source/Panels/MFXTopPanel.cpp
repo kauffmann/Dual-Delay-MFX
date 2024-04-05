@@ -378,20 +378,20 @@ void MFXTopPanel::displaySaveAsPopup()
 
     mChooser = std::make_unique<FileChooser>("Please enter a name for your preset",
                                              File::getSpecialLocation(File::commonApplicationDataDirectory).getFullPathName() + directorySeparator
-                                             + "Time Razor");
+                                             + "Dual Delay MFX");
 
     #elif JUCE_MAC
 
     mChooser = std::make_unique<FileChooser>("Please enter a name for your preset",
                                              File::getSpecialLocation(File::commonDocumentsDirectory).getFullPathName() + directorySeparator
-                                             + "Time Razor");
+                                             + "Dual Delay MFX");
     #endif
 
 
 
     mChooser = std::make_unique<FileChooser> ("Please enter a name for your preset",
                                               File::getSpecialLocation (File::commonApplicationDataDirectory).getFullPathName() + directorySeparator
-                                              + "Time Razor");
+                                              + "Dual Delay MFX");
         
     auto folderChooserFlags = FileBrowserComponent::saveMode;
     
