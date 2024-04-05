@@ -36,12 +36,12 @@
             void modulateParameters(int processLoopIndex) noexcept;
 
             void updateParameters(const int filterType,
-                float cutoff,
-                float resonance,
-                float drive,
-                const float& cutoffModulator = 0.0f,
-                const float& resonansModulator = 0.0f,
-                const float& driveModulator = 0.0f) noexcept;
+                                  float cutoff,
+                                  float resonance,
+                                  float drive,
+                                  const float& cutoffModulator = 0.0f,
+                                  const float& resonansModulator = 0.0f,
+                                  const float& driveModulator = 0.0f) noexcept;
 
 
 
