@@ -34,7 +34,7 @@ MFXPresetManager::MFXPresetManager(AudioProcessor* inProcessor, AudioProcessorVa
     mPresetDirectory = (File::getSpecialLocation(File::commonApplicationDataDirectory)).getFullPathName() + directorySeparator + pluginName;
 
 #elif JUCE_MAC
-    // path to this C:\ProgramData\Time Razor
+    
     mPresetDirectory = (File::getSpecialLocation(File::commonDocumentsDirectory)).getFullPathName() + directorySeparator + pluginName;
 
 
