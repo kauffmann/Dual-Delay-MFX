@@ -4,11 +4,10 @@
 
 The intent of having this c++ repo is to show my work to potential employer. Others can learn and perhaps reuse some of the dsp and logic in their own project. 
 
-You can clone and build project in your IDE. You'll need JUCE framework, included projucer, on your computer. https://juce.com/
+You can clone and build project in your IDE. You'll need JUCE framework 7.0.5+, included projucer, on your computer. https://juce.com/
 If you are using mac you need to modify .projucer adding relevant exporter, e.g. xcode.
 
-Changes to JUCE library files:
-juce/dsp/widgets/ladder.h /.cpp     line......
+
 
 
 
