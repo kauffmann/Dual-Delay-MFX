@@ -30,7 +30,7 @@ void MFXLFO2::setType (const LfoStyle oscSelection) noexcept
     {
             // Sine
         case mLfoStyle_sin:
-            mLfo.initialise ([](float x) { return std::sinf(-x); },128); // -x it start 0 - 1 then 1 - 0 - -1 and up. If x are positive it starts 0 - -1.
+            mLfo.initialise ([](float x) { return std::sinf(-x); },128);
             break;
             
             // Saw
@@ -40,7 +40,7 @@ void MFXLFO2::setType (const LfoStyle oscSelection) noexcept
             return juce::jmap (x,
                                float (-juce::MathConstants<double>::pi),
                                float (juce::MathConstants<double>::pi),
-                               float (1.0f), // (1/-1)makes a down saw. Sounds great and more audible difference between sin/saw. (-1/1) makes up saw.
+                               float (1.0f), 
                                float (-1.0f));
         }, 128);
             break;
@@ -56,7 +56,7 @@ void MFXLFO2::setType (const LfoStyle oscSelection) noexcept
             mLfo.initialise ([] (float x)
                              {
                                  x = x / juce::MathConstants<double>::pi;
-                                 return  juce::jmin(2.0+2.0*x, std::abs((x-0.5)*2.0)-1.0); // triangle in phase from serum synth wavetable editor (xferrecords)
+                                 return  juce::jmin(2.0+2.0*x, std::abs((x-0.5)*2.0)-1.0); 
                                  
                              }, 128);
             break;
@@ -67,7 +67,7 @@ void MFXLFO2::setType (const LfoStyle oscSelection) noexcept
                                  return juce::jmap (x,
                                                     float (-juce::MathConstants<double>::pi),
                                                     float (juce::MathConstants<double>::pi),
-                                                    float (-1.0f), // (1/-1)makes a down saw. Sounds great and more audible difference between sin/saw. (-1/1) makes up saw.
+                                                    float (-1.0f), 
                                                     float (1.0f));
                              }, 128);
             break;
@@ -213,8 +213,6 @@ void MFXLFO2::updateParamsSync(const double &bpm, const float &noteIndex, const 
 }
 
 void MFXLFO2::reset(double inc) noexcept
-{
-    // remember change made in JUCE source files Oscillator class::reset(param added) and Phase::reset(param added).
-   
+{   
     mLfo.reset(inc);
 }
