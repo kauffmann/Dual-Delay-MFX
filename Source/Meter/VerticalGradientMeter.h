@@ -6,7 +6,7 @@
     Main Author: Created by Akash Murthy https://github.com/Thrifleganger
     Author (customized to my project): Michael Kauffmann
 
-	A Meter(VerticalGradientMeter) represent 1 ch. So two instances are needed to form a 2 ch Meter. A Meter is a cild component MFXGainPanel(client), where Bounds are set.
+	A Meter(VerticalGradientMeter) represent 1 ch. So two instances are needed to form a 2 ch Meter. A Meter is a cild component in MFXGainPanel(client), where Bounds are set.
 	
 
  = =============================================================================
