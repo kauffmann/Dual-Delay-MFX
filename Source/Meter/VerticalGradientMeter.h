@@ -6,6 +6,9 @@
     Main Author: Created by Akash Murthy https://github.com/Thrifleganger
     Author (customized to my project): Michael Kauffmann
 
+	A Meter(VerticalGradientMeter) represent 1 ch. So two instances are needed to form a 2 ch Meter. A Meter is a cild component MFXGainPanel(client), where Bounds are set.
+	
+
  = =============================================================================
 */
 #pragma once
@@ -20,6 +23,7 @@
 		{
 			startTimerHz(24);
 			grill = ImageCache::getFromMemory(BinaryData::MeterBG2_png, BinaryData::MeterBG2_pngSize);
+			
 		}
 		
 		void paint(Graphics& g) override
@@ -28,17 +32,19 @@
 
             g.setColour(colour_2);
 			g.fillRect(bounds);
-
+			DBG("value" << valueSupplier());
 			g.setGradientFill(gradient);
 			const auto scaledY = jmap(valueSupplier(), -60.0f, 6.0f, 0.0f, static_cast<float>(getHeight())); 
             
             // Prevent drawing if no audio input goes into plugin
             if (scaledY > 0)
-            g.fillRect(bounds.removeFromBottom(scaledY));
+            g.fillRect(bounds.removeFromBottom(scaledY));  // remove part of bounds, and will paint the returned rectangle at removed area, bounds determent how much of the gradient is visible.
 		}
 
 		void resized() override
 		{
+			// Why not put this in constructor. Because bounds will be all 0, not known in constructor.
+
 			const auto bounds = getLocalBounds().toFloat();
             gradient = ColourGradient{ Colours::white, bounds.getBottomLeft(), Colours::red, bounds.getTopLeft(), false };
             gradient.addColour(0.7, Colours::white);
