@@ -27,18 +27,17 @@
 		}
 		
 		void paint(Graphics& g) override
-		{
+	        {
 			auto bounds = getLocalBounds().toFloat().reduced(3.5f);
 
-            g.setColour(colour_2);
+                        g.setColour(colour_2);
 			g.fillRect(bounds);
-			DBG("value" << valueSupplier());
 			g.setGradientFill(gradient);
 			const auto scaledY = jmap(valueSupplier(), -60.0f, 6.0f, 0.0f, static_cast<float>(getHeight())); 
             
-            // Prevent drawing if no audio input goes into plugin
-            if (scaledY > 0)
-            g.fillRect(bounds.removeFromBottom(scaledY));  // remove part of bounds, and will paint the returned rectangle at removed area, bounds determent how much of the gradient is visible.
+                        // Prevent drawing if no audio input goes into plugin
+                       if (scaledY > 0)
+                           g.fillRect(bounds.removeFromBottom(scaledY));  // remove part of bounds, and will paint the returned rectangle at removed area, bounds determent how much of the gradient is visible.
 		}
 
 		void resized() override
@@ -46,8 +45,8 @@
 			// Why not put this in constructor. Because bounds will be all 0, not known in constructor.
 
 			const auto bounds = getLocalBounds().toFloat();
-            gradient = ColourGradient{ Colours::white, bounds.getBottomLeft(), Colours::red, bounds.getTopLeft(), false };
-            gradient.addColour(0.7, Colours::white);
+                        gradient = ColourGradient{ Colours::white, bounds.getBottomLeft(), Colours::red, bounds.getTopLeft(), false };
+                        gradient.addColour(0.7, Colours::white);
             
 		}
 		
