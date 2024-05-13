@@ -18,7 +18,15 @@
 #include "MFXJuce_Oscillator.h"
 
 
-
+enum LfoStyle
+{
+    mLfoStyle_sin = 0,
+    mLfoStyle_upSaw,
+    mLfoStyle_square,
+    mLfoStyle_triangle,
+    mLfoStyle_downSaw,
+    mLfoStyle_TotalNumStyles
+};
 
 
         class MFXLFO2
@@ -29,15 +37,7 @@
             MFXLFO2();
             ~MFXLFO2();
 
-            enum LfoStyle
-            {
-                mLfoStyle_sin = 0,
-                mLfoStyle_upSaw,
-                mLfoStyle_square,
-                mLfoStyle_triangle,
-                mLfoStyle_downSaw,
-                mLfoStyle_TotalNumStyles
-            };
+           
 
             void prepare(const juce::dsp::ProcessSpec& spec) noexcept;
 

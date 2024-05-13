@@ -12,7 +12,12 @@
 
 #include <JuceHeader.h>
 
-
+enum FilterType
+{
+    mFilterType_LowPass = 1,
+    mFilterType_HighPass,
+    mFilterType_TotalNum
+};
 
 class MFXSimpleFilter
 {
@@ -22,12 +27,7 @@ public:
     MFXSimpleFilter();
     ~MFXSimpleFilter();
 
-    enum FilterType
-    {
-        mFilterType_LowPass = 1,
-        mFilterType_HighPass,
-        mFilterType_TotalNum
-    };
+   
     
     void prepare (const juce::dsp::ProcessSpec& spec);
     
