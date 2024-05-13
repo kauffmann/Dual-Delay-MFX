@@ -15,11 +15,7 @@
 #include "MFXJuce_Oscillator.h"
 
 
-enum ChannelToFade
-{
-    mFadeLeft = 0,
-    mFadeRight
-};
+
 
 
 class MFXDelayLine
@@ -30,6 +26,11 @@ public:
     MFXDelayLine();
     ~MFXDelayLine();
 
+    enum ChannelToFade
+    {
+        mFadeLeft = 0,
+        mFadeRight
+    };
 
     void prepareToProcess(const juce::dsp::ProcessSpec& spec);
 

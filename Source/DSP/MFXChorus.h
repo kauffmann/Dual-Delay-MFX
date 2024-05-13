@@ -19,11 +19,7 @@
 
 
 
-enum DelayLine
-{
-    mDelayLine1 = 0,
-    mDelayLine2
-};
+
 
 class MFXChorus
 {
@@ -35,7 +31,11 @@ public:
     
     ~MFXChorus();
         
-
+    enum DelayLine
+    {
+        mDelayLine1 = 0,
+        mDelayLine2
+    };
 
     //=============================================================================
     void prepare(const juce::dsp::ProcessSpec& spec);
@@ -100,6 +100,8 @@ public:
    
 private:
     //===============================================================================
+
+   
 
     double mCurrentSampleRate{44100.0};
 
