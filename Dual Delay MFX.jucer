@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="vXLGNR" name="Dual Delay MFX" projectType="audioplug" jucerFormatVersion="1"
-              pluginCharacteristicsValue="pluginWantsMidiIn" pluginFormats="buildVST3"
-              headerPath="C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Process &amp; UI Manager&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Panels&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\DSP&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Helpers&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Meter&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Parameter Controls&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Modulation Sources&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Preset Manager&#10;&#10;">
+              pluginCharacteristicsValue="pluginWantsMidiIn" pluginFormats="buildVST3">
   <MAINGROUP id="pwSzji" name="Dual Delay MFX">
     <GROUP id="{294B5022-14D8-6398-6333-E1A0A2796FA6}" name="Graphic Assets">
       <GROUP id="{CCDB7190-C16E-2317-96B1-F42311840666}" name="Sliders Sprite">
@@ -232,8 +231,8 @@
   <EXPORTFORMATS>
     <VS2022 targetFolder="Builds/VisualStudio2022">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="Dual Delay MFX"/>
-        <CONFIGURATION isDebug="0" name="Release" targetName="Dual Delay MFX"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Dual Delay MFX" headerPath="C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Process &amp; UI Manager&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Panels&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\DSP&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Helpers&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Meter&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Parameter Controls&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Modulation Sources&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Preset Manager"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="Dual Delay MFX" headerPath="C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Process &amp; UI Manager&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Panels&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\DSP&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Helpers&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Meter&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Parameter Controls&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Modulation Sources&#10;&#10;C:\Users\kauff\Documents\Audio Programming\Dual Delay MFX\Source\Preset Manager"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="../Juce_7.0.5/JUCE/modules"/>
@@ -251,6 +250,27 @@
         <MODULEPATH id="juce_gui_extra" path="../Juce_7.0.5/JUCE/modules"/>
       </MODULEPATHS>
     </VS2022>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" headerPath="/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/Process &amp; UI Manager&#10;&#10;/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/Panels&#10;&#10;/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/DSP&#10;&#10;/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/Helpers&#10;&#10;/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/Meter&#10;&#10;/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/Controls&#10;&#10;/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/Sources&#10;&#10;/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/Preset Manager&#10;&#10;&#10;&#10;"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/Process &amp; UI Manager&#10;&#10;/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/Panels&#10;&#10;/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/DSP&#10;&#10;/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/Helpers&#10;&#10;/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/Meter&#10;&#10;/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/Controls&#10;&#10;/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/Sources&#10;&#10;/Users/michaelkauffmann/Documents/Dual-Delay-MFX/Source/Preset Manager&#10;&#10;&#10;&#10;"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../juce"/>
+        <MODULEPATH id="juce_audio_devices" path="../../juce"/>
+        <MODULEPATH id="juce_audio_formats" path="../../juce"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../juce"/>
+        <MODULEPATH id="juce_audio_processors" path="../../juce"/>
+        <MODULEPATH id="juce_audio_utils" path="../../juce"/>
+        <MODULEPATH id="juce_core" path="../../juce"/>
+        <MODULEPATH id="juce_data_structures" path="../../juce"/>
+        <MODULEPATH id="juce_dsp" path="../../juce"/>
+        <MODULEPATH id="juce_events" path="../../juce"/>
+        <MODULEPATH id="juce_graphics" path="../../juce"/>
+        <MODULEPATH id="juce_gui_basics" path="../../juce"/>
+        <MODULEPATH id="juce_gui_extra" path="../../juce"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
   </EXPORTFORMATS>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
