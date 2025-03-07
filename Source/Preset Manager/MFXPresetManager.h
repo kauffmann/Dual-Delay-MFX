@@ -64,7 +64,7 @@ public:
 
     inline String getPresetNameFromLocalStorage(const int index) const noexcept
     {
-        return mLocalPresets[index].getFileNameWithoutExtension();
+        return mLocalPresets[index].getFileNameWithoutExtension();    
     }
 
 

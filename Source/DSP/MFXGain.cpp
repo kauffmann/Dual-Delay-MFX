@@ -24,7 +24,7 @@ MFXGain::~MFXGain()
 }
 
 
-void MFXGain::process(float *inAudioChannel, float inGain, int inNumSamplesToRender)
+void MFXGain::process(float* inAudioChannel, float inGain, int inNumSamplesToRender)
 {
     inGain = Decibels::decibelsToGain(inGain, -70.0f); 
     

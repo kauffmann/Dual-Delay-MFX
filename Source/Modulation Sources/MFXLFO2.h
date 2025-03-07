@@ -74,7 +74,7 @@ enum LfoStyle
             juce::dsp::Oscillator_Redesign<double> mLfo;
             juce::SmoothedValue<double> mSmoother;
 
-
+            
             float mRate{ 0.0f }, mDepth{ 1.0f };
             double mSyncFrequency{ 0.0 };
             float mFrequency{ 0.0 };

@@ -35,23 +35,26 @@ MFXDelayLine::~MFXDelayLine(){}
 
 void MFXDelayLine::prepareToProcess(const juce::dsp::ProcessSpec& spec)
 {
-    // set DelayLine size to 4 seconds (add  maximumblockSize for safety)
-    mDelayLine = std::make_unique<dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd>>((spec.sampleRate + spec.maximumBlockSize) * 4.0);
-    mDelayLine->prepare(spec);
+    
+    
+    
+        // set DelayLine size to 4 seconds (add  maximumblockSize for safety)
+        mDelayLine = std::make_unique<dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd>>((spec.sampleRate + spec.maximumBlockSize) * 4.0);
+        mDelayLine->prepare(spec);
 
-    smoothFilter.prepare(spec);
-    
-    mSampleRate = spec.sampleRate;
-    
-    mDelaySmoothedWideSampleTime.reset(spec.sampleRate, 0.03);
-    mSmoothedLeftTime.reset(spec.sampleRate, 0.03);
-    mSmoothedWetMix.reset(spec.sampleRate,0.04);
-    mSmoothedDryMix.reset(spec.sampleRate,0.04);
-    
-    mRightFeedbackGainSmooth.reset(spec.sampleRate, 0.04);
-    mLeftFeedbackGainSmooth.reset(spec.sampleRate, 0.04);
+        smoothFilter.prepare(spec);
 
-    mLFO.prepare(spec);
+        mSampleRate = spec.sampleRate;
+
+        mDelaySmoothedWideSampleTime.reset(spec.sampleRate, 0.03);
+        mSmoothedLeftTime.reset(spec.sampleRate, 0.03);
+        mSmoothedWetMix.reset(spec.sampleRate, 0.04);
+        mSmoothedDryMix.reset(spec.sampleRate, 0.04);
+
+        mRightFeedbackGainSmooth.reset(spec.sampleRate, 0.04);
+        mLeftFeedbackGainSmooth.reset(spec.sampleRate, 0.04);
+
+        mLFO.prepare(spec);
     
 }
 
@@ -433,3 +436,87 @@ void MFXDelayLine::setFeedbackGainSmooth() noexcept
 }
 
 
+
+
+
+
+//--------------------------------------------     delete again    ---------------------------------------------------
+
+//void MFXDelayLine::process(float& leftCh, float& rightCh, float& leftWetCh, float& rightWetCh)
+//{
+//    mCountSamples++;
+//    updateFadeValues();
+//
+//    double lfoOutputAbs = std::fabs(mLFO.processSample(0.0));
+//    double lfoOutputAbsReversed = 0.9999999999 - lfoOutputAbs;
+//
+//    if (mPingpong)
+//    {
+//        mDelayLine->pushSample(0, ((leftCh + rightCh) / 2.0f) + feedbacked_right);
+//        mDelayLine->pushSample(1, feedbacked_left);
+//    }
+//    else
+//    {
+//        mDelayLine->pushSample(0, leftCh + feedbacked_left);
+//        mDelayLine->pushSample(1, rightCh + feedbacked_right);
+//    }
+//
+//    processChannel(leftCh, leftWetCh, mLeftTime, mTimeModeLeft, mFadeLeft, feedbacked_left, lfoOutputAbs, lfoOutputAbsReversed);
+//    processChannel(rightCh, rightWetCh, mRightTime, mTimeModeRight, mFadeRight, feedbacked_right, lfoOutputAbs, lfoOutputAbsReversed);
+//}
+//
+//void MFXDelayLine::processChannel(float& dryCh, float& wetCh, float& time, float& timeMode, ChannelToFade channel, float& feedbacked, double lfoOutputAbs, double lfoOutputAbsReversed)
+//{
+//    auto wideInSampleTimeSmoothed = mDelaySmoothedWideSampleTime.getNextValue();
+//    auto feedbackGainSmooth = (channel == mFadeLeft) ? mLeftFeedbackGainSmooth.getNextValue() : mRightFeedbackGainSmooth.getNextValue();
+//
+//    float delayed = 0.0f;
+//
+//    if (static_cast<int>(timeMode) != mFXDelayTimeMode_ms)
+//    {
+//        int valueToIndex = roundToInt(time * 7);
+//        valueToIndex = (valueToIndex == 0) ? 1 : valueToIndex;
+//
+//        double delayTime = (mIsFade == 1.0f) ? sync(valueToIndex, timeMode, mSampleTimeOneBeat - wideInSampleTimeSmoothed) : smoothFilter.processSample((channel == mFadeLeft) ? 0 : 1, sync(valueToIndex, timeMode, mSampleTimeOneBeat - wideInSampleTimeSmoothed));
+//        delayTime = std::min(delayTime, mDelayLine->getMaximumDelayInSamples());
+//
+//        delayed = (mIsFade == 1.0f) ? readFadeValue(delayTime, lfoOutputAbs, lfoOutputAbsReversed, channel) : mDelayLine->popSample((channel == mFadeLeft) ? 0 : 1, delayTime);
+//    }
+//    else
+//    {
+//        double delayTime = (mIsFade == 1.0f) ? juce::jmax(juce::jmin((time * (mSampleRate * 4.0)) - wideInSampleTimeSmoothed, mSampleRate * 4.0), 0.0) : smoothFilter.processSample((channel == mFadeLeft) ? 0 : 1, juce::jmax(juce::jmin((time * (mSampleRate * 4.0)) - wideInSampleTimeSmoothed, mSampleRate * 4.0), 0.0));
+//        delayTime = std::min(delayTime, mDelayLine->getMaximumDelayInSamples());
+//
+//        delayed = (mIsFade == 1.0f) ? readFadeValue(delayTime, lfoOutputAbs, lfoOutputAbsReversed, channel) : mDelayLine->popSample((channel == mFadeLeft) ? 0 : 1, delayTime);
+//    }
+//
+//    if (wetMix > 0 && mChainMode == mChainedDelay_serial)
+//        wetCh = dryMix * dryCh + (wetMix * delayed);
+//    else if (wetMix > 0 && mChainMode == mChainedDelay_parallel)
+//        wetCh = delayed * wetMix;
+//    else
+//        wetCh = delayed;
+//
+//    feedbacked = (mPingpong) ? delayed : tanh_clip(delayed * feedbackGainSmooth);
+//}
+//
+//void MFXDelayLine::updateFadeValues()
+//{
+//    constexpr double fadeIncrement = 0.000133333333;
+//    constexpr int fadeThreshold = 7500;
+//    constexpr int fadeCycle = 15000;
+//
+//    if (mCountSamples <= fadeThreshold)
+//    {
+//        mA += fadeIncrement;
+//        mB -= fadeIncrement;
+//    }
+//    else if (mCountSamples <= fadeCycle)
+//    {
+//        mA -= fadeIncrement;
+//        mB += fadeIncrement;
+//    }
+//
+//    if (mCountSamples == fadeCycle)
+//        mCountSamples = 0;
+//}
