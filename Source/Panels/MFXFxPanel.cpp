@@ -44,7 +44,7 @@ void MFXFxPanel::paint(Graphics& g)
             
         } break;
             
-        case (mFxPanelStyle_Chorus):{
+        case (mFxPanelStyle_Chorus):{    
              label = "CHORUS";
              g.drawFittedText(label,
                              55,
@@ -304,8 +304,27 @@ void MFXFxPanel::paint(Graphics& g)
 void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
 {
     mStyle = inStyle;
-    
+	//-------------------------------------------Clear all UI elements to avoid mixed UI components conflicts-------------------------------------------
     mSliders.clear();
+    mComboBoxes.clear();
+	mButtons.clear();
+    mFXPanelHorisontalSliders.clear();
+	mGlobalButtons.clear();
+	mGlobalSliders.clear();
+    
+
+	mDelay1TimeTransitionMode = nullptr;
+	mDelay2TimeTransitionMode = nullptr;
+  
+	mSetRandomValues = nullptr;
+	mSetRandomAllValues = nullptr;
+	mMidi = nullptr;
+
+   
+
+    //-------------------------------------------------------------------------------------
+	// I'm not happy about size and x and y position of UI components, it has become a mess and hard to read.
+    // There are places where I don't use it, but use x/y values when runnng JUCE_LIVE_CONSTANT  Must refactor this. 
     
     const int slider_size = 56;
     const int button_size = 60;
@@ -318,12 +337,6 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
     {
         case (mFxPanelStyle_Delay2):
         { 
-            mButtons.clear();
-            mSetRandomValues->setVisible(false);
-            mSetRandomAllValues->setVisible(false);
-            if(mMidi)
-               mMidi->setVisible(false);
-            
             
             int y = (getHeight() * 0.4) - (slider_size * 0.4);
             
@@ -370,9 +383,9 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             
             
             MFXParameterSlider* timeLeftD2 =
-            new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay2TimeLeft],
-                                   MFXParameterLabel[mFXParameter_Delay2TimeLeft],
-                                   mFXParameter_Delay2TimeLeft, mProcessor);
+                new MFXParameterSlider(mProcessor->parameters, MFXParameterID[mFXParameter_Delay2TimeLeft],
+                    MFXParameterLabel[mFXParameter_Delay2TimeLeft],
+                    mFXParameter_Delay2TimeLeft, mProcessor);
             timeLeftD2->setBounds(x, y, slider_size, slider_size);
             
             
@@ -380,21 +393,22 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             addAndMakeVisible(timeLeftD2);
             mSliders.add(timeLeftD2);
             
-            mDelayTimeModeLeft = std::make_unique<MFXParameterComboBox>( mProcessor->parameters, MFXParameterID[mFXParameter_Delay2TimeModeLeft], mProcessor);
+            MFXParameterComboBox* delayTimeModeLeft = new MFXParameterComboBox( mProcessor->parameters, MFXParameterID[mFXParameter_Delay2TimeModeLeft], mProcessor);
             
             
-            mDelayTimeModeLeft->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2TimeModeLeft])->getAllValueStrings() ,1);
+            delayTimeModeLeft->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2TimeModeLeft])->getAllValueStrings() ,1);
             
             auto modeValue = mProcessor->parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2TimeModeLeft]);
-            mDelayTimeModeLeft->setSelectedItemIndex(modeValue->load());
+            delayTimeModeLeft->setSelectedItemIndex(modeValue->load());
             
             int xTimeCombo = x + (slider_size);
             
-            mDelayTimeModeLeft->setBounds(xTimeCombo + 15, y + 23, 80, 18);
-            mDelayTimeModeLeft->setName("Time Mode");
-            mDelayTimeModeLeft->setColour(MFXParameterComboBox::backgroundColourId, juce::Colour::fromRGB(48, 48, 48));
+            delayTimeModeLeft->setBounds(xTimeCombo + 15, y + 23, 80, 18);
+            delayTimeModeLeft->setName("Time Mode");
+            delayTimeModeLeft->setColour(MFXParameterComboBox::backgroundColourId, juce::Colour::fromRGB(48, 48, 48));
 
-            addAndMakeVisible(mDelayTimeModeLeft.get());
+			mComboBoxes.add(delayTimeModeLeft);
+            addAndMakeVisible(delayTimeModeLeft);
             
             
             x = x + (slider_size * 3.0);
@@ -408,7 +422,6 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
                                    MFXParameterLabel[mFXParameter_Delay2LeftFeedback],
                                    mFXParameter_Delay2LeftFeedback, mProcessor);
             feedbackLeftD2->setBounds(x, y, slider_size, slider_size);
-            
             
             addAndMakeVisible(feedbackLeftD2);
             mSliders.add(feedbackLeftD2);
@@ -435,19 +448,21 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             mSliders.add(timeRightD2);
             
             
-            mDelayTimeModeRight = std::make_unique<MFXParameterComboBox>( mProcessor->parameters, MFXParameterID[mFXParameter_Delay2TimeModeRight], mProcessor);
+            MFXParameterComboBox* delayTimeModeRight = new MFXParameterComboBox( mProcessor->parameters, MFXParameterID[mFXParameter_Delay2TimeModeRight], mProcessor);
             
             
-            mDelayTimeModeRight->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2TimeModeRight])->getAllValueStrings() ,1);
+            delayTimeModeRight->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay2TimeModeRight])->getAllValueStrings() ,1);
             
             
             auto modeValueRight = mProcessor->parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay2TimeModeRight]);
-            mDelayTimeModeRight->setSelectedItemIndex(modeValueRight->load());
+            delayTimeModeRight->setSelectedItemIndex(modeValueRight->load());
             
-            mDelayTimeModeRight->setBounds(xTimeCombo + 15, y + 23, 80, 18);
-            mDelayTimeModeRight->setName("Time Mode");
-            mDelayTimeModeRight->setColour(MFXParameterComboBox::backgroundColourId, juce::Colour::fromRGB(48, 48, 48));
-            addAndMakeVisible(mDelayTimeModeRight.get());
+            delayTimeModeRight->setBounds(xTimeCombo + 15, y + 23, 80, 18);
+            delayTimeModeRight->setName("Time Mode");
+            delayTimeModeRight->setColour(MFXParameterComboBox::backgroundColourId, juce::Colour::fromRGB(48, 48, 48));
+            
+			mComboBoxes.add(delayTimeModeRight);
+            addAndMakeVisible(delayTimeModeRight);
             x = x + (slider_size * 3.0);
             
             
@@ -464,6 +479,7 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             
 
             mDelay2TimeTransitionMode = std::make_unique<ArrowButton>("", 0.25, colour_11); 
+            
 
             mDelay2TimeTransitionMode->onClick = [&]()
             {
@@ -500,6 +516,8 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
                                                                   MFXParameterLabel[mFXParameter_FadeFrequency_Delay2],
                                                                   mFXParameter_FadeFrequency_Delay2, mProcessor);
                 fade->setBounds(x, y, slider_size, slider_size);
+                
+
                 addAndMakeVisible(fade);
                 mSliders.add(fade);
                 x = x + (slider_size * 2);
@@ -543,14 +561,7 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
                 
             };
              
-            mComboBoxes.clear();
-            mFilterType = nullptr;
-            mDelayTimeModeMain1  = nullptr;
-            mDelayTimeModeMain2  = nullptr;
-            windowBorderLFO.setVisible(false);
-            mFXPanelHorisontalSliders.clear();
-            if(mDelay1TimeTransitionMode != nullptr)
-            mDelay1TimeTransitionMode->setVisible(false);
+           
             
              
             
@@ -599,26 +610,8 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             mSliders.add(feedback);
             x = x + (slider_size * 2);
             
-            mComboBoxes.clear();
-            mButtons.clear();
-            mFilterType = nullptr;
-            mDelayTimeModeLeft = nullptr;
-            mDelayTimeModeRight  = nullptr;
-            mDelayTimeModeMain1  = nullptr;
-            mDelayTimeModeMain2  = nullptr;
-            windowBorderLFO.setVisible(false);
-            mFXPanelHorisontalSliders.clear();
-            if (mDelay1TimeTransitionMode != nullptr)
-                mDelay1TimeTransitionMode->setVisible(false);
-
-            if (mDelay2TimeTransitionMode != nullptr)
-                mDelay2TimeTransitionMode->setVisible(false);
             
-            mSetRandomValues->setVisible(false);
-            mSetRandomAllValues->setVisible(false);
             
-            if (mMidi)
-                mMidi->setVisible(false);
             
         } break;
             
@@ -673,31 +666,9 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             mButtons.add(freeze);
             
             
-            for(auto& it : mButtons)
-            {
-                
-                if (it->getName() != "Freeze")
-                    it->setVisible(false);
-            }
+           
             
-            mComboBoxes.clear();
-            mFilterType = nullptr;
-            mDelayTimeModeLeft = nullptr;
-            mDelayTimeModeRight  = nullptr;
-            mDelayTimeModeMain1  = nullptr;
-            mDelayTimeModeMain2  = nullptr;
-            windowBorderLFO.setVisible(false);
-            mFXPanelHorisontalSliders.clear();
-            if (mDelay1TimeTransitionMode != nullptr)
-                mDelay1TimeTransitionMode->setVisible(false);
-            if (mDelay2TimeTransitionMode != nullptr)
-                mDelay2TimeTransitionMode->setVisible(false);
-
-            mSetRandomValues->setVisible(false);
-            mSetRandomAllValues->setVisible(false);
-            
-            if (mMidi)
-                mMidi->setVisible(false);
+           
             
         } break;
         
@@ -736,41 +707,25 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             mSliders.add(drive);
             x = x + (slider_size * 2);
             
-            mFilterType = std::make_unique<MFXParameterComboBox>( mProcessor->parameters, MFXParameterID[mFXParameter_FilterType], mProcessor);
+            MFXParameterComboBox* filterType = new MFXParameterComboBox( mProcessor->parameters, MFXParameterID[mFXParameter_FilterType], mProcessor);
             
     
-            mFilterType->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_FilterType])->getAllValueStrings(), 1);
+            filterType->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_FilterType])->getAllValueStrings(), 1);
             auto typeValue = mProcessor->parameters.getRawParameterValue(MFXParameterID[mFXParameter_FilterType]);
-            mFilterType->setSelectedItemIndex(typeValue->load());
-            mFilterType->setColour(MFXParameterComboBox::backgroundColourId, juce::Colour::fromRGB(48, 48, 48));
+            filterType->setSelectedItemIndex(typeValue->load());
+            filterType->setColour(MFXParameterComboBox::backgroundColourId, juce::Colour::fromRGB(48, 48, 48));
             
-            mFilterType->setBounds(220,
+            filterType->setBounds(220,
                                    165,
                                    100, 25);
-            mFilterType->setName("Type");
-            addAndMakeVisible(mFilterType.get());
+            filterType->setName("Type");
+
+			mComboBoxes.add(filterType);
+            addAndMakeVisible(filterType);
             
 
-            mButtons.clear();
-            mDelayTimeModeLeft = nullptr;
-            mDelayTimeModeRight  = nullptr;
-            mDelayTimeModeMain1  = nullptr;
-            mDelayTimeModeMain2  = nullptr;
-            mComboBoxes.clear();
-            mFXPanelHorisontalSliders.clear();
-
-            if (mDelay1TimeTransitionMode != nullptr)
-                mDelay1TimeTransitionMode->setVisible(false);
-
-            if (mDelay2TimeTransitionMode != nullptr)
-                mDelay2TimeTransitionMode->setVisible(false);
+           
             
-
-            mSetRandomValues->setVisible(false);
-            mSetRandomAllValues->setVisible(false);
-
-            if (mMidi)
-                mMidi->setVisible(false);
             
         } break;
             
@@ -821,26 +776,7 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             mSliders.add(feedback);
             x = x + (slider_size * 2);
             
-            mComboBoxes.clear();
-            mButtons.clear();
-            mFilterType = nullptr;
-            mDelayTimeModeLeft = nullptr;
-            mDelayTimeModeRight  = nullptr;
-            mDelayTimeModeMain1  = nullptr;
-            mDelayTimeModeMain2  = nullptr;
-            windowBorderLFO.setVisible(false);
-            mFXPanelHorisontalSliders.clear();
-            if (mDelay1TimeTransitionMode != nullptr)
-                mDelay1TimeTransitionMode->setVisible(false);
-
-            if (mDelay2TimeTransitionMode != nullptr)
-                mDelay2TimeTransitionMode->setVisible(false);
             
-            mSetRandomValues->setVisible(false);
-            mSetRandomAllValues->setVisible(false);
-
-            if (mMidi)
-                mMidi->setVisible(false);
 
         } break;
             
@@ -880,35 +816,14 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             
            
             
-            mFXPanelHorisontalSliders.clear();
-            mComboBoxes.clear();
-            mButtons.clear();
-            mFilterType = nullptr;
-            mDelayTimeModeLeft = nullptr;
-            mDelayTimeModeRight  = nullptr;
-            mDelayTimeModeMain1  = nullptr;
-            mDelayTimeModeMain2  = nullptr;
-            windowBorderLFO.setVisible(false);
-            if (mDelay1TimeTransitionMode != nullptr)
-                mDelay1TimeTransitionMode->setVisible(false);
-            if (mDelay2TimeTransitionMode != nullptr)
-                mDelay2TimeTransitionMode->setVisible(false);
             
-            mSetRandomValues->setVisible(false);
-            mSetRandomAllValues->setVisible(false);
-            if (mMidi)
-                mMidi->setVisible(false);
             
             
         } break;
             
         case (mFxPanelStyle_Delay1):
         {
-            mButtons.clear();
-            mComboBoxes.clear();
-            mFXPanelHorisontalSliders.clear();
-            if (mMidi)
-                mMidi->setVisible(false);
+            
 
             
             //     Random Dice Time
@@ -1097,30 +1012,30 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             
             
             
-            mDelayTimeModeMain1 = std::make_unique<MFXParameterComboBox>( mProcessor->parameters, MFXParameterID[mFXParameter_Delay1TimeModeLeft], mProcessor);
+            
+            MFXParameterComboBox* delayTimeModeMain1 =  new MFXParameterComboBox(mProcessor->parameters, MFXParameterID[mFXParameter_Delay1TimeModeLeft], mProcessor);
             
             
             
             
-            
-            mDelayTimeModeMain1->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1TimeModeLeft])->getAllValueStrings() ,1);
+            delayTimeModeMain1->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1TimeModeLeft])->getAllValueStrings() ,1);
             
             auto modeValue = mProcessor->parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1TimeModeLeft]);
-            mDelayTimeModeMain1->setSelectedItemIndex(modeValue->load());
+            delayTimeModeMain1->setSelectedItemIndex(modeValue->load());
             
             int xTimeCombo = x + (slider_size);
             
-            mDelayTimeModeMain1->setBounds(xTimeCombo + 15,
+            delayTimeModeMain1->setBounds(xTimeCombo + 15,
                                            y + 23,
                                            80, 18);
-            mDelayTimeModeMain1->setName("Time Mode");
+            delayTimeModeMain1->setName("Time Mode");
             
-            mDelayTimeModeMain1->setColour(MFXParameterComboBox::backgroundColourId, juce::Colour::fromRGB(48, 48, 48));
+            delayTimeModeMain1->setColour(MFXParameterComboBox::backgroundColourId, juce::Colour::fromRGB(48, 48, 48));
             
                         
             
-            
-            addAndMakeVisible(mDelayTimeModeMain1.get());
+			mComboBoxes.add(delayTimeModeMain1);
+            addAndMakeVisible(delayTimeModeMain1);
             
             
             x = x + (slider_size * 3.0);
@@ -1159,25 +1074,25 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
             mSliders.add(timeRight);
             
             
-            mDelayTimeModeMain2 = std::make_unique<MFXParameterComboBox>( mProcessor->parameters, MFXParameterID[mFXParameter_Delay1TimeModeRight], mProcessor);
+            MFXParameterComboBox* delayTimeModeMain2 = new MFXParameterComboBox( mProcessor->parameters, MFXParameterID[mFXParameter_Delay1TimeModeRight], mProcessor);
             
             
-            mDelayTimeModeMain2->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1TimeModeRight])->getAllValueStrings() ,1);
+            delayTimeModeMain2->addItemList(mProcessor->parameters.getParameter(MFXParameterID[mFXParameter_Delay1TimeModeRight])->getAllValueStrings() ,1);
             
             auto modeValueRight = mProcessor->parameters.getRawParameterValue(MFXParameterID[mFXParameter_Delay1TimeModeRight]);
-            mDelayTimeModeMain2->setSelectedItemIndex(modeValueRight->load());
+            delayTimeModeMain2->setSelectedItemIndex(modeValueRight->load());
             
-            mDelayTimeModeMain2->setBounds(xTimeCombo + 15,
+            delayTimeModeMain2->setBounds(xTimeCombo + 15,
                                            y + 23,
                                            80,
                                            18);
-            mDelayTimeModeMain2->setName("Time Mode");
-            mDelayTimeModeMain2->setColour(MFXParameterComboBox::backgroundColourId, juce::Colour::fromRGB(48, 48, 48));
+            delayTimeModeMain2->setName("Time Mode");
+            delayTimeModeMain2->setColour(MFXParameterComboBox::backgroundColourId, juce::Colour::fromRGB(48, 48, 48));
             
             
+			mComboBoxes.add(delayTimeModeMain2);
             
-            
-            addAndMakeVisible(mDelayTimeModeMain2.get());
+            addAndMakeVisible(delayTimeModeMain2);
             x = x + (slider_size * 3.0);
             
             
@@ -1269,23 +1184,6 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
                     mSliders[mSliders.indexOf(feedbackLeft) ]->setValue (mSliders[mSliders.indexOf(feedbackRight)]->getValue());
                 
             };
-
-        
-            mFilterType = nullptr;
-            mDelayTimeModeLeft = nullptr;
-            mDelayTimeModeRight  = nullptr;
-            windowBorderLFO.setVisible(false);
-            
-            if (mDelay2TimeTransitionMode != nullptr)
-                mDelay2TimeTransitionMode->setVisible(false);
-            
-            
-            
-            for(auto& it : mButtons)
-            { 
-                if (it->getName() == "Freeze")
-                    it->setVisible(false);
-            }
             
             
         } break;
@@ -1295,27 +1193,7 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
         {
         
             
-            mButtons.clear();
-            mFXPanelHorisontalSliders.clear();
-            mComboBoxes.clear();
-            mFilterType = nullptr;
-            mDelayTimeModeLeft = nullptr;
-            mDelayTimeModeRight  = nullptr;
-            mDelayTimeModeMain1  = nullptr;
-            mDelayTimeModeMain2  = nullptr;
-            windowBorderLFO.setVisible(false);
-
-            if (mDelay1TimeTransitionMode != nullptr)
-                mDelay1TimeTransitionMode->setVisible(false);
-
-            if (mDelay2TimeTransitionMode != nullptr)
-                mDelay2TimeTransitionMode->setVisible(false);
-            
-            mSetRandomValues->setVisible(false);
-            mSetRandomAllValues->setVisible(false);
-            
-            if (mMidi)
-                mMidi->setVisible(false);
+           
             
             x = 60;
             
@@ -1874,23 +1752,7 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
         case (mFxPanelStyle_MIDI_ADSR):
         {
 
-            mButtons.clear();
-            mFXPanelHorisontalSliders.clear();
-            mComboBoxes.clear();
-            mFilterType = nullptr;
-            mDelayTimeModeLeft = nullptr;
-            mDelayTimeModeRight = nullptr;
-            mDelayTimeModeMain1 = nullptr;
-            mDelayTimeModeMain2 = nullptr;
-            windowBorderLFO.setVisible(false);    // old stuff, delete!
-
-            if (mDelay1TimeTransitionMode != nullptr)
-                mDelay1TimeTransitionMode->setVisible(false);
-            if (mDelay2TimeTransitionMode != nullptr)
-                mDelay2TimeTransitionMode->setVisible(false);
-
-            mSetRandomValues->setVisible(false);
-            mSetRandomAllValues->setVisible(false);
+            
 
 
             x = 60;

@@ -5,6 +5,13 @@
    
     Author:  Michael Kauffmann
 
+
+    MFXParameterSlider is primarily about extending and customizing the behavior of a slider (handling mouse events, timer events, add to AudioProcessorValueTreeState). 
+	Idea is to avoid redundant code, setting each slider up with AudioProcessorValueTreeState and more.....
+	Design pattern is behavioral, related to strategy, observer.
+
+    
+
   ==============================================================================
 */
 

@@ -63,7 +63,7 @@ public:
 private:
     FxPanelStyle mStyle;
     
-    // OW + all pointers to object gets deleted when owner (mSliders/this) is destroyed.
+    // all pointers to object gets deleted when owner is destroyed or clear() is called.
     OwnedArray<MFXParameterSlider> mSliders;
     OwnedArray<MFXParameterSlider> mGlobalSliders;
     OwnedArray<MFXParameterSlider> mFXPanelHorisontalSliders;
@@ -72,11 +72,7 @@ private:
     
     OwnedArray<MFXParameterComboBox> mComboBoxes;
 
-    std::unique_ptr<MFXParameterComboBox> mFilterType;
-    std::unique_ptr<MFXParameterComboBox> mDelayTimeModeLeft;
-    std::unique_ptr<MFXParameterComboBox> mDelayTimeModeRight;
-    std::unique_ptr<MFXParameterComboBox> mDelayTimeModeMain1;
-    std::unique_ptr<MFXParameterComboBox> mDelayTimeModeMain2;
+    
     
     std::unique_ptr<Label> mFilterTypeLabel;
 
@@ -85,8 +81,7 @@ private:
     std::unique_ptr<ImageButton> mSetRandomAllValues;
     std::unique_ptr<ImageButton> mMidi;
 
-    juce::GroupComponent windowBorder; // unused
-    juce::GroupComponent windowBorderLFO; // unused
+    
   
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MFXFxPanel);
