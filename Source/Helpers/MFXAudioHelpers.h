@@ -18,9 +18,7 @@
 #include <juce_audio_formats/codecs/flac/compat.h>  // added fix M_PI  issue  
 
 
-#define parameterSmoothingCoeff_Generic 0.04
-#define parameterSmoothingCoeff_Fine 0.002
-#define meterSmoothingCoeff 0.2
+
 
 const double kPi = M_PI;
 const double kPi2 = M_PI * 2;

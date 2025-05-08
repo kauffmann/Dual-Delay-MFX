@@ -39,7 +39,7 @@ void MFXCreditPanel::paint(Graphics& g)
                      17,
                      400.0f, 20.0f, Justification::centredLeft, 1);
 
-    g.drawFittedText(String(CharPointer_UTF8("Version: 1.1.2")),
+    g.drawFittedText(String(CharPointer_UTF8("Version: 1.1.2.Share")),
         getWidth() - 100,
         17,
         400.0f, 20.0f, Justification::left, 1);

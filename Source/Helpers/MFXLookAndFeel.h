@@ -25,7 +25,7 @@ public:
 
         mSliderImage = ImageCache::getFromMemory(BinaryData::kadenze_knob_png,
             BinaryData::kadenze_knob_pngSize);
-
+        
     }
     
     virtual ~MFXLookAndFeel(){};

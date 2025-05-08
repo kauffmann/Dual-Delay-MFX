@@ -37,33 +37,33 @@ public:
 
    
 
-    inline void setFeedBack(const float inFeedbackLeft, const float inFeedbackRight)
+    void setFeedBack(const float inFeedbackLeft, const float inFeedbackRight)
     {
         // Scale between 0.0 - 1.2 to allow self oscillation. Remember tanh_clip (feedbacked_left and feedbacked_left) in process() to avoid sonic explosion.
-        feedbackGainLeft = jmap(inFeedbackLeft, 0.0f, 1.0f, 0.0f, 1.2f);
-        feedbackGainRight = jmap(inFeedbackRight, 0.0f, 1.0f, 0.0f, 1.2f);
+        mFeedbackGainLeft = jmap(inFeedbackLeft, 0.0f, 1.0f, 0.0f, 1.2f);
+        mFeedbackGainRight = jmap(inFeedbackRight, 0.0f, 1.0f, 0.0f, 1.2f);
 
 
     }
 
-    inline void setDryWet(const float& inWet)
+    void setDryWet(const float& inWet)
     {
-        wetMix = inWet;
-        dryMix = 1.0 - wetMix;
+        mWetMix = inWet;
+        mDryMix = 1.0 - mWetMix;
 
     }
 
     // setDryWet() must be called before this
-    inline void modulateDryWetWith(const float& inMod, float currentValue)
+    void modulateDryWetWith(const float& inMod, float currentValue)
     {
-        wetMix = (inMod > 0.0f) ? currentValue += ((1.0f - currentValue) * inMod) : currentValue += (currentValue * inMod);
-        dryMix = 1.0 - currentValue; 
+        mWetMix = (inMod > 0.0f) ? currentValue += ((1.0f - currentValue) * inMod) : currentValue += (currentValue * inMod);
+        mDryMix = 1.0 - currentValue; 
 
        
     }
 
 
-    inline void setSmoothingValue(const float& inValue) noexcept
+    void setSmoothingValue(const float& inValue) noexcept
     {
         // this scales filter freq to get more interesting sound. 
         smoothFilter.setCutoffFrequency(2200.0f / inValue); 
@@ -71,7 +71,7 @@ public:
         
     }
 
-    inline void setFadeParams(const float& fadeFreqValue, const bool isFade)
+    void setFadeParams(const float& fadeFreqValue, const bool isFade)
     {
         fadeFreqValue == 25.0f ? mLFO.setFrequency(fadeFreqValue - 0.1) : mLFO.setFrequency(fadeFreqValue);
         mIsFade = isFade;
@@ -85,7 +85,7 @@ public:
         It is used to calculate note sync. See sync() in MFXAudioHelpers.h
         and process() in this class.
     */
-    inline void setParameters(const float& leftTime,
+    void setParameters(const float& leftTime,
                               const float& rightTime,
                               const double& sampleTimeOneBeat,
                               const float& wideParamValue,
@@ -97,8 +97,6 @@ public:
     {
         mRightTime = rightTime;
         mLeftTime = leftTime;
-        mInitialLeftTime = mLeftTime;
-        mInitialRightTime = mRightTime;
         mSampleTimeOneBeat = sampleTimeOneBeat;
         mWideParam = wideParamValue;
         mTimeModeLeft = timeModeLeft;
@@ -110,7 +108,7 @@ public:
 
     // setParameters() must be called before below modulation functions
 
-    inline void modulateTimeLeftWith(const float& value, float currentValue)
+    void modulateTimeLeftWith(const float& value, float currentValue)
     {
        
         mLeftTime = (value > 0.0f) ? std::fmin(currentValue + (currentValue * value), 1.0f) :
@@ -118,14 +116,14 @@ public:
 
     }
 
-    inline void modulateTimeRightWith(const float& value, float currentValue)
+    void modulateTimeRightWith(const float& value, float currentValue)
     {
 
         mRightTime = (value > 0.0f) ? std::fmin(currentValue + (currentValue * value), 1.0f) :
             currentValue - std::fabs(currentValue * value);
     }
 
-    inline void modulateTimeLeftAndRightWith(const float& value, float currentLeftValue, float currentRightValue)
+    void modulateTimeLeftAndRightWith(const float& value, float currentLeftValue, float currentRightValue)
     {
         mLeftTime = (value > 0.0f) ? std::fmin(currentLeftValue + (currentLeftValue * value), 1.0f) :
             currentLeftValue - std::fabs(currentLeftValue * value);
@@ -136,25 +134,25 @@ public:
     }
 
 
-    inline void modulateFeedbackLeftWith(const float& value, float currentValue)
+    void modulateFeedbackLeftWith(const float& value, float currentValue)
     {
-        feedbackGainLeft = (value > 0.0f) ? currentValue += ((1.2f - currentValue) * value) : currentValue += (currentValue * value);
+        mFeedbackGainLeft = (value > 0.0f) ? currentValue += ((1.2f - currentValue) * value) : currentValue += (currentValue * value);
     }
 
 
-    inline void modulateFeedbackRightWith(const float& value, float currentValue)
+    void modulateFeedbackRightWith(const float& value, float currentValue)
     {
-        feedbackGainRight = (value > 0.0f) ? currentValue += ((1.2f - currentValue) * value) : currentValue += (currentValue * value);
+        mFeedbackGainRight = (value > 0.0f) ? currentValue += ((1.2f - currentValue) * value) : currentValue += (currentValue * value);
     }
 
-    inline void modulateFeedbackLeftRightWith(const float& value, float currentLeftValue, float currentRightValue)
+    void modulateFeedbackLeftRightWith(const float& value, float currentLeftValue, float currentRightValue)
     {
-        feedbackGainLeft = (value > 0.0f) ? currentLeftValue += ((1.2f - currentLeftValue) * value) : currentLeftValue += (currentLeftValue * value);
-        feedbackGainRight = (value > 0.0f) ? currentRightValue += ((1.2f - currentRightValue) * value) : currentRightValue += (currentRightValue * value);
+        mFeedbackGainLeft = (value > 0.0f) ? currentLeftValue += ((1.2f - currentLeftValue) * value) : currentLeftValue += (currentLeftValue * value);
+        mFeedbackGainRight = (value > 0.0f) ? currentRightValue += ((1.2f - currentRightValue) * value) : currentRightValue += (currentRightValue * value);
 
     }
 
-    inline void modulateWideWith(const float& value, float currentWidthValue)
+    void modulateWideWith(const float& value, float currentWidthValue)
     {
        
         if (value > 0.0f)
@@ -169,7 +167,11 @@ public:
 
     void process(float& leftCh, float& rightCh, float& leftWetCh, float& rightWetCh);
 
-    float readFadeValue(const double& delayTime, double& lfoAbsValue, double& lfoReversedAbsValue, const ChannelToFade& channel);
+    void processChannel(float& dryCh, float& wetCh, float time,double& newTime, double& previousTime, int timeMode,
+                        ChannelToFade fadeChannel, float& feedbacked, double lfoOutputAbs,
+                        double lfoOutputAbsReversed, int channelIndex);
+
+    float readFadeValue(const double& delayTime, double& newTime, double& previousTime,double& lfoAbsValue, double& lfoReversedAbsValue, const ChannelToFade& channel);
     
 
 
@@ -195,7 +197,7 @@ public:
 
 
 
-    inline void setIsSync(const bool& isSyncLeft, const bool& isSyncRight) noexcept
+    void setIsSync(const bool& isSyncLeft, const bool& isSyncRight) noexcept
     {
         mIsSyncLeft = isSyncLeft;
         mIsSyncRight = isSyncRight;
@@ -206,28 +208,28 @@ public:
    
 
 
-    inline float getLeftTimeModeIndexDelay() noexcept
+    float getLeftTimeModeIndexDelay() noexcept
     {
         return mTimeModeLeft;
     }
 
-    inline float getRightTimeModeIndexDelay() noexcept
+    float getRightTimeModeIndexDelay() noexcept
     {
         return mTimeModeRight;
     }
 
     
-    inline bool IsMultipleOfSampleRate(double time, double sample_rate) {
+    bool IsMultipleOfSampleRate(double time, double sample_rate) {
         double remainder = fmod(time,sample_rate * 4);
         return fabs(remainder) < 1e-10; // check if remainder is close enough to zero
     }
 
-    inline float getLeftTime()
+    float getLeftTime()
     {
         return mLeftTime;
     }
 
-    inline float getRightTime()
+    float getRightTime()
     {
         return mRightTime;
     }
@@ -240,17 +242,14 @@ private:
     dsp::FirstOrderTPTFilter<double> smoothFilter;
     
 
-    // TODO: rename variables - to prepend m before name. Makes clear its a member variable
-    float feedbackGainLeft = 0.5f;
-    float feedbackGainRight = 0.5f;
-    float feedbacked_left = 0.0f; 
-    float feedbacked_right = 0.0f;
-    float wetMix = 0.0f; //1.0f;
-    float dryMix = 0.0f; //1.0-wetMix;
-    float mTimeSmoothedLeft{ 0.0f };
-    float mTimeSmoothedRight{ 0.0f };
+    
+    float mFeedbackGainLeft = 0.5f;
+    float mFeedbackGainRight = 0.5f;
+    float mFeedback_left = 0.0f; 
+    float mFeedback_right = 0.0f;
+    float mWetMix = 0.0f; //1.0f;
+    float mDryMix = 0.0f; //1.0-wetMix;
     double mSampleRate{ 0.0 };
-    bool isPrepared{ false };
     float mRightTime{ 0.0f }, mLeftTime{ 0.0f };
     double mSampleTimeOneBeat{ 0.0 };
     float mTimeModeLeft{ 0.0f }, mTimeModeRight{ 0.0f };
@@ -262,26 +261,17 @@ private:
    
     
 
-    float mInitialLeftTime{ 0.0f };
-    float mInitialRightTime{ 0.0f };
-
-
     juce::SmoothedValue<double> mDelaySmoothedWideSampleTime;
-    juce::SmoothedValue<double> mSmoothedRightTime;
-    juce::SmoothedValue<double> mSmoothedLeftTime;
     juce::SmoothedValue<double> mRightFeedbackGainSmooth;
     juce::SmoothedValue<double> mLeftFeedbackGainSmooth;
 
-    juce::SmoothedValue<double> mSmoothedWetMix;
-    juce::SmoothedValue<double> mSmoothedDryMix;
-
+    
     ChainedDelay mChainMode{ mChainedDelay_serial };
 
     
 
     // use to control when to read a delay time value and scale/fade poped sample value.
     //Do std::fabs(output) .0-.1 and jmap(output, 0.0f, 1.0f, 1.0f, 0.0f);
-    
     juce::dsp::Oscillator_Redesign<double> mLFO;
     double mCurrentLfoFadeFrequency{2.0};
     bool mIsFade{ false };
@@ -290,14 +280,11 @@ private:
     double mPreviousTime_Left{ 0.0 };
     double mPreviousTime_Right{ 0.0 };
 
-
+	double mFadeThreshold{ 0.003 };
     bool mFadeA_R{ true };
     bool mFadeB_R{ true };
 
-    int mCountSamples = { 0 };
-
-    double mA = { 0.0 };
-    double mB = { 1.0 };
+    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MFXDelayLine);
 

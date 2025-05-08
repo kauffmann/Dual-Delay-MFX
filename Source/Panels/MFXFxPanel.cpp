@@ -309,8 +309,7 @@ void MFXFxPanel::setFxPanelStyle(FxPanelStyle inStyle)
     mComboBoxes.clear();
 	mButtons.clear();
     mFXPanelHorisontalSliders.clear();
-	mGlobalButtons.clear();
-	mGlobalSliders.clear();
+	
     
 
 	mDelay1TimeTransitionMode = nullptr;
