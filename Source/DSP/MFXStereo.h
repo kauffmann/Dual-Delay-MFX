@@ -28,7 +28,7 @@ public:
     void processMS(float& leftCh, float& rightCh);
     
     
-    inline void setWidth(const float& width, const float& widthModulator = 0.0f) noexcept
+    void setWidth(const float& width, const float& widthModulator = 0.0f) noexcept
     {
         mWidth = widthModulator > 0 ? width + ((1 - width) * widthModulator) : width + (width * widthModulator);
     }

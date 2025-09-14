@@ -54,7 +54,7 @@ public:
     // Used for building UI preset Menu
     
     
-    inline int getCurrentID() const noexcept   
+    int getCurrentID() const noexcept   
     {
         return mCurrentID;
     }
@@ -62,7 +62,7 @@ public:
 
 
 
-    inline String getPresetNameFromLocalStorage(const int index) const noexcept
+    String getPresetNameFromLocalStorage(const int index) const noexcept
     {
         return mLocalPresets[index].getFileNameWithoutExtension();    
     }
@@ -71,43 +71,43 @@ public:
     
     
     
-    inline int getPresetNamePitchTapeCoruptedSize() const noexcept
+    int getPresetNamePitchTapeCoruptedSize() const noexcept
     {
         return mLocalPresetNamesPitchTapeCoruptedSize;
     }
     
-    inline int getPresetNameBasicSize() const noexcept
+    int getPresetNameBasicSize() const noexcept
     {
         return mLocalPresetNamesBasicSize;
     }
     
-    inline int getPresetNameMSSize() const noexcept
+    int getPresetNameMSSize() const noexcept
     {
         return mLocalPresetNamesMSSize;
     }
     
-    inline int getPresetNameTremoloStutterSize() const noexcept
+    int getPresetNameTremoloStutterSize() const noexcept
     {
         return mLocalPresetNamesTremoloStutterSize;
     }
     
     
-    inline int getPresetNameResonatingSize() const noexcept
+    int getPresetNameResonatingSize() const noexcept
     {
         return mLocalPresetNamesResonatingSize;
     }
     
-    inline int getPresetNamePanningDuckingSize() const noexcept
+    int getPresetNamePanningDuckingSize() const noexcept
     {
         return mLocalPresetNamesPanningDuckingSize;
     }
     
-    inline int getPresetNameBigLongSize() const noexcept
+    int getPresetNameBigLongSize() const noexcept
     {
         return mLocalPresetNamesBigLongSize;
     }
     
-    inline int getPresetNameUserSize() const noexcept
+    int getPresetNameUserSize() const noexcept
     {
         return mLocalPresetNamesUserSize;
     }

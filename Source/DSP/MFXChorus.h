@@ -58,7 +58,7 @@ public:
    
     // Set states of FX parameter (called from AudioProcessor class) =========================================================
 
-    inline void setDryWetParameter(const float& dryWet) noexcept
+    void setDryWetParameter(const float& dryWet) noexcept
     {
         
         mWetParameter = dryWet;
@@ -69,13 +69,13 @@ public:
     
 
 
-    inline void setDepthParameter(const float& depth) noexcept
+    void setDepthParameter(const float& depth) noexcept
     {
         mDepthParameter = depth;
     }
 
 
-    inline void setRateParameter(const float& rate) noexcept
+    void setRateParameter(const float& rate) noexcept
     {
         mLfoChorus1.setFrequency(rate);
         mLfoChorus2.setFrequency(rate * 3.1f);
@@ -83,14 +83,14 @@ public:
     
 
 
-    inline void setStereoWidthParameter(const float& stereoAmount) noexcept
+    void setStereoWidthParameter(const float& stereoAmount) noexcept
     {
         mStereoWidth->setWidth(stereoAmount);
         mStereoAmountParameter = stereoAmount;
     }
 
 
-    inline void setFeedbackGainParameter(const float& feedbackGain) noexcept
+    void setFeedbackGainParameter(const float& feedbackGain) noexcept
     {
         mFeedBackGainParameter = feedbackGain;
     }

@@ -41,7 +41,7 @@ public:
     
     void timerCallback() override;
     
-    inline MFXParameter getParameterValueText()
+    MFXParameter getParameterValueText()
     {
         return mParameterValueText;
     }

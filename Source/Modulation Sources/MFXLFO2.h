@@ -43,7 +43,7 @@ enum LfoStyle
 
             void setType(const LfoStyle oscSelection) noexcept;
 
-            inline void setFrequency(const float& rate) noexcept
+            void setFrequency(const float& rate) noexcept
             {
                 mLfo.setFrequency(rate);
             }
@@ -58,12 +58,12 @@ enum LfoStyle
 
             void reset(double inc = 0.0) noexcept;
 
-            inline double getSyncFrequency()
+            double getSyncFrequency()
             {
                 return mSyncFrequency;
             }
 
-            inline float getFrequency()
+            float getFrequency()
             {
                 return mFrequency;
             }
