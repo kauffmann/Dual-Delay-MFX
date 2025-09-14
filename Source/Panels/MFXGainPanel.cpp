@@ -41,7 +41,6 @@ MFXGainPanel::~MFXGainPanel(){}
 
 void MFXGainPanel::paint(Graphics& g)
 {
-    MFXPanelBase::paint(g);
     
     if(mSlider)
     {

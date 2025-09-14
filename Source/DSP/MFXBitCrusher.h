@@ -37,7 +37,7 @@ public:
     void process (AudioBuffer<float>& inBuffer);
                        
     // Consider put all below in helper class or a struct
-    inline static Array<float> getSimpleNoise(int numSamples)
+    static Array<float> getSimpleNoise(int numSamples)
     {
         Random r = Random::getSystemRandom();
         Array<float> noise;
@@ -52,7 +52,7 @@ public:
     
     
     
-    inline static Array<float> getWhiteNoise(int numSamples)
+    static Array<float> getWhiteNoise(int numSamples)
     {
         
         Array<float> noise;

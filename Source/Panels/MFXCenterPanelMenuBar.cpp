@@ -60,9 +60,7 @@ void MFXCenterPanelMenuBar::removeFxTypeComboListener(ComboBox::Listener* inList
 }
 
 void MFXCenterPanelMenuBar::paint (Graphics& g)
-{
-    MFXPanelBase::paint(g);
-    
+{   
     auto outline =  Rectangle<int>(mFxTypeComboBox->getX(), mFxTypeComboBox->getY() + 5,
                                    mFxTypeComboBox->getWidth()-1, mFxTypeComboBox->getHeight() - 8).toFloat();
     

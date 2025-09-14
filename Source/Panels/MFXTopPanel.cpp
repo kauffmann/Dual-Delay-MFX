@@ -161,8 +161,6 @@ MFXTopPanel::~MFXTopPanel()
 
 void MFXTopPanel::paint(Graphics& g)
 {
-    
-    MFXPanelBase::paint(g);
     g.setColour (Colours::seagreen);
     g.drawLine(0, getHeight() - 4, getWidth(), getHeight() - 3, 4);
     g.setColour (Colours::blueviolet);

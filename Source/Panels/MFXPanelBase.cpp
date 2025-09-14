@@ -31,10 +31,7 @@ void MFXPanelBase::mouseExit (const MouseEvent& event)
 }
 
 void MFXPanelBase::paint (Graphics& g)
-{
-
-  
-    
+{    
     
 }
 

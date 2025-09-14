@@ -25,7 +25,7 @@ MFXFxPanel::~MFXFxPanel(){}
 
 void MFXFxPanel::paint(Graphics& g)
 {
-    MFXPanelBase::paint(g);
+    
     g.setColour(colour_16);
     g.setFont(font_6);
     String label;

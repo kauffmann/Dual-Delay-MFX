@@ -19,9 +19,6 @@ MFXCreditPanel::~MFXCreditPanel(){}
 void MFXCreditPanel::paint(Graphics& g)
 {
     
-    
-    
-    
     mCreditBackGround = ImageCache::getFromMemory(BinaryData::CreditPanel_org2_png, BinaryData::CreditPanel_org2_pngSize);
     g.drawImageWithin(mCreditBackGround, 0, 0, getWidth(), getHeight(), RectanglePlacement::stretchToFit, false);
     
