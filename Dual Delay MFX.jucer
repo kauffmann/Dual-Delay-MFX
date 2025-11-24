@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="vXLGNR" name="Dual Delay MFX" projectType="audioplug" jucerFormatVersion="1"
-              pluginCharacteristicsValue="pluginWantsMidiIn" pluginFormats="buildVST3">
+              pluginCharacteristicsValue="pluginWantsMidiIn" pluginFormats="buildVST3"
+              cppLanguageStandard="17">
   <MAINGROUP id="pwSzji" name="Dual Delay MFX">
     <GROUP id="{294B5022-14D8-6398-6333-E1A0A2796FA6}" name="Graphic Assets">
       <GROUP id="{CCDB7190-C16E-2317-96B1-F42311840666}" name="Sliders Sprite">
